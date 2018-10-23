@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\BTAdventure.Tests.dll
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\BTAdventure.Tests.pdb
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\nunit.framework.dll
@@ -9,14 +8,3 @@ C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventu
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.csproj.CopyComplete
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.dll
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.pdb
-=======
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\BTAdventure.Tests.dll
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\BTAdventure.Tests.pdb
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\nunit.framework.dll
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\nunit.framework.pdb
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\nunit.framework.xml
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.csproj.CoreCompileInputs.cache
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.csproj.CopyComplete
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.dll
-C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.pdb
->>>>>>> 989db11bc80057f2f5859030e509436f56fdc41e
