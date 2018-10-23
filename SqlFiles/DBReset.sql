@@ -10,49 +10,18 @@ Create Procedure DbReset As
 Begin
 	Delete From PlayerCharacter;
 	Delete From Outcome;
-	Delete From Player;
 	Delete From EventChoice;
 	Delete From Ending;
 	Delete From Scene;
 	Delete From Game;
-	--Delete From AppUserRole;
-	--Delete From LogInModel where UserName in ('testemail@test.com','othertestemail@test.com');
-	--Delete From AppRole;
+	Delete From AspNetUsers where Id in ('00000000-0000-0000-0000-000000000000', '10000000-0000-0000-0000-000000000000', '20000000-0000-0000-0000-000000000000');
 
 	DBCC CHECKIDENT ('PlayerCharacter', RESEED, 1);
 	DBCC CHECKIDENT ('Game', RESEED, 1);
 	DBCC CHECKIDENT ('Scene', RESEED, 1);
-	DBCC CHECKIDENT ('Player', RESEED, 1);
 	DBCC CHECKIDENT ('Outcome', RESEED, 1);
 	DBCC CHECKIDENT ('Ending', RESEED, 1);
 	DBCC CHECKIDENT ('EventChoice', RESEED, 1);
-	
-	--Insert Into LogInModel (UserName, PasswordHash)
-	--Values
-	--('testemail@test.com', 'password'),
-	--('othertestemail@test.com', 'guest')
-
-	--Insert Into AppRole (RoleName)
-	--Values
-	--('admin'),
-	--('player'),
-	--('dadmin'),
-	--('guest')
-	
-	--Insert Into AppUserRole(UserName, RoleName)
-	--Values
-	--('testemail@test.com', 'player'),
-	--('othertestemail@test.com', 'admin')
-
-	Set Identity_Insert Player On;
-
-	Insert Into Player (PlayerId, PlayerName)
-	Values
-	('1', 'The Player'),
-	('2', 'The Lady'),
-	('3', 'The Guy')
-		
-	Set Identity_Insert Player Off;
 		
 	Set Identity_Insert Game On;
 
@@ -129,14 +98,20 @@ Begin
 	('8', '4', 0, 2, 4)
 		
 	Set Identity_Insert Outcome Off;
+	
+	Insert Into AspNetUsers (Id, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount, UserName)
+	Values
+	('00000000-0000-0000-0000-000000000000', '1', '1', '1', '1', '1', 'Alvin'),
+	('10000000-0000-0000-0000-000000000000', '1', '1', '1', '1', '1', 'Simon'),
+	('20000000-0000-0000-0000-000000000000', '1', '1', '1', '1', '1', 'Piotr')
 
 	Set Identity_Insert PlayerCharacter On;
 
 	Insert Into PlayerCharacter (CharacterId, PlayerId, SceneId, EventChoiceId, CharacterName, HealthPoints, Gold)
 	Values
-	('1', '1', '2', '1', 'Player''s Character', '5', '12'),
-	('2', '2', '7', '4', 'Lady Character', '3', '4'),
-	('3', '3', '5', '5', 'Guy Character', '1', '0')
+	('1', '00000000-0000-0000-0000-000000000000', '2', '1', 'Player''s Character', '5', '12'),
+	('2', '10000000-0000-0000-0000-000000000000', '7', '4', 'Lady Character', '3', '4'),
+	('3', '20000000-0000-0000-0000-000000000000', '5', '5', 'Guy Character', '1', '0')
 		
 	Set Identity_Insert PlayerCharacter Off;
 

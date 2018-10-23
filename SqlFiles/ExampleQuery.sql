@@ -3,7 +3,6 @@ Go
 
 exec DbReset
 
-Select * From Player
 Select * From PlayerCharacter
 Select * From Game
 Select * From Scene
