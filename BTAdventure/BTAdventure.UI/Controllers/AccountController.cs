@@ -22,12 +22,15 @@ namespace BTAdventure.UI.Controllers
         {
         }
 
+<<<<<<< HEAD
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
+=======
+>>>>>>> 989db11bc80057f2f5859030e509436f56fdc41e
         public ApplicationSignInManager SignInManager
         {
             get

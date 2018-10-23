@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure\bin\Debug\BTAdventure.dll
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure\bin\Debug\BTAdventure.pdb
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.csproj.CoreCompileInputs.cache
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.dll
 C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.pdb
+=======
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\bin\Debug\BTAdventure.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\bin\Debug\BTAdventure.pdb
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.csproj.CoreCompileInputs.cache
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.pdb
+>>>>>>> 989db11bc80057f2f5859030e509436f56fdc41e

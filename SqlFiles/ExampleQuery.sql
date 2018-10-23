@@ -10,6 +10,7 @@ Select * From Scene
 Select * From Ending
 Select * From Outcome
 Select * From EventChoice
---Select * From LogInModel
---Select * From AppRole
---Select * From AppUserRole
+Select * From AspNetUsers
+Select * From AspNetUserRoles
+Select * From AspNetUserLogins
+
