@@ -5,14 +5,6 @@ if exists (select * from sys.tables where name='PlayerCharacter')
 		drop table PlayerCharacter
 Go
 
-if exists (select * from sys.tables where name='Ending')
-		drop table Ending
-Go
-
-if exists (select * from sys.tables where name='Player')
-		drop table Player
-Go
-
 if exists (select * from sys.tables where name='Outcome')
 		drop table Outcome
 Go
@@ -25,46 +17,12 @@ if exists (select * from sys.tables where name='Scene')
 		drop table Scene
 Go
 
+if exists (select * from sys.tables where name='Ending')
+		drop table Ending
+Go
+
 if exists (select * from sys.tables where name='Game')
 		drop table Game
-Go
-
-if exists (select * from sys.tables where name='AppUserRole')
-		drop table AppUserRole
-Go
-
-if exists (select * from sys.tables where name='LogInModel')
-		drop table LogInModel
-Go
-
-if exists (select * from sys.tables where name='AppRole')
-		drop table AppRole
-Go
-
-create table AppRole (
-	RoleName nvarchar(50) primary key
-)
-GO
-
-Create Table LogInModel (
-	UserName nvarchar(50) primary key,
-	PasswordHash nvarchar(512) not null	
-)
-Go
-
-create table AppUserRole (
-	UserName nvarchar(50) not null,
-	RoleName nvarchar(50) not null,
-	primary key (UserName, RoleName),
-	foreign key (UserName) references LogInModel(UserName),
-	foreign key (RoleName) references AppRole(RoleName)
-)
-GO
-
-Create Table Player (
-	PlayerId int identity(1,1) primary key not null,
-	PlayerName nVarChar(30) not null
-)
 Go
 
 Create Table Game (
@@ -119,7 +77,7 @@ Go
 
 Create Table PlayerCharacter (
 	CharacterId int identity(1,1) primary key not null,
-	PlayerId int not null foreign key references Player(PlayerId),
+	PlayerId nVarChar(128) not null foreign key references AspNetUsers(Id),
 	SceneId int not null foreign key references Scene(SceneId),
 	EventChoiceId int not null foreign key references EventChoice(EventChoiceId),
 	CharacterName nVarChar(30) not null,
