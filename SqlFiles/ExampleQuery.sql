@@ -1,3 +1,6 @@
+--Use BinaryTextAdventureTest
+--Go
+
 Use BinaryTextAdventure
 Go
 
@@ -10,6 +13,4 @@ Select * From Ending
 Select * From Outcome
 Select * From EventChoice
 Select * From AspNetUsers
-Select * From AspNetUserRoles
-Select * From AspNetUserLogins
 
