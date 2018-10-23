@@ -1,0 +1,5 @@
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\bin\Debug\BTAdventure.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\bin\Debug\BTAdventure.pdb
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.csproj.CoreCompileInputs.cache
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure\obj\Debug\BTAdventure.pdb

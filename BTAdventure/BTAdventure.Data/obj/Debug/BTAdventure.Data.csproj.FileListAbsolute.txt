@@ -1,0 +1,11 @@
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.Data.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.Data.pdb
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\Dapper.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.pdb
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\Dapper.xml
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.csprojAssemblyReference.cache
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.csproj.CoreCompileInputs.cache
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.csproj.CopyComplete
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.pdb

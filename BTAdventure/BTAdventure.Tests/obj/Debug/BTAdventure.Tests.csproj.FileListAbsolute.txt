@@ -1,0 +1,9 @@
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\BTAdventure.Tests.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\BTAdventure.Tests.pdb
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\nunit.framework.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\nunit.framework.pdb
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\bin\Debug\nunit.framework.xml
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.csproj.CoreCompileInputs.cache
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.csproj.CopyComplete
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.dll
+C:\Users\DannyLaptop\Desktop\TeamCap\BTAdventure\BTAdventure.Tests\obj\Debug\BTAdventure.Tests.pdb
