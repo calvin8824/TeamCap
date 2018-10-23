@@ -1,0 +1,11 @@
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.Data.dll
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.Data.pdb
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.dll
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\Dapper.dll
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\BTAdventure.pdb
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\bin\Debug\Dapper.xml
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.csprojAssemblyReference.cache
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.csproj.CoreCompileInputs.cache
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.csproj.CopyComplete
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.dll
+C:\Users\Mason\Desktop\TeamCap\BTAdventure\BTAdventure.Data\obj\Debug\BTAdventure.Data.pdb
