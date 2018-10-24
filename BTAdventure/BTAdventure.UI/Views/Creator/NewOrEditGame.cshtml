@@ -7,7 +7,7 @@
     <h2>NewOrEditGame</h2>
     <hr />
 </div>
-@using (Html.BeginForm("SceneMain", "Admin", FormMethod.Post))
+@using (Html.BeginForm("SceneMain", "Creator", FormMethod.Post))
 {
     <input type="hidden" value="@Model.GameId" name="GameId" />
     <div class="row">

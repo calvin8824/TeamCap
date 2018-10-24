@@ -50,7 +50,9 @@
         <text>No existing scene</text>
     }
 </div>
-
-<div class="row">
-    <button>Create New Scene</button>
-</div>
+@using (Html.BeginForm("CreateOrEditScene", "Creator", FormMethod.Post))
+{
+    <div class="row">
+        <button>Create New Scene</button>
+    </div>
+}

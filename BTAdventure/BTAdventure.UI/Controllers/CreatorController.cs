@@ -73,20 +73,21 @@ namespace BTAdventure.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult SceneMain(Game game)
+        public ActionResult SceneMain(Scene scene)
         {
             IEnumerable<Scene> allScenesFromGameId = new List<Scene>();
             if (game.GameId > 0)
             {
                 allScenesFromGameId = adminService.GetAllScenes().Where(s => s.GameId == game.GameId);
             }
+            allScenesFromGameId =  allScenesFromGameId.ToList().Add(game);
 
             return View(allScenesFromGameId);
         }
 
         public ActionResult CreateOrEditScene()
         {
-            return View();
+            return View(new Scene());
         }
     }
 }
