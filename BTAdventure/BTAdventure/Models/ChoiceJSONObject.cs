@@ -11,5 +11,6 @@ namespace BTAdventure.Models
         public int CharacterId { get; set; }
         public bool PositiveOrNegative { get; set; }
         public int EventChoiceId { get; set; }
+        
     }
 }

@@ -154,7 +154,7 @@ namespace BTAdventure.UI.Controllers
         // GET: /Account/ForgotPassword
         [Authorize(Roles = "Admin,Creator,User")]
         //[AllowAnonymous]
-        public ActionResult UserCommandCentre(LoginViewModel user)
+        public ActionResult UserCommandCentre1(LoginViewModel user)
         {
             using (var context = new ApplicationDbContext())
             {

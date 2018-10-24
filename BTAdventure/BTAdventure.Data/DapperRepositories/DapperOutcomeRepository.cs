@@ -33,13 +33,24 @@ namespace BTAdventure.Data.DapperRepositories
         public Outcome FindById(int id)
         {
             const string sql = "SELECT OutcomeId, EventChoiceId, Positive, Health, Gold "
-                   + "FROM OutcomeId "
+                   + "FROM Outcome "
                    + "WHERE OutcomeId = @OutcomeId;";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
             {
-                return conn.Query<Outcome>(sql, new { OutcomeId = id })
-                    .FirstOrDefault();
+                return conn.Query<Outcome>(sql, new { OutcomeId = id }).FirstOrDefault();
+            }
+        }
+
+        public Outcome FindByEventChoice(int id)
+        {
+            const string sql = "SELECT OutcomeId, EventChoiceId, Positive, Health, Gold "
+                   + "FROM Outcome "
+                   + "WHERE EventChoiceId = @EventChoiceId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                return conn.Query<Outcome>(sql, new { EventChoiceId = id }).FirstOrDefault();
             }
         }
 

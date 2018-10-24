@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BTAdventure.Services
 {
     public class GameService
@@ -37,7 +38,7 @@ namespace BTAdventure.Services
             return outcomeRepo.FindById(id);
         }
 
-        public EventChoice FindEventChoiceById(int id)
+        public EventChoice FindEventChoiceById(int? id)
         {
             return choiceRepo.FindById(id);
         }
@@ -92,9 +93,55 @@ namespace BTAdventure.Services
             return characters;
         }
 
-        public object CombineObject(ChoiceJSONObject choice)
+        public IEnumerable<Outcome> GetOutcomes()
         {
-            return null;
+            return outcomeRepo.All();
+        }
+
+        public ReturnJSONObject CombineObject(ChoiceJSONObject choice)
+        {
+            ReturnJSONObject items = new ReturnJSONObject();
+            items.PlayerCharacter = FindPlayerCharacterById(choice.CharacterId);
+            
+            var posOrNeg = choice.PositiveOrNegative;
+
+            var currentEventChoice = FindEventChoiceById(choice.EventChoiceId); //takes in json object choiceid
+            EventChoice NextEventChoice = null;
+            if(posOrNeg == true)
+            {
+                if(currentEventChoice.PositiveRoute > 0)
+                {
+                    NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveRoute);
+                }
+                else if(currentEventChoice.PositiveSceneRoute > 0)
+                {
+                    NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveSceneRoute);
+                }
+                else if(currentEventChoice.PositiveEndingId > 0)
+                {
+                    NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveEndingId);
+                }
+            }
+            else if (posOrNeg == false)
+            {
+                if (currentEventChoice.NegativeRoute > 0)
+                {
+                    NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeRoute);
+                }
+                else if (currentEventChoice.NegativeSceneRoute > 0)
+                {
+                    NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeSceneRoute);
+                }
+                else if (currentEventChoice.NegativeEndingId > 0)
+                {
+                    NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeEndingId);
+                }
+            }
+            items.EventChoice = NextEventChoice;
+            items.Scene = FindSceneById(items.EventChoice.SceneId);
+            items.Outcome = outcomeRepo.FindByEventChoice(items.EventChoice.EventChoiceId);
+            return items;
+
         }
 
         public EventChoice FindChoiceBySceneId(int sceneRoute)
