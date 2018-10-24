@@ -15,13 +15,13 @@ namespace BTAdventure.Models
         public string StartText { get; set; }
         public string PositiveText { get; set; }
         public string NegativeText { get; set; }
-        public int PositiveRoute { get; set; }
-        public int NegativeRoute { get; set; }
+        public int? PositiveRoute { get; set; }
+        public int? NegativeRoute { get; set; }
         public string PositiveButton { get; set; }
         public string NegativeButton { get; set; }
-        public int PositiveSceneRoute { get; set; }
-        public int NegativeSceneRoute { get; set; }
-        public int PositiveEndingId { get; set; }
-        public int NegativeEndingId { get; set; }
+        public int? PositiveSceneRoute { get; set; }
+        public int? NegativeSceneRoute { get; set; }
+        public int? PositiveEndingId { get; set; }
+        public int? NegativeEndingId { get; set; }
     }
 }
