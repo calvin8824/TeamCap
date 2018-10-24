@@ -379,17 +379,16 @@
     <Content Include="Views\Home\SignInExisting.cshtml" />
     <Content Include="Views\Home\SignInNew.cshtml" />
     <Content Include="Views\Home\Start.cshtml" />
-    <Content Include="Views\Account\Choose.cshtml" />
     <Content Include="Views\Gameplay\Game.cshtml" />
-    <Content Include="Views\Account\UserCommandCentre1.cshtml" />
+    <Content Include="Views\Account\UserCommandCentre.cshtml" />
     <Content Include="Views\Creator\ListGames.cshtml" />
     <Content Include="Views\Creator\Index.cshtml" />
-    <Content Include="Views\Account\Choose.cshtml" />
     <Content Include="Views\Gameplay\Game.cshtml" />
     <Content Include="Views\Creator\NewOrEditGame.cshtml" />
     <Content Include="Views\Creator\EditGame.cshtml" />
     <Content Include="Views\Creator\SceneMain.cshtml" />
     <Content Include="Views\Creator\CreateOrEditScene.cshtml" />
+    <Content Include="Views\Account\Choose.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
