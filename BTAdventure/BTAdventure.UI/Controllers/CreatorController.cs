@@ -75,12 +75,16 @@ namespace BTAdventure.UI.Controllers
         [HttpPost]
         public ActionResult SceneMain(Scene scene)
         {
+            //Note: Added game just to see if this would compile. Also replaced Add(game) with Add(scene). Sorry to step on any toes. Don't hate me. - Rich
+            Game game = new Game();
+
             IEnumerable<Scene> allScenesFromGameId = new List<Scene>();
             if (game.GameId > 0)
             {
                 allScenesFromGameId = adminService.GetAllScenes().Where(s => s.GameId == game.GameId);
             }
-            allScenesFromGameId =  allScenesFromGameId.ToList().Add(game);
+            //Changed game to scene here. Also gor rid of the "allScenesFromGameId = " part.
+            allScenesFromGameId.ToList().Add(scene);
 
             return View(allScenesFromGameId);
         }
