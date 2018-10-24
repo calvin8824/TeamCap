@@ -21,6 +21,20 @@ namespace BTAdventure.Data.DapperRepositories
             }
         }
 
+        public IEnumerable<PlayerCharacter> AllLoggedIn(string UserID)
+        {
+            var result = new List<PlayerCharacter>();
+
+            foreach(var c in All())
+            {
+                if(c.PlayerId == UserID)
+                {
+                    result.Add(c);
+                }
+            }
+            return result;
+        }
+
         public bool Delete(int id)
         {
             const string sql = "DELETE FROM PlayerCharacter WHERE CharacterId = @CharacterId";

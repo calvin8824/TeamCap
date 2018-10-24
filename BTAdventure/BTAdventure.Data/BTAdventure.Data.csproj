@@ -57,7 +57,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BTAdventure\BTAdventure.csproj">
       <Project>{C9A2DBE9-65AC-4EFE-AD41-5C6E4B05FCA7}</Project>

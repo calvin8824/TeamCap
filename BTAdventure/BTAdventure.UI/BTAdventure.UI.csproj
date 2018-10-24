@@ -50,6 +50,9 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.11\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.DependencyCollector, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.8.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
     </Reference>
@@ -252,6 +255,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\GameplayController.cs" />
     <Compile Include="Controllers\GameWebApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -379,6 +383,7 @@
     <Content Include="Views\Admin\AdminHome.cshtml" />
     <Content Include="Views\Account\UserCommandCentre.cshtml" />
     <Content Include="Views\Account\Choose.cshtml" />
+    <Content Include="Views\Gameplay\Game.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

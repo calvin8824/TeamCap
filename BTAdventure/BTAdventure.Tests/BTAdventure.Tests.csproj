@@ -37,6 +37,7 @@
       <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,10 +49,21 @@
   <ItemGroup>
     <Compile Include="DomainTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepoTests.cs" />
+    <Compile Include="DapperRepoTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BTAdventure.Data\BTAdventure.Data.csproj">
+      <Project>{93BA1CB2-5E75-492B-8CD0-A05E8D36195A}</Project>
+      <Name>BTAdventure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BTAdventure\BTAdventure.csproj">
+      <Project>{C9A2DBE9-65AC-4EFE-AD41-5C6E4B05FCA7}</Project>
+      <Name>BTAdventure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

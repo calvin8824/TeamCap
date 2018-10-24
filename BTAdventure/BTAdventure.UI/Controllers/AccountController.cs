@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BTAdventure.UI.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BTAdventure.UI.Controllers
 {
@@ -62,6 +63,9 @@ namespace BTAdventure.UI.Controllers
             return View();
         }
 
+
+
+        // this one is going to be grabbing the repo and the games associated with it.
         // GET: /Account/ListGames
         // [Authorize(Roles = "admin,creator,user")]
         [AllowAnonymous]
@@ -127,23 +131,38 @@ namespace BTAdventure.UI.Controllers
         //   [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.FirstName + " " + model.LastName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                using (var context = new ApplicationDbContext())
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var roleStore = new RoleStore<IdentityRole>(context);
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    
+                    var newUser = userManager.FindByEmail(user.Email);
+                    
+                    userManager.AddToRole(newUser.Id, "User");
 
-                    return RedirectToAction("Login", "Account");
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Login", "Account");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form

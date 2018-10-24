@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace BTAdventure.Models
 {
-    public class PlayerCharacter
+    public class ChoiceJSONObject
     {
         public int CharacterId { get; set; }
-        public string PlayerId { get; set; }
-        public int SceneId { get; set; }
+        public bool PositiveOrNegative { get; set; }
         public int EventChoiceId { get; set; }
-        public string CharacterName { get; set; }
-        public int HealthPoints { get; set; }
-        public int Gold { get; set; }
     }
 }

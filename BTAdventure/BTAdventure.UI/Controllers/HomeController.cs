@@ -85,7 +85,7 @@ namespace BTAdventure.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult LoadGame(int id)
+        public ActionResult LoadGame(string id)
         {
             PlayerGame vm = new PlayerGame();
             vm.Characters = gameSerivce.FindListOfPlayerCharactersByPlayerId(id);
@@ -100,18 +100,18 @@ namespace BTAdventure.UI.Controllers
             return View("Game", vm);
         }
 
-        [HttpGet]
-        public ActionResult Game(int id)//sceneId
-        {
-            //we'll have something like if not new game...
+        //[HttpGet]
+        //public ActionResult Game(int id)//sceneId
+        //{
+        //    //we'll have something like if not new game...
 
-            GameSceneVM vm = new GameSceneVM();
-            vm.Scene = gameSerivce.FindSceneById(id);
-            vm.EventChoice = gameSerivce.FindEventChoiceById(id);
+        //    GameSceneVM vm = new GameSceneVM();
+        //    vm.Scene = gameSerivce.FindSceneById(id);
+        //    vm.EventChoice = gameSerivce.FindEventChoiceById(id);
 
 
-            //vm.Character = gameSerivce.FindListOfPlayerCharactersByPlayerId();
-            return View(vm);
-        }
+        //    //vm.Character = gameSerivce.FindListOfPlayerCharactersByPlayerId();
+        //    return View(vm);
+        //}
     }
 }
