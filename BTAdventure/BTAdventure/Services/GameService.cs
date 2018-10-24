@@ -38,7 +38,7 @@ namespace BTAdventure.Services
             return outcomeRepo.FindById(id);
         }
 
-        public EventChoice FindEventChoiceById(int id)
+        public EventChoice FindEventChoiceById(int? id)
         {
             return choiceRepo.FindById(id);
         }

@@ -30,7 +30,7 @@ namespace BTAdventure.Data.DapperRepositories
             }
         }
 
-        public EventChoice FindById(int id)
+        public EventChoice FindById(int? id)
         {
             const string sql = "SELECT EventChoiceId, SceneId, GenerationNumber, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId "
                    + "FROM EventChoice "
