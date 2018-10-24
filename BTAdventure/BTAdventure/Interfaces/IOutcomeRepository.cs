@@ -13,5 +13,6 @@ namespace BTAdventure.Interfaces
         Outcome FindById(int id);
         Outcome Save(Outcome outcome);
         bool Delete(int id);
+        Outcome FindByEventChoice(int id);
     }
 }
