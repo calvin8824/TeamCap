@@ -20,7 +20,7 @@ VALUES(1, 'Admin'),
 	(3, 'User')
 
 Select *
-From AspNetRoles
+From AspNetUsers
 
 
 
