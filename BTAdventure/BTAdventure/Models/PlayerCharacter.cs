@@ -9,7 +9,7 @@ namespace BTAdventure.Models
     public class PlayerCharacter
     {
         public int CharacterId { get; set; }
-        public int PlayerId { get; set; }
+        public string PlayerId { get; set; }
         public int SceneId { get; set; }
         public int EventChoiceId { get; set; }
         public string CharacterName { get; set; }

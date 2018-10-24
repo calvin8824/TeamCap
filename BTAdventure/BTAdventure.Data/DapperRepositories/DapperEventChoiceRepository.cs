@@ -55,7 +55,7 @@ namespace BTAdventure.Data.DapperRepositories
         private EventChoice Insert(EventChoice eventChoice)
         {
             const string sql = "INSERT INTO EventChoice (SceneId, GenerationNumber, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId) "
-                   + "VALUES (@EventChoiceId, @SceneId, @GenerationNumber, @EventName, @StartText, @PositiveText, @NegativeText, @PositiveRoute, @NegativeRoute, @PositiveButton, @NegativeButton, @PositiveSceneRoute, @NegativeSceneRoute, @PositiveEndingId, @NegativeEndingId); "
+                   + "VALUES (@SceneId, @GenerationNumber, @EventName, @StartText, @PositiveText, @NegativeText, @PositiveRoute, @NegativeRoute, @PositiveButton, @NegativeButton, @PositiveSceneRoute, @NegativeSceneRoute, @PositiveEndingId, @NegativeEndingId); "
                    + "SELECT SCOPE_IDENTITY()";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))

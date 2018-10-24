@@ -46,7 +46,7 @@ namespace BTAdventure.Services
             return characterRepo.FindById(id);
         }
 
-        public Player FindPlayerById(int id)
+        public Player FindPlayerById(string id)
         {
             return playerRepo.FindById(id);
         }
@@ -63,7 +63,7 @@ namespace BTAdventure.Services
             return playerRepo.Save(player);
         }
 
-        public PlayerCharacter SaveCurrentPlayerCharacterGame(int playerId, int characterId, int sceneId, int eventChoiceId)
+        public PlayerCharacter SaveCurrentPlayerCharacterGame(string playerId, int characterId, int sceneId, int eventChoiceId)
         {
             PlayerCharacter currentCharacter;
             var allPlayerCharacter = characterRepo.All();
@@ -82,7 +82,7 @@ namespace BTAdventure.Services
             return game;
         }
 
-        public List<PlayerCharacter> FindListOfPlayerCharactersByPlayerId(int playerId)
+        public List<PlayerCharacter> FindListOfPlayerCharactersByPlayerId(string playerId)
         {
             var characters = new List<PlayerCharacter>();
 

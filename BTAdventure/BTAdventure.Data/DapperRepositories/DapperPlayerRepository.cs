@@ -30,7 +30,7 @@ namespace BTAdventure.Data.DapperRepositories
             }
         }
 
-        public Player FindById(int id)
+        public Player FindById(string id)
         {
             const string sql = "SELECT PlayerId, PlayerName "
                    + "FROM Player "

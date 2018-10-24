@@ -12,6 +12,7 @@ namespace BTAdventure.Interfaces
         IEnumerable<PlayerCharacter> All();
         PlayerCharacter FindById(int id);
         PlayerCharacter Save(PlayerCharacter character);
+        IEnumerable<PlayerCharacter> AllLoggedIn(string UserID);
         bool Delete(int id);
     }
 }
