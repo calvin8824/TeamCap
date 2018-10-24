@@ -10,7 +10,7 @@ namespace BTAdventure.Interfaces
     public interface IPlayerRepository
     {
         IEnumerable<Player> All();
-        Player FindById(int id);
+        Player FindById(string id);
         Player Save(Player player);
         bool Delete(int id);
     }

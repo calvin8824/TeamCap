@@ -88,11 +88,165 @@ namespace BTAdventure.Tests
         {
             DapperEndingRepository dapperEndingRepository = new DapperEndingRepository();
 
-            Ending ending = dapperEndingRepository.FindById(2);
+            Ending ending = new Ending()
+            {
+                EndingText = "Test ending"
+            };
 
-            Assert.AreEqual(2, ending.EndingId);
-            Assert.AreEqual("Bad Ending here. Hi.", ending.EndingText);
+            dapperEndingRepository.Save(ending);
+
+            List<Ending> endings = dapperEndingRepository.All().ToList();
+
+            Ending insertedEnding = dapperEndingRepository.FindById(7);
+
+            Assert.AreEqual(7, endings.Count);
+            Assert.AreEqual(7, insertedEnding.EndingId);
+            Assert.AreEqual("Test ending", insertedEnding.EndingText);
+
+            dapperEndingRepository.Delete(7);
+
+            endings = dapperEndingRepository.All().ToList();
+
+            Assert.AreEqual(6, endings.Count);
+        }
+
+        [Test]
+        public void AllEventChoiceTest()
+        {
+            DapperEventChoiceRepository dapperRepository = new DapperEventChoiceRepository();
+
+            List<EventChoice> choices = dapperRepository.All().ToList();
+
+            Assert.AreEqual(5, choices.Count());
+
+            Assert.AreEqual(1, choices[0].EventChoiceId);
+            Assert.AreEqual(1, choices[0].SceneId);
+            Assert.AreEqual(0, choices[0].GenerationNumber);
+            Assert.AreEqual("Greeting Event", choices[0].EventName);
+            Assert.AreEqual("You are greeted in the foyer.", choices[0].StartText);
+            Assert.AreEqual("You are gracious to your host", choices[0].PositiveText);
+            Assert.AreEqual("You punch numerous holes in the foyer walls. A magical portal opens from one hole and you are teleported somewhere.", choices[0].NegativeText);
+            Assert.AreEqual(2, choices[0].PositiveRoute);
+            Assert.AreEqual(null, choices[0].NegativeRoute);
+            Assert.AreEqual("Be gracious.", choices[0].PositiveButton);
+            Assert.AreEqual("Punch holes in walls.", choices[0].NegativeButton);
+            Assert.AreEqual(null, choices[0].PositiveSceneRoute);
+            Assert.AreEqual(7, choices[0].NegativeSceneRoute);
+            Assert.AreEqual(null, choices[0].PositiveEndingId);
+            Assert.AreEqual(null, choices[0].NegativeEndingId);
 
         }
+
+        [Test]
+        public void FindEventChoiceByIdTest()
+        {
+            DapperEventChoiceRepository dapperRepository = new DapperEventChoiceRepository();
+
+            EventChoice choice = dapperRepository.FindById(1);
+
+            Assert.AreEqual(1, choice.EventChoiceId);
+            Assert.AreEqual(1, choice.SceneId);
+            Assert.AreEqual(0, choice.GenerationNumber);
+            Assert.AreEqual("Greeting Event", choice.EventName);
+            Assert.AreEqual("You are greeted in the foyer.", choice.StartText);
+            Assert.AreEqual("You are gracious to your host", choice.PositiveText);
+            Assert.AreEqual("You punch numerous holes in the foyer walls. A magical portal opens from one hole and you are teleported somewhere.", choice.NegativeText);
+            Assert.AreEqual(2, choice.PositiveRoute);
+            Assert.AreEqual(null, choice.NegativeRoute);
+            Assert.AreEqual("Be gracious.", choice.PositiveButton);
+            Assert.AreEqual("Punch holes in walls.", choice.NegativeButton);
+            Assert.AreEqual(null, choice.PositiveSceneRoute);
+            Assert.AreEqual(7, choice.NegativeSceneRoute);
+            Assert.AreEqual(null, choice.PositiveEndingId);
+            Assert.AreEqual(null, choice.NegativeEndingId);
+
+        }
+
+        [Test]
+        public void SaveEventChoice()
+        {
+            DapperEventChoiceRepository dapperRepository = new DapperEventChoiceRepository();
+
+            EventChoice newChoice = new EventChoice()
+            {
+                SceneId = 1,
+                GenerationNumber = 2, 
+                EventName = "TestEvent",
+                StartText = "TestStart",
+                PositiveText = "PositiveText",
+                NegativeText = "NegativeText",
+                PositiveRoute = null,
+                NegativeRoute = null,
+                PositiveButton = "PButton",
+                NegativeButton = "NButton",
+                PositiveSceneRoute = 7,
+                NegativeSceneRoute = null,
+                PositiveEndingId = null,
+                NegativeEndingId = 3
+            };
+
+            dapperRepository.Save(newChoice);
+
+            List<EventChoice> choices = dapperRepository.All().ToList();
+
+            EventChoice choice = dapperRepository.FindById(6);
+
+            Assert.AreEqual(6, choices.Count);
+
+            Assert.AreEqual(6, choice.EventChoiceId);
+            Assert.AreEqual(1, choice.SceneId);
+            Assert.AreEqual(2, choice.GenerationNumber);
+            Assert.AreEqual("TestEvent", choice.EventName);
+            Assert.AreEqual("TestStart", choice.StartText);
+            Assert.AreEqual("PositiveText", choice.PositiveText);
+            Assert.AreEqual("NegativeText", choice.NegativeText);
+            Assert.AreEqual(null, choice.PositiveRoute);
+            Assert.AreEqual(null, choice.NegativeRoute);
+            Assert.AreEqual("PButton", choice.PositiveButton);
+            Assert.AreEqual("NButton", choice.NegativeButton);
+            Assert.AreEqual(7, choice.PositiveSceneRoute);
+            Assert.AreEqual(null, choice.NegativeSceneRoute);
+            Assert.AreEqual(null, choice.PositiveEndingId);
+            Assert.AreEqual(3, choice.NegativeEndingId);
+        }
+
+        [Test]
+        public void DeleteEventChoiceByIdTest()
+        {
+            DapperEventChoiceRepository dapperRepository = new DapperEventChoiceRepository();
+
+            EventChoice newChoice = new EventChoice()
+            {
+                SceneId = 1,
+                GenerationNumber = 2,
+                EventName = "TestEvent",
+                StartText = "TestStart",
+                PositiveText = "PositiveText",
+                NegativeText = "NegativeText",
+                PositiveRoute = null,
+                NegativeRoute = null,
+                PositiveButton = "PButton",
+                NegativeButton = "NButton",
+                PositiveSceneRoute = 7,
+                NegativeSceneRoute = null,
+                PositiveEndingId = null,
+                NegativeEndingId = 3
+            };
+
+            dapperRepository.Save(newChoice);
+
+            List<EventChoice> choices = dapperRepository.All().ToList();
+
+            EventChoice choice = dapperRepository.FindById(6);
+
+            Assert.AreEqual(6, choices.Count);
+
+            dapperRepository.Delete(6);
+
+            choices = dapperRepository.All().ToList();
+
+            Assert.AreEqual(5, choices.Count);
+        }
+
     }
 }

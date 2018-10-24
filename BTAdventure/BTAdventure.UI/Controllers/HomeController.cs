@@ -85,7 +85,7 @@ namespace BTAdventure.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult LoadGame(int id)
+        public ActionResult LoadGame(string id)
         {
             PlayerGame vm = new PlayerGame();
             vm.Characters = gameSerivce.FindListOfPlayerCharactersByPlayerId(id);
