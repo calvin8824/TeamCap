@@ -14,14 +14,6 @@ Go
 Use BinaryTextAdventure
 Go
 
-Insert Into AspNetRoles(Id,[Name])
-VALUES(1, 'Admin'),
-	(2, 'Creator'),
-	(3, 'User')
-
-Select *
-From AspNetUsers
-
 
 
 
