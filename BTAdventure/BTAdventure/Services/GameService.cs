@@ -91,5 +91,15 @@ namespace BTAdventure.Services
 
             return characters;
         }
+
+        public object CombineObject(ChoiceJSONObject choice)
+        {
+            return null;
+        }
+
+        public EventChoice FindChoiceBySceneId(int sceneRoute)
+        {
+            return choiceRepo.FindBySceneId(sceneRoute);
+        }
     }
 }

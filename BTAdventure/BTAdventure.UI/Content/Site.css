@@ -22,3 +22,77 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*========================layouts*/
+.wireframe {
+    outline: 1px dotted gray;
+    padding: 20px;
+}
+
+.book {
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: medium;
+    margin-bottom: 20px;
+}
+
+/*============fonts*/
+.goudy {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: larger;
+}
+
+.muli {
+    font-family: 'Muli', sans-serif;
+    font-size: larger;
+}
+
+.oswald {
+    font-family: 'Oswald', sans-serif;
+    font-size: larger;
+}
+
+.rosa {
+    font-family: 'Rosarivo', serif;
+    font-size: larger;
+}
+
+.btn-outline-success {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: larger;
+    float: right;
+    outline-style: dotted;
+    outline-width: thin;
+    height: 50px;
+    width: 100px;
+    -moz-transform: skew(-3deg, 2deg);
+    -webkit-transform: skew(-3deg, 2deg);
+    -o-transform: skew(-3deg, 2deg);
+    -ms-transform: skew(-3deg, 2deg);
+    transform: skew(-3deg, 2deg);
+}
+
+.btn-outline-danger {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: larger;
+    float: left;
+    outline-style: none;
+    height: 50px;
+    width: 100px;
+    -moz-transform: skew(3deg, -2deg);
+    -webkit-transform: skew(3deg, -2deg);
+    -o-transform: skew(3deg, -2deg);
+    -ms-transform: skew(3deg, -2deg);
+    transform: skew(3deg, -2deg);
+}
+
+.gameImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
