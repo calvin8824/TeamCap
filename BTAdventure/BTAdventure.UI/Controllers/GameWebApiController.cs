@@ -60,10 +60,10 @@ namespace BTAdventure.UI.Controllers
 
         [Route("api/game/")]
         [HttpPost]
-        public IHttpActionResult Post(ChoiceJSONObject choice)
+        public ReturnJSONObject Post(ChoiceJSONObject choice)
         {
             var success = gameService.CombineObject(choice);
-            return Created("~/api/game/", success);
+            return success;
         }
 
 

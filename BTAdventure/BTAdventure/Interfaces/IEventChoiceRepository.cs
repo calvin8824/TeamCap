@@ -14,5 +14,6 @@ namespace BTAdventure.Interfaces
         EventChoice Save(EventChoice level);
         bool Delete(int id);
         EventChoice FindBySceneId(int sceneRoute);
+
     }
 }

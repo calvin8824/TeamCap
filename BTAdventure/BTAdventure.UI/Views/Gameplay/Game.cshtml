@@ -32,17 +32,20 @@
                 <div class="col-md-12">
                     <input type="hidden" id="characterId" value="@Model.PlayerCharacter.CharacterId">
                     <input type="hidden" id="eventChoiceId" value="@Model.EventChoice.EventChoiceId">
-                    <div id="startText">@Model.EventChoice.StartText</div>
-                    <div id="positiveText"><p id="positiveParagraph">@Model.EventChoice.PositiveText</p><button class="btn btn-primary" id="positiveContinue">Continue</button></div>
+                    <p style="text-align:center" id="startText">@Model.EventChoice.StartText</p>
+                    <p id="positiveText"><p id="positiveParagraph" style="text-align:center; visibility:hidden;" class="wireframe">@Model.EventChoice.PositiveText</p>
+                    <button class="btn btn-primary" id="positiveContinue" style="visibility:hidden">Continue</button>
+                    <p id="negativeText"><p id="negativeParagraph" style="text-align:center; visibility:hidden;" class="wireframe">@Model.EventChoice.NegativeText</p>
+                    <button class="btn btn-primary" id="negativeContinue" style="visibility:hidden">Continue</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <button type="button" id="positiveButton" class="btn btn-outline-success" onclick="GetNextSceneEvent()">@Model.EventChoice.PositiveButton</button>
+                    <button type="button" id="positiveButton" class="btn btn-outline-success" onclick="OpenPositiveResponse()">@Model.EventChoice.PositiveButton</button>
                 </div>
 
                 <div class="col-md-6">
-                    <button type="button" id="negativeButton" class="btn btn-outline-danger" onclick="GetNextSceneEvent()">@Model.EventChoice.NegativeButton</button>
+                    <button type="button" id="negativeButton" class="btn btn-outline-danger" onclick="OpenNegativeResponse()">@Model.EventChoice.NegativeButton</button>
                 </div>
             </div>
         </div>
@@ -75,6 +78,19 @@
     //        }
     //    });
     //}
+
+    function OpenPositiveResponse() {
+        document.getElementById("positiveText").style.visibility = "visible"
+        document.getElementById("positiveParagraph").style.visibility = "visible"
+        document.getElementById("positiveContinue").style.visibility = "visible"
+    }
+
+    function OpenNegativeResponse() {
+        document.getElementById("negativeText").style.visibility = "visible"
+        document.getElementById("negativeParagraph").style.visibility = "visible"
+        document.getElementById("negativeContinue").style.visibility = "visible"
+    }
+
     var baseUrl = "http://localhost:49340/api/game/";
 
 
@@ -82,23 +98,6 @@
         console.log(xhr, status, err);
     }
 
-    //function GetNextSceneEvent(eventChoiceId, route, sceneRoute) {
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: 'http://localhost:49340/api/choice/'
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json'
-    //        },
-    //        success: function (data, status) {
-    //            //add something like, if positive was clicked, unhide the h1 for positive text, or better yet make a modal.
-
-    //        },
-    //        error: function (xhr, status, err) {
-    //            console.log(xhr, status, err);
-    //        }
-    //    });
-    //}
 
     $("#positiveContinue").click(function () {
 
@@ -116,16 +115,56 @@
             type: type,
 
             data: JSON.stringify(choiceObject),
+
             contentType: "application/json"
         }).done(function (data, status) {
-            document.getElementById("startText").innerText = '' + data.StartText + '';
-            document.getElementById("positiveButton").innerText = '' + data.PositiveButton + '';
-            document.getElementById("negativeButton").innerText = '' + data.NegativeButton + '';
-            document.getElementById("positiveParagraph").innerText = '' + data.PositiveText + '';
+
+            document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
+            document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
+            document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
+            document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
+            document.getElementById("negativeParagraph").innerText = '' + data.EventChoice.NegativeText + '';
+
+            document.getElementById("positiveText").style.visibility = "hidden"
+            document.getElementById("positiveParagraph").style.visibility = "hidden"
+            document.getElementById("positiveContinue").style.visibility = "hidden"
 
         }).fail(xhrFail);
     });
 
+
+    $("#negativeContinue").click(function () {
+
+        var choiceObject = {
+            CharacterId: $("#characterId").val(),
+            EventChoiceId: $("#eventChoiceId").val(),
+            PositiveOrNegative: false
+        };
+        var url = baseUrl;
+        var type = "POST";
+
+
+        $.ajax({
+            url: url,
+            type: type,
+
+            data: JSON.stringify(choiceObject),
+
+            contentType: "application/json"
+        }).done(function (data, status) {
+            document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
+            document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
+            document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
+            document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
+
+
+            document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
+            document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
+            document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
+            document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
+
+        }).fail(xhrFail);
+    });
 
 
 
