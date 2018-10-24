@@ -8,15 +8,17 @@ using System.Web.Mvc;
 
 namespace BTAdventure.UI.Controllers
 {
-    public class AdminController : Controller
+    public class CreatorController : Controller
     {
+
         private AdminService adminService;
-        public AdminController(AdminService adminService)
+        public CreatorController(AdminService adminService)
         {
             this.adminService = adminService;
         }
 
-        public ActionResult AdminHome()
+        // GET: Creator
+        public ActionResult Index()
         {
             return View();
         }
@@ -31,11 +33,11 @@ namespace BTAdventure.UI.Controllers
         public ActionResult NewOrEditGame(int id = 0)
         {
             Game game = new Game();
-            if (id>0)
+            if (id > 0)
             {
                 game = adminService.GetAllGames().Where(g => g.GameId == id).FirstOrDefault();
             }
-            
+
             return View(game);
         }
 
@@ -62,11 +64,11 @@ namespace BTAdventure.UI.Controllers
         public ActionResult SceneMain(int id = 0)
         {
             IEnumerable<Scene> allScenesFromGameId = new List<Scene>();
-            if (id>0)
+            if (id > 0)
             {
                 allScenesFromGameId = adminService.GetAllScenes().Where(s => s.GameId == id);
             }
-            
+
             return View(allScenesFromGameId);
         }
 
@@ -86,6 +88,5 @@ namespace BTAdventure.UI.Controllers
         {
             return View();
         }
-
     }
 }
