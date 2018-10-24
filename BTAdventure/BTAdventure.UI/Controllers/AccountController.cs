@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BTAdventure.UI.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using BTAdventure.Data.DapperRepositories;
 
 namespace BTAdventure.UI.Controllers
 {
@@ -22,14 +23,6 @@ namespace BTAdventure.UI.Controllers
         public AccountController()
         {
         }
-
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
 
         public ApplicationSignInManager SignInManager
         {
@@ -65,17 +58,6 @@ namespace BTAdventure.UI.Controllers
 
 
 
-        // this one is going to be grabbing the repo and the games associated with it.
-        // GET: /Account/ListGames
-        // [Authorize(Roles = "admin,creator,user")]
-        [AllowAnonymous]
-        public ActionResult ListGames(LoginViewModel model)
-        {
-            return View();
-
-        }
-
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -89,7 +71,7 @@ namespace BTAdventure.UI.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        //  [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -100,10 +82,11 @@ namespace BTAdventure.UI.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("ListGames", "Account", model);
+                    return RedirectToAction("UserCommandCentre", "Account");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -128,11 +111,9 @@ namespace BTAdventure.UI.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        //   [ValidateAntiForgeryToken]
+     //   [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-
-
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
@@ -168,6 +149,30 @@ namespace BTAdventure.UI.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+        // GET: /Account/ForgotPassword
+        [Authorize(Roles = "Admin,Creator,User")]
+        //[AllowAnonymous]
+        public ActionResult UserCommandCentre(LoginViewModel user)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var used =  HttpContext.User;
+                var newUser = userManager.FindById(used.Identity.GetUserId());
+                var dapper = new DapperPlayerCharacterRepository();
+                var result = dapper.AllLoggedIn(newUser.Id);
+                return View(result);
+
+            }
+
+        }
+
 
         //
         // GET: /Account/ConfirmEmail

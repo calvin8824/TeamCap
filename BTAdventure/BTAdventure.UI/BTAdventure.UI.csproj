@@ -381,9 +381,9 @@
     <Content Include="Views\Home\Start.cshtml" />
     <Content Include="Views\Admin\ListGames.cshtml" />
     <Content Include="Views\Admin\AdminHome.cshtml" />
-    <Content Include="Views\Account\UserCommandCentre.cshtml" />
     <Content Include="Views\Account\Choose.cshtml" />
     <Content Include="Views\Gameplay\Game.cshtml" />
+    <Content Include="Views\Account\UserCommandCentre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
