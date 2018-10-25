@@ -6,17 +6,7 @@
 <div class="container">
     <div class="col-lg-12">
         <div class="" id="hiddenStats">
-            @*<h1>@Model.EventChoice.EventChoiceId this is the event choice ID!!!</h1>
-                <h2>@Model.EventChoice.SceneId this is the scene id </h2>
-                @*<div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.EventChoiceId -- current event choice id</p></div>
-                <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.PositiveButton -- current event choice positive button</p></div>
-                <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.PositiveRoute -- current event choice positive route</p></div>
-                <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.PositiveText -- current event choice positive text</p></div>
-                <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.NegativeButton -- current event choice negative button</p></div>
-                <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.NegativeRoute -- current event choice negative route</p></div>
-                <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.NegativeText -- current event choice negative text</p></div>*@
-            @*<div class="card-body, col-md-6" style="align-content:center;"><p class="allData"></p></div>
-                <br /> <br /> <br /> <br />*@
+           
 
         </div>
     </div>
@@ -26,6 +16,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
+            <div class="row">
+                
+                <div class="wireframe"><p>Health: <div id="health">@Model.PlayerCharacter.HealthPoints</div>Gold: <div id="gold">@Model.PlayerCharacter.Gold</div></p></div>
+            </div>
             <img class="gameImage" alt="storyPicture" src="https://vignette.wikia.nocookie.net/assassinscreed/images/8/88/DVD-Knight.png/revision/latest?cb=20120629122150" />
             <div class="row">
                 <div class="col-md-12">
@@ -37,6 +31,9 @@
 
                     <p id="negativeText"><p id="negativeParagraph" style="text-align:center; visibility:hidden;" class="wireframe">@Model.EventChoice.NegativeText</p>
                     <button class="btn btn-primary" id="negativeContinue" style="visibility:hidden">Continue</button>
+
+                    <p id="endingText"><p id="endingParagraph" style="text-align:center; visibility:hidden;" class="wireframe"></p>
+                    @Html.ActionLink("Continue", "Ending", "Gameplay", new { @style = "visibility:hidden" })
                 </div>
             </div>
             <div class="row">
@@ -120,12 +117,18 @@
 
             contentType: "application/json"
         }).done(function (data, status) {
+            if (data.IsEnding == true) {
+                window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
+            }
+            document.getElementById("health").innerText = '' + data.Outcome.Health + '';
+            document.getElementById("gold").innerText = '' + data.Outcome.Health + '';
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
             document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
             document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
             document.getElementById("negativeParagraph").innerText = '' + data.EventChoice.NegativeText + '';
+            document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
 
             document.getElementById("positiveText").style.visibility = "hidden"
             document.getElementById("positiveParagraph").style.visibility = "hidden"
@@ -154,11 +157,17 @@
 
             contentType: "application/json"
         }).done(function (data, status) {
+            if (data.IsEnding == true) {
+                window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
+            }
+            document.getElementById("health").innerText = '' + data.Outcome.Health + '';
+            document.getElementById("gold").innerText = '' + data.Outcome.Health + '';
+
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
             document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
             document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
-
+            document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';

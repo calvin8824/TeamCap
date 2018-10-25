@@ -14,5 +14,6 @@ namespace BTAdventure.Models
         public Outcome Outcome { get; set; }
         public PlayerCharacter PlayerCharacter { get; set; }
         public Ending Ending { get; set; }
+        public bool IsEnding { get; set; }
     }
 }

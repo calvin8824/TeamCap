@@ -14,5 +14,6 @@ namespace BTAdventure.Interfaces
         Scene FindById(int? id);
         Scene Save(Scene scene);
         bool Delete(int id);
+        Scene FindSceneByCharacterId(int id);
     }
 }

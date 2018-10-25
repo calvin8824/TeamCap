@@ -57,6 +57,8 @@ namespace BTAdventure.Data.DapperRepositories
             }
         }
 
+        
+
         public PlayerCharacter Save(PlayerCharacter character)
         {
             if (character.CharacterId > 0)

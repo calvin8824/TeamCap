@@ -10,7 +10,7 @@ namespace BTAdventure.Interfaces
     public interface IEndingRepository
     {
         IEnumerable<Ending> All();
-        Ending FindById(int id);
+        Ending FindById(int? id);
         Ending Save(Ending ending);
         bool Delete(int id);
     }
