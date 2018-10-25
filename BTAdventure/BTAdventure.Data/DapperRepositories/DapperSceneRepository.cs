@@ -43,6 +43,11 @@ namespace BTAdventure.Data.DapperRepositories
             }
         }
 
+        public Scene FindById(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Scene Save(Scene scene)
         {
             if (scene.SceneId > 0)

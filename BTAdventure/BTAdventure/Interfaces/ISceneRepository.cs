@@ -11,6 +11,7 @@ namespace BTAdventure.Interfaces
     {
         IEnumerable<Scene> All();
         Scene FindById(int id);
+        Scene FindById(int? id);
         Scene Save(Scene scene);
         bool Delete(int id);
     }

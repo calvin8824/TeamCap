@@ -16,63 +16,66 @@ namespace BTAdventure.UI.Controllers
         {
             this.gameService = gameService;
         }
-        //[Route("api/Game")]
-        //[AcceptVerbs("GET")]
-        //public IHttpActionResult GetGameText()
-        //{
 
-        //    var text = new TextAndChocie()
-        //    {
-        //        Text = "The is the story",
-        //        BtnChoice1 = "Choice 1",
-        //        BtnChoice2 = "Choice 2"
-        //    };
-        //    return Ok(text);
-        //}
-
-        //[Route("api/choice/{eventChoiceId}/{route}")]
-        //[AcceptVerbs("GET")]
-        //public IHttpActionResult UpdateGameScene(int eventChoiceId, int route)
-        //{
-        //    //will need to think about where to save player character, possibly pass in player id
-        //    var currentEventChoice = gameService.FindEventChoiceById(eventChoiceId);
-        //    EventChoice NextEventChoice = null;
-        //    if (currentEventChoice.PositiveRoute > 0 && currentEventChoice.NegativeRoute > 0)
-        //    {
-        //        if (currentEventChoice.PositiveRoute > 0)
-        //        {
-        //            NextEventChoice = gameService.FindEventChoiceById(route);
-        //        }
-        //        if (currentEventChoice.NegativeRoute > 0)
-        //        {
-        //            NextEventChoice = gameService.FindEventChoiceById(route);
-        //        }
-        //    }
-
-        //    if (currentEventChoice.PositiveSceneRoute == route || currentEventChoice.NegativeSceneRoute == route)
-        //    {
-        //        var newScene = new NewScene();
-        //        newScene.Scene = gameService.FindSceneById(currentEventChoice.SceneId + 1);
-        //        //newScene.EventChoice = gameService.FindEventChoiceById(newScene.Scene.);
-        //    }
-        //    return Ok(NextEventChoice);
-        //}
 
         [Route("api/game/")]
         [HttpPost]
         public ReturnJSONObject Post(ChoiceJSONObject choice)
         {
-            var success = gameService.CombineObject(choice);
-            if(success.Ending.EndingId > 0)
+            var eventChoice = gameService.FindEventChoiceById(choice.EventChoiceId);
+            var nextRound = gameService.DetermineNextRound(eventChoice, choice.PositiveOrNegative);
+            ReturnJSONObject response = new ReturnJSONObject();
+            if (nextRound.Item1 == ChoiceResult.Ending)
             {
-                //return redirect somehow??
+                var ending = gameService.FindEndingById(nextRound.Item2);
+                if (ending != null)
+                {
+                    //return response.Ending;
+                }
+                //redirect
             }
-            return success;
+            else if (nextRound.Item1 == ChoiceResult.Scene)
+            {
+                Scene scene = gameService.FindSceneById(nextRound.Item2);
+                if (scene != null)
+                {
+                    List<EventChoice> choiceOfEvents = gameService.FindChoiceBySceneId(scene.SceneId).ToList();
+                    foreach (var c in choiceOfEvents)
+                    {
+                        if (c.GenerationNumber == 0)
+                        {
+                            //return this event 
+                        }
+                    }
+                    //redirect
+                }
+            }
+            else if (nextRound.Item1 == ChoiceResult.EventChoice)
+            {
+                var eventChoiceok = gameService.FindEventChoiceById(nextRound.Item2);
+                if (eventChoiceok != null)
+                {
+                    //return this choice
+                }
+            }
+            else
+            {
+                //redirect to error page
+            }
+
+            return null;
+            //var success = gameService.CombineObject(choice);
+
+            //if (success.Ending.EndingId > 0)
+            //{
+            //    //return redirect somehow??
+            //}
+            //return success;
         }
 
 
     }
 
 
-    
+
 }

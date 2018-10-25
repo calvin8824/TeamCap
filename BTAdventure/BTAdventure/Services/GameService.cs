@@ -30,7 +30,17 @@ namespace BTAdventure.Services
             this.endingRepo = endingRepo;
         }
 
+        public object FindEndingById(int? item2)
+        {
+            throw new NotImplementedException();
+        }
+
         public Scene FindSceneById(int id)
+        {
+            return sceneRepo.FindById(id);
+        }
+
+        public Scene FindSceneById(int? id)
         {
             return sceneRepo.FindById(id);
         }
@@ -100,54 +110,54 @@ namespace BTAdventure.Services
             return outcomeRepo.All();
         }
 
-        public ReturnJSONObject CombineObject(ChoiceJSONObject choice)
-        {
-            ReturnJSONObject items = new ReturnJSONObject();
-            items.PlayerCharacter = FindPlayerCharacterById(choice.CharacterId);
-            
-            var posOrNeg = choice.PositiveOrNegative;
+        //public ReturnJSONObject CombineObject(ChoiceJSONObject choice)
+        //{
+        //    ReturnJSONObject items = new ReturnJSONObject();
+        //    items.PlayerCharacter = FindPlayerCharacterById(choice.CharacterId);
 
-            var currentEventChoice = FindEventChoiceById(choice.EventChoiceId); //takes in json object choiceid
-            EventChoice NextEventChoice = null;
-            if(posOrNeg == true)
-            {
-                if(currentEventChoice.PositiveRoute > 0)
-                {
-                    NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveRoute);
-                }
-                else if(currentEventChoice.PositiveSceneRoute > 0)
-                {
-                    NextEventChoice = FindChoiceBySceneId(currentEventChoice.PositiveSceneRoute);
-                }
-                else if(currentEventChoice.PositiveEndingId > 0)///////
-                {
-                    NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveEndingId);
-                }
-            }
-            else if (posOrNeg == false)
-            {
-                if (currentEventChoice.NegativeRoute > 0)
-                {
-                    NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeRoute);
-                }
-                else if (currentEventChoice.NegativeSceneRoute > 0) //next scene
-                {
-                    NextEventChoice = FindChoiceBySceneId(currentEventChoice.NegativeSceneRoute);
-                }
-                else if (currentEventChoice.NegativeEndingId > 0)//////
-                {
-                    NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeEndingId);
-                }
-            }
-            items.EventChoice = NextEventChoice;
-            items.Scene = FindSceneById(items.EventChoice.SceneId);
-            items.Outcome = outcomeRepo.FindByEventChoice(items.EventChoice.EventChoiceId);
-            
-            return items;
+        //    var posOrNeg = choice.PositiveOrNegative;
 
-        }
+        //    var currentEventChoice = FindEventChoiceById(choice.EventChoiceId); //takes in json object choiceid
+        //    EventChoice NextEventChoice = null;
+        //    if(posOrNeg == true)
+        //    {
+        //        if(currentEventChoice.PositiveRoute > 0)
+        //        {
+        //            NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveRoute);
+        //        }
+        //        else if(currentEventChoice.PositiveSceneRoute > 0)
+        //        {
+        //            NextEventChoice = FindChoiceBySceneId(currentEventChoice.PositiveSceneRoute);
+        //        }
+        //        else if(currentEventChoice.PositiveEndingId > 0)///////
+        //        {
+        //            NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveEndingId);
+        //        }
+        //    }
+        //    else if (posOrNeg == false)
+        //    {
+        //        if (currentEventChoice.NegativeRoute > 0)
+        //        {
+        //            NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeRoute);
+        //        }
+        //        else if (currentEventChoice.NegativeSceneRoute > 0) //next scene
+        //        {
+        //            NextEventChoice = FindChoiceBySceneId(currentEventChoice.NegativeSceneRoute);
+        //        }
+        //        else if (currentEventChoice.NegativeEndingId > 0)//////
+        //        {
+        //            NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeEndingId);
+        //        }
+        //    }
+        //    items.EventChoice = NextEventChoice;
+        //    items.Scene = FindSceneById(items.EventChoice.SceneId);
+        //    items.Outcome = outcomeRepo.FindByEventChoice(items.EventChoice.EventChoiceId);
 
-        public EventChoice FindChoiceBySceneId(int? sceneRoute)
+        //    return items;
+
+        //}
+
+        public IEnumerable<EventChoice> FindChoiceBySceneId(int? sceneRoute)
         {
             return choiceRepo.FindBySceneId(sceneRoute);
         }
