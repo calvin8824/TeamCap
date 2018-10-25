@@ -60,7 +60,7 @@ namespace BTAdventure.Data.DapperRepositories
         private Scene Insert(Scene scene)
         {
             const string sql = "INSERT INTO Scene (SceneName, isStart, GameId) "
-                   + "VALUES (@SceneName, @isStart, @GameId,); "
+                   + "VALUES (@SceneName, @isStart, @GameId); "
                    + "SELECT SCOPE_IDENTITY()";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
