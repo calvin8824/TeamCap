@@ -17,7 +17,7 @@ namespace BTAdventure.Data.DapperRepositories
         {
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
             {
-                return conn.Query<Ending>("SELECT EndingId, EndingText FROM Ending;");
+                return conn.Query<Ending>("SELECT EndingId, GameId, EndingName, EndingText FROM Ending;");
             }
         }
 
@@ -32,7 +32,7 @@ namespace BTAdventure.Data.DapperRepositories
 
         public Ending FindById(int? id)
         {
-            const string sql = "SELECT EndingId, EndingText "
+            const string sql = "SELECT EndingId, GameId, EndingName, EndingText "
                    + "FROM Ending "
                    + "WHERE EndingId = @EndingId;";
 
@@ -54,8 +54,8 @@ namespace BTAdventure.Data.DapperRepositories
 
         private Ending Insert(Ending ending)
         {
-            const string sql = "INSERT INTO Ending (EndingText) "
-                   + "VALUES (@EndingText); "
+            const string sql = "INSERT INTO Ending (GameId, EndingName, EndingText) "
+                   + "VALUES (@GameId, @EndingName, @EndingText); "
                    + "SELECT SCOPE_IDENTITY()";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
@@ -68,6 +68,8 @@ namespace BTAdventure.Data.DapperRepositories
         private Ending Update(Ending ending)
         {
             const string sql = "UPDATE Ending SET "
+                + "GameId = @GameId, "
+                + "EndingName = @EndingName, "
                 + "EndingText = @EndingText "
                 + "WHERE EndingId = @EndingId;";
 

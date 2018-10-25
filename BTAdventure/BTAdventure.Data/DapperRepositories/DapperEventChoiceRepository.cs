@@ -17,7 +17,7 @@ namespace BTAdventure.Data.DapperRepositories
         {
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
             {
-                return conn.Query<EventChoice>("SELECT EventChoiceId, SceneId, GenerationNumber, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId FROM EventChoice;");
+                return conn.Query<EventChoice>("SELECT EventChoiceId, SceneId, GenerationNumber, ImgUrl, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId FROM EventChoice;");
             }
         }
 
@@ -32,7 +32,7 @@ namespace BTAdventure.Data.DapperRepositories
 
         public EventChoice FindById(int? id)
         {
-            const string sql = "SELECT EventChoiceId, SceneId, GenerationNumber, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId "
+            const string sql = "SELECT EventChoiceId, SceneId, GenerationNumber, ImgUrl, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId "
                    + "FROM EventChoice "
                    + "WHERE EventChoiceId = @EventChoiceId;";
 
@@ -54,8 +54,8 @@ namespace BTAdventure.Data.DapperRepositories
 
         private EventChoice Insert(EventChoice eventChoice)
         {
-            const string sql = "INSERT INTO EventChoice (SceneId, GenerationNumber, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId) "
-                   + "VALUES (@SceneId, @GenerationNumber, @EventName, @StartText, @PositiveText, @NegativeText, @PositiveRoute, @NegativeRoute, @PositiveButton, @NegativeButton, @PositiveSceneRoute, @NegativeSceneRoute, @PositiveEndingId, @NegativeEndingId); "
+            const string sql = "INSERT INTO EventChoice (SceneId, GenerationNumber, ImgUrl, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId) "
+                   + "VALUES (@SceneId, @GenerationNumber, @ImgUrl, @EventName, @StartText, @PositiveText, @NegativeText, @PositiveRoute, @NegativeRoute, @PositiveButton, @NegativeButton, @PositiveSceneRoute, @NegativeSceneRoute, @PositiveEndingId, @NegativeEndingId); "
                    + "SELECT SCOPE_IDENTITY()";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
@@ -70,6 +70,7 @@ namespace BTAdventure.Data.DapperRepositories
             const string sql = "UPDATE EventChoice SET "
                 + "SceneId = @SceneId, "
                 + "GenerationNumber = @GenerationNumber, "
+                + "ImgUrl = @ImgUrl, "
                 + "EventName = @EventName, "
                 + "StartText = @StartText, "
                 + "PositiveText = @PositiveText, "
@@ -97,7 +98,7 @@ namespace BTAdventure.Data.DapperRepositories
 
         public IEnumerable<EventChoice> FindBySceneId(int? id)
         {
-            const string sql = "SELECT EventChoiceId, SceneId, GenerationNumber, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId "
+            const string sql = "SELECT EventChoiceId, SceneId, GenerationNumber, ImgUrl, EventName, StartText, PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton, PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId "
                    + "FROM EventChoice "
                    + "WHERE SceneId = @SceneId;";
 

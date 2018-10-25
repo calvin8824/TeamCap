@@ -49,14 +49,15 @@ Begin
 
 	Set Identity_Insert Ending On;
 
-	Insert Into Ending (EndingId, EndingText)
+	Insert Into Ending (EndingId, GameId, EndingName, EndingText)
 	Values
-	('1', 'The end is at hand.'),
-	('2', 'Bad Ending here. Hi.'),
-	('3', 'Yo. I''m the good ending.'),
-	('4', 'Just end number 4 here. Sup.'),
-	('5', 'It''s over. You can leave now.'),
-	('6', 'You have bored me. Leave now.')
+	('1', '3', 'The End', 'The end is at hand.'),
+	('2', '1', 'Bad End', 'Bad Ending here. Hi.'),
+	('3', '1', 'Yo!', 'Yo. I''m the good ending.'),
+	('4', '2', 'Sup.', 'Just end number 4 here. Sup.'),
+	('5', '2', 'Fin', 'It''s over. You can leave now.'),
+	('6', '1', 'Yawn', 'You have bored me. Leave now.'),
+	('7', '3', 'Behold The Might Of Space', 'Space retaliates. You have "dead" now.')
 		
 	Set Identity_Insert Ending Off;
 
@@ -74,13 +75,13 @@ Begin
 	 null, null, '3', '2'),
 	 ('3', '7', '0', 'Fantasy Castle Event', 'You open your eyes to see an immense castle.', 'You bask in the glory of the castle',
 	 'You are struck by a falling cherub and die.', null, null, 'Good Choice.', 'Bad Choice',
-	 null, null, '1', '6'),
+	 null, null, '3', '6'),
 	 ('4', '2', '0', 'Classroom Greeting Event', 'You are greeted in the classroom.', 'You are gracious to your teacher.',
 	 'You are ungracious to your teacher.', null, null, 'Be gracious.', 'Be ungracious.',
 	 null, null, '5', '4'),
 	 ('5', '3', '0', 'Space Greeting Event', 'You are greeted in space.', 'You are gracious to space.',
 	 'You snidely scoff at space.', null, null, 'Be gracious.', 'Scoff',
-	 null, null, '1', '2')
+	 null, null, '1', '7')
 		
 	Set Identity_Insert EventChoice Off;
 	
@@ -106,12 +107,12 @@ Begin
 	('20000000-0000-0000-0000-000000000000')
 
 	Set Identity_Insert PlayerCharacter On;
-
+	
 	Insert Into PlayerCharacter (CharacterId, PlayerId, SceneId, EventChoiceId, CharacterName, HealthPoints, Gold)
 	Values
-	('1', '00000000-0000-0000-0000-000000000000', '2', '1', 'Player''s Character', '5', '12'),
-	('2', '10000000-0000-0000-0000-000000000000', '7', '4', 'Lady Character', '3', '4'),
-	('3', '20000000-0000-0000-0000-000000000000', '5', '5', 'Guy Character', '1', '0')
+	('1', '00000000-0000-0000-0000-000000000000', '1', '1', 'Player''s Character', '5', '12'),
+	('2', '10000000-0000-0000-0000-000000000000', '2', '4', 'Lady Character', '3', '4'),
+	('3', '20000000-0000-0000-0000-000000000000', '3', '5', 'Guy Character', '1', '0')
 		
 	Set Identity_Insert PlayerCharacter Off;
 

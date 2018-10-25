@@ -38,8 +38,10 @@ namespace BTAdventure.Tests
 
             List<Ending> endings = dapperEndingRepository.All().ToList();
 
-            Assert.AreEqual(6, endings.Count());
+            Assert.AreEqual(7, endings.Count());
 
+            Assert.AreEqual(3, endings[0].GameId);
+            Assert.AreEqual("The End", endings[0].EndingName);
             Assert.AreEqual("The end is at hand.", endings[0].EndingText);
 
         }
@@ -52,8 +54,9 @@ namespace BTAdventure.Tests
             Ending ending = dapperEndingRepository.FindById(2);
 
             Assert.AreEqual(2, ending.EndingId);
+            Assert.AreEqual(1, ending.GameId);
+            Assert.AreEqual("Bad End", ending.EndingName);
             Assert.AreEqual("Bad Ending here. Hi.", ending.EndingText);
-
         }
 
         [Test]
@@ -63,23 +66,31 @@ namespace BTAdventure.Tests
 
             Ending ending = new Ending()
             {
+                GameId = 3,
+                EndingName = "The Test",
                 EndingText = "Test ending"
             };
 
             dapperEndingRepository.Save(ending);
 
-            Ending insertedEnding = dapperEndingRepository.FindById(7);
+            Ending insertedEnding = dapperEndingRepository.FindById(8);
 
-            Assert.AreEqual(7, insertedEnding.EndingId);
+            Assert.AreEqual(8, insertedEnding.EndingId);
+            Assert.AreEqual(3, insertedEnding.GameId);
+            Assert.AreEqual("The Test", insertedEnding.EndingName);
             Assert.AreEqual("Test ending", insertedEnding.EndingText);
 
+            insertedEnding.GameId = 2;
+            insertedEnding.EndingName = "The Updated Test";
             insertedEnding.EndingText = "Ending Test Update";
 
             dapperEndingRepository.Save(insertedEnding);
 
-            Ending updatedEnding = dapperEndingRepository.FindById(7);
+            Ending updatedEnding = dapperEndingRepository.FindById(8);
 
-            Assert.AreEqual(7, updatedEnding.EndingId);
+            Assert.AreEqual(8, updatedEnding.EndingId);
+            Assert.AreEqual(2, updatedEnding.GameId);
+            Assert.AreEqual("The Updated Test", updatedEnding.EndingName);
             Assert.AreEqual("Ending Test Update", updatedEnding.EndingText);
 
         }
@@ -91,6 +102,8 @@ namespace BTAdventure.Tests
 
             Ending ending = new Ending()
             {
+                GameId = 3,
+                EndingName = "The Test",
                 EndingText = "Test ending"
             };
 
@@ -98,17 +111,17 @@ namespace BTAdventure.Tests
 
             List<Ending> endings = dapperEndingRepository.All().ToList();
 
-            Ending insertedEnding = dapperEndingRepository.FindById(7);
+            Ending insertedEnding = dapperEndingRepository.FindById(8);
 
-            Assert.AreEqual(7, endings.Count);
-            Assert.AreEqual(7, insertedEnding.EndingId);
+            Assert.AreEqual(8, endings.Count);
+            Assert.AreEqual(8, insertedEnding.EndingId);
             Assert.AreEqual("Test ending", insertedEnding.EndingText);
 
-            dapperEndingRepository.Delete(7);
+            dapperEndingRepository.Delete(8);
 
             endings = dapperEndingRepository.All().ToList();
 
-            Assert.AreEqual(6, endings.Count);
+            Assert.AreEqual(7, endings.Count);
         }
 
         [Test]

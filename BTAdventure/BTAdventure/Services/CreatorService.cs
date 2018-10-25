@@ -128,10 +128,62 @@ namespace BTAdventure.Services
                 }
             }
         }
+        
+        public IEnumerable<Ending> AllEndings()
+        {
+            return endingRepo.All();
+        }
 
-        //Reset gen number on delete
-        //Delete related scenes and events on game delete
-        //Delete related events on scene delete
+        public Ending FindEndingById(int id)
+        {
+            return endingRepo.FindById(id);
+        }
+
+        public Ending CreateEnding(Ending ending)
+        {
+            Ending newEnding = endingRepo.Save(ending);
+
+            return newEnding;
+        }
+
+        public void DeleteEndingById(int id)
+        {
+            Ending ending = endingRepo.FindById(id);
+
+            //If the ending is deleted, find all scenes in game. Then, check each event in scene to set event ending routes to null if they use this ending.
+            if (endingRepo.Delete(id))
+            {
+                List<Scene> scenes = sceneRepo.FindByGameId(ending.GameId).ToList();
+
+                foreach(var s in scenes)
+                {
+                    List<EventChoice> choices = choiceRepo.FindBySceneId(s.SceneId).ToList();
+
+                    foreach(var c in choices)
+                    {
+                        if(c.PositiveEndingId == ending.EndingId)
+                        {
+                            c.PositiveEndingId = null;
+                            choiceRepo.Save(c);
+                        }
+
+                        if (c.NegativeEndingId == ending.EndingId)
+                        {
+                            c.NegativeEndingId = null;
+                            choiceRepo.Save(c);
+                        }
+                    }
+                }
+            }
+        }
+
+        //Same as create, for now. Separated in case they diverge later.
+        public Ending EditEnding(Ending ending)
+        {
+            Ending editedEnding = endingRepo.Save(ending);
+
+            return editedEnding;
+        }
 
         public Game CreateGame(Game game)
         {

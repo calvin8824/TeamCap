@@ -9,6 +9,8 @@ namespace BTAdventure.Models
     public class Ending
     {
         public int EndingId { get; set; }
+        public int GameId { get; set; }
+        public string EndingName { get; set; }
         public string EndingText { get; set; }
     }
 }

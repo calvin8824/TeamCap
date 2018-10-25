@@ -55,6 +55,8 @@ Go
 
 Create Table Ending(
 	EndingId int identity(1, 1) primary key not null,
+	GameId int not null foreign key references Game(GameId),
+	EndingName nVarChar(128) not null,
 	EndingText nVarChar(max) not null
 )
 Go
@@ -63,6 +65,7 @@ Create Table EventChoice (
 	EventChoiceId int identity(1,1) primary key not null,
 	SceneId int not null foreign key references Scene(SceneId),
 	GenerationNumber int not null,
+	ImgUrl nVarChar(1000) null,
 	EventName nVarChar(50) not null,
 	StartText nVarChar(max) not null,
 	PositiveText nVarChar(max) not null,

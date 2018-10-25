@@ -11,6 +11,7 @@ namespace BTAdventure.Models
         public int EventChoiceId { get; set; }
         public int SceneId { get; set; }
         public int? GenerationNumber { get; set; }
+        public string ImgUrl { get; set; }
         public string EventName { get; set; }
         public string StartText { get; set; }
         public string PositiveText { get; set; }
