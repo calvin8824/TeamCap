@@ -1,7 +1,4 @@
---Use BinaryTextAdventureTest
---Go
-
-Use BinaryTextAdventure
+Use BinaryTextAdventureTest
 Go
 
 exec DbReset

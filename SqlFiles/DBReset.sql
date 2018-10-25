@@ -110,9 +110,9 @@ Begin
 
 	Insert Into PlayerCharacter (CharacterId, PlayerId, SceneId, EventChoiceId, CharacterName, HealthPoints, Gold)
 	Values
-	('1', '00000000-0000-0000-0000-000000000000', '2', '1', 'Player''s Character', '5', '12'),
-	('2', '10000000-0000-0000-0000-000000000000', '7', '4', 'Lady Character', '3', '4'),
-	('3', '20000000-0000-0000-0000-000000000000', '5', '5', 'Guy Character', '1', '0')
+	('1', '00000000-0000-0000-0000-000000000000', '1', '1', 'Player''s Character', '5', '12'),
+	('2', '10000000-0000-0000-0000-000000000000', '2', '4', 'Lady Character', '3', '4'),
+	('3', '20000000-0000-0000-0000-000000000000', '3', '5', 'Guy Character', '1', '0')
 		
 	Set Identity_Insert PlayerCharacter Off;
 	
