@@ -36,9 +36,21 @@ namespace BTAdventure.Services
 
         }
 
-        public EventChoice CreateEventChoice(EventChoice eventChoice)
+        public EventChoice SaveEventChoice(EventChoice eventChoice)
         {
-            return choiceRepo.Save(eventChoice);
+            EventChoice savedEventChoice = choiceRepo.Save(eventChoice);
+
+            if(savedEventChoice.PositiveRoute != null)
+            {
+                UpdateGenerationNumber(savedEventChoice.PositiveRoute);
+            }
+
+            if(savedEventChoice.NegativeRoute != null)
+            {
+                UpdateGenerationNumber(savedEventChoice.NegativeRoute);
+            }
+
+            return savedEventChoice;
         }
 
         public Game CreateGame(Game game)
@@ -59,6 +71,38 @@ namespace BTAdventure.Services
         public List<EventChoice> GetAllEventChoice()
         {
             return choiceRepo.All().ToList();
+        }
+
+        private void UpdateGenerationNumber(int? pairedId)
+        {
+            if (pairedId != null)
+            {
+                EventChoice updateChoice = choiceRepo.FindById(pairedId);
+
+                if(updateChoice != null)
+                {
+                    List<EventChoice> eventChoices = new List<EventChoice>();
+
+                    foreach (var c in choiceRepo.All())
+                    {
+                        if (c.PositiveRoute == updateChoice.EventChoiceId || c.NegativeRoute == updateChoice.EventChoiceId)
+                        {
+                            eventChoices.Add(c);
+                        }
+                    }
+
+                    if (eventChoices.Any())
+                    {
+                        int? max = eventChoices.Max(m => m.GenerationNumber);
+
+                        updateChoice.GenerationNumber = max + 1;
+                    }
+                    else
+                    {
+                        updateChoice.GenerationNumber = null;
+                    }
+                }
+            }
         }
     }
 }
