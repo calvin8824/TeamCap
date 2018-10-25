@@ -67,8 +67,10 @@ namespace BTAdventure.UI.Controllers
             if (id > 0)
             {
                 allScenesFromGameId = creatorService.GetAllScenes().Where(s => s.GameId == id);
+                ViewBag.GameTitle = creatorService.GetAllGames().Where(g => g.GameId == id).First().GameTitle;
+                ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == id).First().GameId;
             }
-            ViewBag.GameTitle = creatorService.GetAllGames().Where(g => g.GameId == id).First().GameTitle;
+            
 
             return View(allScenesFromGameId);
         }
@@ -83,6 +85,7 @@ namespace BTAdventure.UI.Controllers
                 game = creatorService.CreateGame(game);
             }
             ViewBag.GameTitle = creatorService.GetAllGames().Where(g => g.GameId == game.GameId).First().GameTitle;
+            ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == game.GameId).First().GameId;
 
             IEnumerable<Scene> allScenesFromGameId = new List<Scene>();
             if (game.GameId > 0)
@@ -95,9 +98,18 @@ namespace BTAdventure.UI.Controllers
             return View(allScenesFromGameId);
         }
 
-        public ActionResult CreateOrEditScene()
+        public ActionResult CreateOrEditScene(int id)
         {
-            return View(new Scene());
+            var scene = new Scene { GameId = id };
+
+            return View(scene);
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrEditScene(Scene scene)
+        {
+            scene = creatorService.CreateScene(scene);
+            return View("SceneMain", scene.GameId);
         }
     }
 }
