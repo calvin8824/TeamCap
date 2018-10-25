@@ -9,11 +9,13 @@
 </div>
 
 <div class="row">
-    <button>New Game</button>
+    <button>Edit Game</button>
     <button>New Ending</button>
     <button>Edit Ending</button>
 </div>
-
+<div class="row">
+    Game ID: @ViewBag.GameTitle
+</div>
 <div class="row">
     @if (Model.Any())
     {

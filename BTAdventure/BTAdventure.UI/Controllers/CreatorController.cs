@@ -9,12 +9,11 @@ using System.Web.Mvc;
 namespace BTAdventure.UI.Controllers
 {
     public class CreatorController : Controller
-    {
-
-        private CreatorService adminService;
-        public CreatorController(CreatorService adminService)
+    {        
+        private CreatorService creatorService;
+        public CreatorController(CreatorService creatorService)
         {
-            this.adminService = adminService;
+            this.creatorService = creatorService;
         }
 
         // GET: Creator
@@ -26,7 +25,7 @@ namespace BTAdventure.UI.Controllers
         // this will probably be removed. will look into it later
         public ActionResult ListGames()
         {
-            var allScene = adminService.GetAllScenes();
+            var allScene = creatorService.GetAllScenes();
             return View(allScene);
         }
 
@@ -35,7 +34,7 @@ namespace BTAdventure.UI.Controllers
             Game game = new Game();
             if (id > 0)
             {
-                game = adminService.GetAllGames().Where(g => g.GameId == id).FirstOrDefault();
+                game = creatorService.GetAllGames().Where(g => g.GameId == id).FirstOrDefault();
             }
 
             return View(game);
@@ -44,7 +43,7 @@ namespace BTAdventure.UI.Controllers
 
         public ActionResult EditGame()
         {
-            var allGames = adminService.GetAllGames();
+            var allGames = creatorService.GetAllGames();
 
             //this is mock data
             //var something = new Game
@@ -66,25 +65,31 @@ namespace BTAdventure.UI.Controllers
             IEnumerable<Scene> allScenesFromGameId = new List<Scene>();
             if (id > 0)
             {
-                allScenesFromGameId = adminService.GetAllScenes().Where(s => s.GameId == id);
+                allScenesFromGameId = creatorService.GetAllScenes().Where(s => s.GameId == id);
             }
+            ViewBag.GameTitle = creatorService.GetAllGames().Where(g => g.GameId == id).First().GameTitle;
 
             return View(allScenesFromGameId);
         }
 
         [HttpPost]
-        public ActionResult SceneMain(Scene scene)
+        public ActionResult SceneMain(Game game)
         {
             //Note: Added game just to see if this would compile. Also replaced Add(game) with Add(scene). Sorry to step on any toes. Don't hate me. - Rich
-            Game game = new Game();
+            //Game game = new Game();
+            if (game.GameId == 0)
+            {
+                game = creatorService.CreateGame(game);
+            }
+            ViewBag.GameTitle = creatorService.GetAllGames().Where(g => g.GameId == game.GameId).First().GameTitle;
 
             IEnumerable<Scene> allScenesFromGameId = new List<Scene>();
             if (game.GameId > 0)
             {
-                allScenesFromGameId = adminService.GetAllScenes().Where(s => s.GameId == game.GameId);
+                allScenesFromGameId = creatorService.GetAllScenes().Where(s => s.GameId == game.GameId);
             }
             //Changed game to scene here. Also gor rid of the "allScenesFromGameId = " part.
-            allScenesFromGameId.ToList().Add(scene);
+            //allScenesFromGameId.ToList().Add(scene);
 
             return View(allScenesFromGameId);
         }
