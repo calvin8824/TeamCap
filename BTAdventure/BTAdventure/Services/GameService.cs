@@ -17,8 +17,9 @@ namespace BTAdventure.Services
         private IOutcomeRepository outcomeRepo;
         private IPlayerRepository playerRepo;
         private ISceneRepository sceneRepo;
+        private IEndingRepository endingRepo;
         public GameService(IPlayerCharacterRepository characterRepo, IGameRepository gamerepo, IEventChoiceRepository choiceRepo,
-            IOutcomeRepository outcomeRepo, IPlayerRepository playerRepo, ISceneRepository sceneRepo)
+            IOutcomeRepository outcomeRepo, IPlayerRepository playerRepo, ISceneRepository sceneRepo, IEndingRepository endingRepo)
         {
             this.characterRepo = characterRepo;
             this.gamerepo = gamerepo;
@@ -26,6 +27,7 @@ namespace BTAdventure.Services
             this.outcomeRepo = outcomeRepo;
             this.playerRepo = playerRepo;
             this.sceneRepo = sceneRepo;
+            this.endingRepo = endingRepo;
         }
 
         public Scene FindSceneById(int id)
@@ -115,9 +117,9 @@ namespace BTAdventure.Services
                 }
                 else if(currentEventChoice.PositiveSceneRoute > 0)
                 {
-                    NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveSceneRoute);
+                    NextEventChoice = FindChoiceBySceneId(currentEventChoice.PositiveSceneRoute);
                 }
-                else if(currentEventChoice.PositiveEndingId > 0)
+                else if(currentEventChoice.PositiveEndingId > 0)///////
                 {
                     NextEventChoice = FindEventChoiceById(currentEventChoice.PositiveEndingId);
                 }
@@ -128,11 +130,11 @@ namespace BTAdventure.Services
                 {
                     NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeRoute);
                 }
-                else if (currentEventChoice.NegativeSceneRoute > 0)
+                else if (currentEventChoice.NegativeSceneRoute > 0) //next scene
                 {
-                    NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeSceneRoute);
+                    NextEventChoice = FindChoiceBySceneId(currentEventChoice.NegativeSceneRoute);
                 }
-                else if (currentEventChoice.NegativeEndingId > 0)
+                else if (currentEventChoice.NegativeEndingId > 0)//////
                 {
                     NextEventChoice = FindEventChoiceById(currentEventChoice.NegativeEndingId);
                 }
@@ -140,13 +142,16 @@ namespace BTAdventure.Services
             items.EventChoice = NextEventChoice;
             items.Scene = FindSceneById(items.EventChoice.SceneId);
             items.Outcome = outcomeRepo.FindByEventChoice(items.EventChoice.EventChoiceId);
+            
             return items;
 
         }
 
-        public EventChoice FindChoiceBySceneId(int sceneRoute)
+        public EventChoice FindChoiceBySceneId(int? sceneRoute)
         {
             return choiceRepo.FindBySceneId(sceneRoute);
         }
+
+        
     }
 }

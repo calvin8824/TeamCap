@@ -33,6 +33,7 @@ namespace BTAdventure.UI
             container.RegisterType<IOutcomeRepository, DapperOutcomeRepository>();
             container.RegisterType<IPlayerRepository, DapperPlayerRepository>();
             container.RegisterType<ISceneRepository, DapperSceneRepository>();
+            container.RegisterType<IEndingRepository, DapperEndingRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);

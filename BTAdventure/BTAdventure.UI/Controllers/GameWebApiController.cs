@@ -63,6 +63,10 @@ namespace BTAdventure.UI.Controllers
         public ReturnJSONObject Post(ChoiceJSONObject choice)
         {
             var success = gameService.CombineObject(choice);
+            if(success.Ending.EndingId > 0)
+            {
+                //return redirect somehow??
+            }
             return success;
         }
 
