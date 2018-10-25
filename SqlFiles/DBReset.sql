@@ -114,8 +114,11 @@ Begin
 	('3', '20000000-0000-0000-0000-000000000000', '5', '5', 'Guy Character', '1', '0')
 		
 	Set Identity_Insert PlayerCharacter Off;
-
-
+	
+	Insert Into AspNetRoles(Id,[Name])
+	VALUES(1, 'Admin'),
+		(2, 'Creator'),
+		(3, 'User')
 
 
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BTAdventure.Services
 {
-    public class AdminService
+    public class CreatorService
     {
         private IPlayerCharacterRepository characterRepo;
         private IGameRepository gamerepo;
@@ -16,8 +16,10 @@ namespace BTAdventure.Services
         private IOutcomeRepository outcomeRepo;
         private IPlayerRepository playerRepo;
         private ISceneRepository sceneRepo;
-        public AdminService(IPlayerCharacterRepository characterRepo, IGameRepository gamerepo, IEventChoiceRepository choiceRepo,
-            IOutcomeRepository outcomeRepo, IPlayerRepository playerRepo, ISceneRepository sceneRepo)
+        private IEndingRepository endingRepo;
+
+        public CreatorService(IPlayerCharacterRepository characterRepo, IGameRepository gamerepo, IEventChoiceRepository choiceRepo,
+            IOutcomeRepository outcomeRepo, IPlayerRepository playerRepo, ISceneRepository sceneRepo, IEndingRepository endingRepo)
         {
             this.characterRepo = characterRepo;
             this.gamerepo = gamerepo;
@@ -25,6 +27,7 @@ namespace BTAdventure.Services
             this.outcomeRepo = outcomeRepo;
             this.playerRepo = playerRepo;
             this.sceneRepo = sceneRepo;
+            this.endingRepo = endingRepo;
         }
 
         public Scene CreateScene(Scene scene)
