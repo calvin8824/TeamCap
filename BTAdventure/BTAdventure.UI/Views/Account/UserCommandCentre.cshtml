@@ -1,32 +1,37 @@
 ﻿@model IEnumerable<BTAdventure.Models.PlayerCharacter>
 @{
-    ViewBag.Title = "UserCommandCentre";
+    ViewBag.Title = "User Command Centre";
 }
 
-<h2>UserCommandCentre</h2>
+<h2>User Command Centre</h2>
 @if (Model.Count() == 0)
 {
-    <div>OH BOY YOU RIGHT</div>
+    <div>Looks like you don't have any active games...</div>
+    <div>Click Here To Start One!</div>
 
 }
 @if (Model.Count() > 0)
 {
-    foreach (var r in Model)
-    {
-        @Html.DropDownListFor(m => r.EventChoiceId,
-                    Model.Select(i => new SelectListItem { Value = i.EventChoiceId.ToString(), Text = i.CharacterName.ToString() }),
-                    new { @class = "form-control" })
-    }
+
+        @Html.DropDownListFor(m => m.First().EventChoiceId,
+            Model.Select(i => new SelectListItem { Value = i.EventChoiceId.ToString(), Text = i.CharacterName.ToString() }),
+            new { @class = "form-control" })
+
+    
 }
 
 <div class="row">
-    @if (User.Identity.IsAuthenticated && User.IsInRole("Creator"))
+    @if (User.Identity.IsAuthenticated && User.IsInRole("User")  || User.IsInRole("Creator") || User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Create Or Edit A Game", "NewOrEditGame", "Creator")
+        @Html.ActionLink("Reset Your Password", "ResetPassword", "Account", new { @class = "btn btn-outline-primary"})
+    }
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Creator") || User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create Or Edit A Game", "NewOrEditGame", "Creator", new { @class = "btn btn-outline-primary" })
     }
     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
     {
-        //change this stuff VVVVVVVVVVVVVVVVVVVVVVVVVVV when admin page is created.
-        @Html.ActionLink("Add Movie", "AddMovie", "Home")
+        @Html.ActionLink("Promote and Demote Users", "AdminControlCentre", "Account", new { @class = "btn btn-outline-primary" })
     }
 </div>

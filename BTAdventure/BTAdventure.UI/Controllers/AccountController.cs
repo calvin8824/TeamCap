@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using BTAdventure.UI.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BTAdventure.Data.DapperRepositories;
+using System.Collections.Generic;
 
 namespace BTAdventure.UI.Controllers
 {
@@ -57,7 +58,6 @@ namespace BTAdventure.UI.Controllers
         }
 
 
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -82,7 +82,7 @@ namespace BTAdventure.UI.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -98,8 +98,38 @@ namespace BTAdventure.UI.Controllers
             }
         }
 
+        //MAKE SURE ONLY THE ADMIN CAN USE THIS.
+        [AllowAnonymous]
+        // [Authorize(Roles = "User")]
+        public ActionResult AdminControlCentre()
+        {
+            var list = new List<ApplicationUser>();
 
-        //
+
+            var users = UserManager.Users.ToList();
+
+            foreach (var r in users)
+            {
+                var result = UserManager.IsInRole(r.Id, "User");
+
+                if (result == true)
+                {
+                    list.Add(r);
+                }
+            }
+            return View(list);
+
+        }
+        [HttpPost]
+        public ActionResult AdminControlCentre(ApplicationUser usertoChange)
+        {
+            UserManager.RemoveFromRole(usertoChange.Id, "User");
+            UserManager.AddToRole(usertoChange.Id, "Creator");
+            return RedirectToAction("UserCommandCentre", "Account");
+
+        }
+
+
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -107,11 +137,11 @@ namespace BTAdventure.UI.Controllers
             return View();
         }
 
-        //
+
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-     //   [ValidateAntiForgeryToken]
+        //   [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -125,9 +155,8 @@ namespace BTAdventure.UI.Controllers
 
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
-                    
+
                     var newUser = userManager.FindByEmail(user.Email);
-                    
                     userManager.AddToRole(newUser.Id, "User");
 
                     if (result.Succeeded)
@@ -154,7 +183,7 @@ namespace BTAdventure.UI.Controllers
         // GET: /Account/ForgotPassword
         [Authorize(Roles = "Admin,Creator,User")]
         //[AllowAnonymous]
-        public ActionResult UserCommandCentre(LoginViewModel user)
+        public ActionResult UserCommandCentre()
         {
             using (var context = new ApplicationDbContext())
             {
@@ -163,9 +192,11 @@ namespace BTAdventure.UI.Controllers
 
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                var used =  HttpContext.User;
+                var used = HttpContext.User;
+
                 var newUser = userManager.FindById(used.Identity.GetUserId());
                 var dapper = new DapperPlayerCharacterRepository();
+
                 var result = dapper.AllLoggedIn(newUser.Id);
                 return View(result);
 
@@ -234,9 +265,24 @@ namespace BTAdventure.UI.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public async Task<ActionResult> ResetPassword()
         {
-            return code == null ? View("Error") : View();
+
+            using (var context = new ApplicationDbContext())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var used = HttpContext.User;
+                var user = userManager.FindById(used.Identity.GetUserId());
+
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                return View();
+            }
+
         }
 
         //
@@ -256,7 +302,9 @@ namespace BTAdventure.UI.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");

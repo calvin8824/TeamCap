@@ -389,6 +389,7 @@
     <Content Include="Views\Creator\SceneMain.cshtml" />
     <Content Include="Views\Creator\CreateOrEditScene.cshtml" />
     <Content Include="Views\Account\Choose.cshtml" />
+    <Content Include="Views\Account\AdminControlCentre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
