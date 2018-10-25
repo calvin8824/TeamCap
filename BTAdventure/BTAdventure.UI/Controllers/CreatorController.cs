@@ -11,8 +11,8 @@ namespace BTAdventure.UI.Controllers
     public class CreatorController : Controller
     {
 
-        private AdminService adminService;
-        public CreatorController(AdminService adminService)
+        private CreatorService adminService;
+        public CreatorController(CreatorService adminService)
         {
             this.adminService = adminService;
         }
