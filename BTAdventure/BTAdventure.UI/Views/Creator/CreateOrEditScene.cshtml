@@ -1,0 +1,24 @@
+﻿@model BTAdventure.Models.Scene
+@{
+    ViewBag.Title = "CreateOrEditScene";
+}
+
+<h2>CreateOrEditScene</h2>
+<hr />
+
+@using (Html.BeginForm("SceneMain", "Creator", FormMethod.Post))
+{
+    Html.HiddenFor(m => m.SceneId);
+    Html.HiddenFor(m=>m.GameId);
+    <div class="row">
+        <h3>Scene Name:</h3>
+        <input placeholder="Scene Name Goes Here" value="@Model.SceneName" name="SceneName"/>
+
+    </div>
+    <div class="row">
+        @Html.LabelFor(m=>m.IsStart)
+        @Html.CheckBoxFor(m => m.IsStart)
+    </div>
+    <button>Go</button>
+
+}

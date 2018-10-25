@@ -1,0 +1,25 @@
+﻿@model BTAdventure.Models.Game
+@{
+    ViewBag.Title = "NewOrEditGame";
+}
+
+<div class="row">
+    <h2>NewOrEditGame</h2>
+    <hr />
+</div>
+@using (Html.BeginForm("SceneMain", "Creator", FormMethod.Post))
+{
+    <input type="hidden" value="@Model.GameId" name="GameId" />
+    <div class="row">
+        <h3>Game:</h3>
+        <input placeholder="Name" value="@Model.GameTitle" name="GameTitle"/>
+    </div>
+
+    <div class="row">
+        <h3>Intro</h3>
+        <input placeholder="Title" value="@Model.IntroText" name="IntroText"/>
+    </div>
+
+    <button>Go</button>
+
+}

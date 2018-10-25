@@ -153,5 +153,67 @@ namespace BTAdventure.Services
         }
 
         
+        public Tuple<ChoiceResult, int?> DetermineNextRound(EventChoice eventChoice, bool isPositive)
+        {
+            int? route = null;
+            if (isPositive)
+            {
+                if(eventChoice.PositiveEndingId == null)
+                {
+                    if(eventChoice.PositiveSceneRoute == null)
+                    {
+                        if(eventChoice.PositiveRoute == null)
+                        {
+                            route = -1;
+                            return Tuple.Create(ChoiceResult.Error, route);
+                        }
+                        else
+                        {
+                            route = eventChoice.PositiveRoute;
+                            return Tuple.Create(ChoiceResult.EventChoice, route);
+                        }
+                    }
+                    else
+                    {
+                        route = eventChoice.PositiveSceneRoute;
+                        return Tuple.Create(ChoiceResult.Scene, route);
+                    }
+                }
+                else
+                {
+                    route = eventChoice.PositiveEndingId;
+                    return Tuple.Create(ChoiceResult.Ending, route);
+                }
+            }
+            else
+            {
+                if (eventChoice.NegativeEndingId == null)
+                {
+                    if (eventChoice.NegativeSceneRoute == null)
+                    {
+                        if (eventChoice.NegativeRoute == null)
+                        {
+                            route = -1;
+                            return Tuple.Create(ChoiceResult.Error, route);
+                        }
+                        else
+                        {
+                            route = eventChoice.NegativeRoute;
+                            return Tuple.Create(ChoiceResult.EventChoice, route);
+                        }
+                    }
+                    else
+                    {
+                        route = eventChoice.NegativeSceneRoute;
+                        return Tuple.Create(ChoiceResult.Scene, route);
+                    }
+                }
+                else
+                {
+                    route = eventChoice.NegativeEndingId;
+                    return Tuple.Create(ChoiceResult.Ending, route);
+                }
+            }
+        }
     }
 }
