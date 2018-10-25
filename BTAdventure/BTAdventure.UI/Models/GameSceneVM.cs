@@ -13,5 +13,6 @@ namespace BTAdventure.UI.Models
         public EventChoice EventChoice { get; set; }
         public Outcome Outcome { get; set; }
         public PlayerCharacter PlayerCharacter { get; set; }
+        public Ending Ending { get; set; }
     }
 }

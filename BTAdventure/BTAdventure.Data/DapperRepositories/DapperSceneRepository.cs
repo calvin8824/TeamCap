@@ -45,6 +45,31 @@ namespace BTAdventure.Data.DapperRepositories
 
         public Scene FindById(int? id)
         {
+            const string sql = "SELECT SceneId, GameId, IsStart, SceneName "
+                   + "FROM Scene "
+                   + "WHERE SceneId = @SceneId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                return conn.Query<Scene>(sql, new { SceneId = id })
+                    .FirstOrDefault();
+            }
+        }
+
+        public IEnumerable<Scene> FindByGameId(int id)
+        {
+            const string sql = "SELECT SceneId, GameId, IsStart, SceneName "
+                   + "FROM Scene "
+                   + "WHERE GameId = @GameId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                return conn.Query<Scene>(sql, new { GameId = id });
+            }
+        }
+
+        public Scene FindSceneByCharacterId(int id)
+        {
             throw new NotImplementedException();
         }
 

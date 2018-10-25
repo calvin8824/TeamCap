@@ -30,7 +30,7 @@ namespace BTAdventure.Data.DapperRepositories
             }
         }
 
-        public Ending FindById(int id)
+        public Ending FindById(int? id)
         {
             const string sql = "SELECT EndingId, EndingText "
                    + "FROM Ending "

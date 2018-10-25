@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+﻿            using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -24,6 +24,7 @@ namespace BTAdventure.UI.Models
             
             return userIdentity;
         }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

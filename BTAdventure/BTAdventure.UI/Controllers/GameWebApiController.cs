@@ -4,6 +4,7 @@ using BTAdventure.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -20,17 +21,24 @@ namespace BTAdventure.UI.Controllers
 
         [Route("api/game/")]
         [HttpPost]
-        public ReturnJSONObject Post(ChoiceJSONObject choice)
+        public ReturnJSONObject Post(ChoiceJSONObject choice) //////ADD OUTCOMES
         {
+            var PosOrNeg = choice.PositiveOrNegative;
             var eventChoice = gameService.FindEventChoiceById(choice.EventChoiceId);
             var nextRound = gameService.DetermineNextRound(eventChoice, choice.PositiveOrNegative);
             ReturnJSONObject response = new ReturnJSONObject();
+
+            response.Outcome = gameService.CheckOutcomeStatus(PosOrNeg, choice.EventChoiceId);
+
             if (nextRound.Item1 == ChoiceResult.Ending)
             {
-                var ending = gameService.FindEndingById(nextRound.Item2);
+                Ending ending = gameService.FindEndingById(nextRound.Item2);
                 if (ending != null)
                 {
-                    //return response.Ending;
+                    response.Ending = ending;
+                    response.IsEnding = true;
+                    return response;
+                    //MAY HAVE TO REMOVE EARLY RETURN IF WE HAVE OUTCOMES IN THE ENDING..
                 }
                 //redirect
             }
@@ -44,7 +52,9 @@ namespace BTAdventure.UI.Controllers
                     {
                         if (c.GenerationNumber == 0)
                         {
-                            //return this event 
+                            response.EventChoice = c;
+                            response.Scene = gameService.FindSceneById(c.SceneId);
+                            response.PlayerCharacter = gameService.FindPlayerCharacterById(choice.CharacterId);
                         }
                     }
                     //redirect
@@ -55,22 +65,28 @@ namespace BTAdventure.UI.Controllers
                 var eventChoiceok = gameService.FindEventChoiceById(nextRound.Item2);
                 if (eventChoiceok != null)
                 {
-                    //return this choice
+                    response.EventChoice = eventChoiceok;
+                    response.Scene = gameService.FindSceneById(eventChoiceok.SceneId);
+                    response.PlayerCharacter = gameService.FindPlayerCharacterById(choice.CharacterId);
                 }
             }
             else
             {
-                //redirect to error page
+                //REDIRECT TO ERROR
             }
 
-            return null;
-            //var success = gameService.CombineObject(choice);
+            //outcomes start here.========
 
-            //if (success.Ending.EndingId > 0)
-            //{
-            //    //return redirect somehow??
-            //}
-            //return success;
+
+            return response;
+
+
+
+            //save all the jazz================
+            //gameService.SaveCurrentPlayerCharacterGame();
+
+            return null;
+            
         }
 
 
