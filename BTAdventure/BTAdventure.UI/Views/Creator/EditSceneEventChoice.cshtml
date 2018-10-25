@@ -1,0 +1,98 @@
+﻿@model BTAdventure.UI.Models.EditSceneEventChoiceVM
+@{
+    ViewBag.Title = "EditSceneEventChoice";
+}
+<div class="row">
+    <h2>EditSceneEventChoice</h2>
+    <hr />
+</div>
+
+<div class="row">
+    <button>Edit Scene Title</button>
+    <button>Create New Event</button>
+</div>
+<hr />
+
+
+<div class="row">
+    @if (Model.AllEventByScene.Any())
+    {
+
+        <div class="col-md-12">
+            <div class="row">
+                <br />
+                <div class="col-md-12">
+                    Event ID: @Model.CurrentEvent.EventChoiceId
+                    <br />
+                    Start Event Name:
+                    <input placeholder="EventName" value="@Model.CurrentEvent.EventName" />
+                    <br />
+                    <button>Edit Event</button>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                <div class="col-md-6">
+                    Positive Route Id: @(Model.CurrentEvent.PositiveRoute.HasValue ? Model.CurrentEvent.PositiveRoute.ToString() : "No Positive Route")
+                    <br />
+                    Event Name: @Model.AllEventByScene.Where(s=>s.EventChoiceId == Model.CurrentEvent.PositiveRoute).FirstOrDefault().EventName
+                </div>
+                <div class="col-md-6">
+                    Negative Route Id: @(Model.CurrentEvent.NegativeRoute.HasValue ? Model.CurrentEvent.NegativeRoute.ToString() : "No Negative Route")
+                    <br />
+                    Event Name: @(Model.AllEventByScene.Where(s => s.EventChoiceId == Model.CurrentEvent.NegativeRoute).FirstOrDefault() != null ? Model.AllEventByScene.Where(s => s.EventChoiceId == Model.CurrentEvent.NegativeRoute).FirstOrDefault().EventName : "No Negative Event")
+
+                </div>
+            </div>
+            
+        </div>
+
+
+        @*<div class="row">
+                @Model.CurrentEvent.EventChoiceId;
+                <br />
+                Start Event:
+                <br />
+                <input placeholder="EventName" value="@Model.CurrentEvent.EventName" />
+            </div>
+
+            <div class="row">
+                <div>
+                    Positive: @Model.CurrentEvent.PositiveRoute
+                </div>
+                <div>
+                    Negative: @Model.CurrentEvent.NegativeRoute
+                </div>
+            </div>*@
+    }
+    else
+    {
+        <text>No Event Found</text>
+    }
+</div>
+<hr />
+<div class="row">
+    @if (Model.AllEventByScene.Any() && Model.AllEventByScene.Count() > 1)
+    {
+        <div class="col-6">
+            @if (Model.CurrentEvent.NegativeRoute != null)
+            {
+
+                @:Positive Generation EventId: @Model.AllEventByScene.Where(e => e.EventChoiceId == Model.CurrentEvent.PositiveRoute).First().EventChoiceId
+                <br />
+                @:Positive Generation Title: @Model.AllEventByScene.Where(e => e.EventChoiceId == Model.CurrentEvent.PositiveRoute).First().EventName
+            }
+        </div>
+
+
+        <div class="col-6">
+            @if (Model.CurrentEvent.NegativeRoute != null)
+            {
+                @:Negative Generation EventId: @Model.AllEventByScene.Where(e => e.EventChoiceId == Model.CurrentEvent.NegativeRoute).First().EventChoiceId
+                <br />
+                @:Negative Generation Title: @Model.AllEventByScene.Where(e => e.EventChoiceId == Model.CurrentEvent.NegativeRoute).First().EventName
+            }
+
+        </div>
+    }
+</div>

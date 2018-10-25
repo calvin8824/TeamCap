@@ -1,5 +1,6 @@
 ﻿using BTAdventure.Models;
 using BTAdventure.Services;
+using BTAdventure.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,7 +109,15 @@ namespace BTAdventure.UI.Controllers
         public ActionResult CreateOrEditScene(Scene scene)
         {
             scene = creatorService.CreateScene(scene);
-            return View("SceneMain", scene.GameId);
+            return RedirectToAction("SceneMain",new { id = scene.GameId});
+        }
+
+        public ActionResult EditSceneEventChoice()
+        {
+            var model = new EditSceneEventChoiceVM();
+            model.CurrentEvent = creatorService.GetAllEventChoice().First();
+            model.AllEventByScene = creatorService.GetAllEventChoice().Where(e=>e.SceneId == model.CurrentEvent.SceneId);
+            return View(model);
         }
     }
 }
