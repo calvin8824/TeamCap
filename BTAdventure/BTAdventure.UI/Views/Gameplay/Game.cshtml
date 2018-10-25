@@ -120,8 +120,8 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
-            document.getElementById("health").innerText = '' + data.Outcome.Health + '';
-            document.getElementById("gold").innerText = '' + data.Outcome.Health + '';
+            document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
+            document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
@@ -160,8 +160,8 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
-            document.getElementById("health").innerText = '' + data.Outcome.Health + '';
-            document.getElementById("gold").innerText = '' + data.Outcome.Health + '';
+            document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
+            document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
@@ -169,10 +169,9 @@
             document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
             document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
 
-            document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
-            document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
-            document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
-            document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
+            document.getElementById("positiveText").style.visibility = "hidden"
+            document.getElementById("positiveParagraph").style.visibility = "hidden"
+            document.getElementById("positiveContinue").style.visibility = "hidden"
 
         }).fail(xhrFail);
     });

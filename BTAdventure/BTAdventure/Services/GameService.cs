@@ -82,15 +82,16 @@ namespace BTAdventure.Services
             return playerRepo.Save(player);
         }
 
-        public PlayerCharacter SaveCurrentPlayerCharacterGame(string playerId, int characterId, int sceneId, int eventChoiceId)
+        public PlayerCharacter SaveCurrentPlayerCharacterGame(PlayerCharacter playerCharacter)
         {
-            PlayerCharacter currentCharacter;
-            var allPlayerCharacter = characterRepo.All();
-            currentCharacter = allPlayerCharacter.First(p => p.CharacterId == characterId && p.PlayerId == playerId);
-            currentCharacter.SceneId = sceneId;
-            currentCharacter.EventChoiceId = eventChoiceId;
-            //need to figure out how to handle the gold and health
-            return characterRepo.Save(currentCharacter);
+            //PlayerCharacter currentCharacter;
+            //var allPlayerCharacter = characterRepo.All();
+            //currentCharacter = allPlayerCharacter.First(p => p.CharacterId == characterId && p.PlayerId == playerId);
+            //currentCharacter.SceneId = sceneId;
+            //currentCharacter.EventChoiceId = eventChoiceId;
+            ////need to figure out how to handle the gold and health
+
+            return characterRepo.Save(playerCharacter);
         }
 
         public Outcome CheckOutcomeStatus(bool posOrNeg, int eventChoiceId)

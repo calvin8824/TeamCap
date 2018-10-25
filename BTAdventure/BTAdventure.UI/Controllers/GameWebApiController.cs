@@ -75,17 +75,15 @@ namespace BTAdventure.UI.Controllers
                 //REDIRECT TO ERROR
             }
 
-            //outcomes start here.========
-
+            response.PlayerCharacter.Gold += response.Outcome.Gold;
+            response.PlayerCharacter.HealthPoints += response.Outcome.Health;
+            response.PlayerCharacter.EventChoiceId = response.EventChoice.EventChoiceId; //this SEEMS weird, but since we are updateing the eventchoice table with the tuple, we also need to update PC
+            response.PlayerCharacter.SceneId = response.EventChoice.SceneId;
+            gameService.SaveCurrentPlayerCharacterGame(response.PlayerCharacter);   
+            //PLAYER CHARACTER TABLE IS INCORRECT IN DB AS OF 10 25 18
 
             return response;
-
-
-
-            //save all the jazz================
-            //gameService.SaveCurrentPlayerCharacterGame();
-
-            return null;
+            
             
         }
 
