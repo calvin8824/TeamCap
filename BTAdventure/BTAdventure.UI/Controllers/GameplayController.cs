@@ -1,4 +1,5 @@
-﻿using BTAdventure.Services;
+﻿using BTAdventure.Models;
+using BTAdventure.Services;
 using BTAdventure.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,24 @@ namespace BTAdventure.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Game(int id)//sceneId
+        public ActionResult Game(int id)//we're taking in a character id ... last i heard
         {
-            //we'll have something like if not new game...
-
+            ////MAKE A FIND EVENT CHOICE AND FIND SCENE BY CHARACTERID!!!!
+            
             GameSceneVM vm = new GameSceneVM();
-            vm.Scene = gameSerivce.FindSceneById(id);
-            vm.EventChoice = gameSerivce.FindEventChoiceById(id);
-            //vm.Character = gameSerivce.FindListOfPlayerCharactersByPlayerId();
-            vm.PlayerCharacter = gameSerivce.FindPlayerCharacterById(2);
+            vm.PlayerCharacter = gameSerivce.FindPlayerCharacterById(id);
+            
+            vm.Scene = gameSerivce.FindSceneById(vm.PlayerCharacter.SceneId);
+            vm.EventChoice = gameSerivce.FindEventChoiceById(vm.PlayerCharacter.EventChoiceId);
+            return View(vm);
+        }
+
+        [HttpGet]
+        public ActionResult Ending(int id)
+        {
+            GameSceneVM vm = new GameSceneVM();
+            vm.Ending = gameSerivce.FindEndingById(id);
+
             return View(vm);
         }
     }

@@ -45,6 +45,31 @@ namespace BTAdventure.Data.DapperRepositories
 
         public Scene FindById(int? id)
         {
+            const string sql = "SELECT SceneId, GameId, IsStart, SceneName "
+                   + "FROM Scene "
+                   + "WHERE SceneId = @SceneId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                return conn.Query<Scene>(sql, new { SceneId = id })
+                    .FirstOrDefault();
+            }
+        }
+
+        public IEnumerable<Scene> FindByGameId(int id)
+        {
+            const string sql = "SELECT SceneId, GameId, IsStart, SceneName "
+                   + "FROM Scene "
+                   + "WHERE GameId = @GameId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                return conn.Query<Scene>(sql, new { GameId = id });
+            }
+        }
+
+        public Scene FindSceneByCharacterId(int id)
+        {
             throw new NotImplementedException();
         }
 
@@ -59,8 +84,8 @@ namespace BTAdventure.Data.DapperRepositories
 
         private Scene Insert(Scene scene)
         {
-            const string sql = "INSERT INTO Scene (SceneName) "
-                   + "VALUES (@SceneName); "
+            const string sql = "INSERT INTO Scene (SceneName, isStart, GameId) "
+                   + "VALUES (@SceneName, @isStart, @GameId); "
                    + "SELECT SCOPE_IDENTITY()";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
@@ -73,8 +98,8 @@ namespace BTAdventure.Data.DapperRepositories
         private Scene Update(Scene scene)
         {
             const string sql = "UPDATE Scene SET "
-                + "GameId = @GameId "
-                + "IsStart = @IsStart "
+                + "GameId = @GameId, "
+                + "IsStart = @IsStart, "
                 + "SceneName = @SceneName "
                 + "WHERE SceneId = @SceneId;";
 
