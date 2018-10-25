@@ -32,8 +32,25 @@ namespace BTAdventure.Services
 
         public Scene CreateScene(Scene scene)
         {
-            return sceneRepo.Save(scene);
+            //Returns the result of the Save call to return a new scene with the id.
+            Scene newScene = sceneRepo.Save(scene);
 
+            //Creates a default event as the start event in the scene. Gen# 0 denotes starting point.
+            EventChoice originChoice = new EventChoice()
+            {
+                EventName = "Default Name",
+                GenerationNumber = 0,
+                PositiveButton = "Default Button Text",
+                NegativeButton = "Default Button Text",
+                SceneId = scene.SceneId,
+                StartText = "Default Start Text",
+                PositiveText = "Default Result Text",
+                NegativeText = "Default Result Text"
+            };
+
+            choiceRepo.Save(originChoice);
+
+            return newScene;
         }
 
         public EventChoice SaveEventChoice(EventChoice eventChoice)
@@ -52,6 +69,69 @@ namespace BTAdventure.Services
 
             return savedEventChoice;
         }
+
+        //Deletes events and recalculates the Gen# of related events.
+        public void DeleteEventChoice(int? id)
+        {
+            if(id != null)
+            {
+                EventChoice deletedEvent = choiceRepo.FindById(id);
+
+                if (choiceRepo.Delete((int)id))
+                {
+                    if(deletedEvent.NegativeRoute != null)
+                    {
+                        //    EventChoice nChoice = choiceRepo.FindById(deletedEvent.NegativeRoute);
+                        //    nChoice.GenerationNumber = null;
+
+                        //    choiceRepo.Save(nChoice);
+                        UpdateGenerationNumber(deletedEvent.NegativeRoute);
+                    }
+
+                    if (deletedEvent.PositiveRoute != null)
+                    {
+                        //    EventChoice pChoice = choiceRepo.FindById(deletedEvent.PositiveRoute);
+                        //    pChoice.GenerationNumber = null;
+
+                        //    choiceRepo.Save(pChoice);
+
+                        UpdateGenerationNumber(deletedEvent.PositiveRoute);
+                    }
+                }
+            }
+        }
+
+        public void DeleteScene(int id)
+        {
+            //If call deleted scene, find and delete all related events.
+            if (sceneRepo.Delete(id))
+            {
+                List<EventChoice> eventChoices = choiceRepo.FindBySceneId(id).ToList();
+
+                foreach(var c in eventChoices)
+                {
+                    choiceRepo.Delete(c.EventChoiceId);
+                }
+            }
+        }
+
+        public void DeleteGame(int id)
+        {
+            //If call deleted game, find and delete all related events. 
+            if (gamerepo.Delete(id))
+            {
+                List<Scene> scenes = sceneRepo.FindByGameId(id).ToList();
+
+                foreach(var s in scenes)
+                {
+                    DeleteScene(s.SceneId);
+                }
+            }
+        }
+
+        //Reset gen number on delete
+        //Delete related scenes and events on game delete
+        //Delete related events on scene delete
 
         public Game CreateGame(Game game)
         {
@@ -73,6 +153,7 @@ namespace BTAdventure.Services
             return choiceRepo.All().ToList();
         }
 
+        //Recalculates the Gen# of the related event.
         private void UpdateGenerationNumber(int? pairedId)
         {
             if (pairedId != null)
@@ -101,6 +182,8 @@ namespace BTAdventure.Services
                     {
                         updateChoice.GenerationNumber = null;
                     }
+
+                    choiceRepo.Save(updateChoice);
                 }
             }
         }
