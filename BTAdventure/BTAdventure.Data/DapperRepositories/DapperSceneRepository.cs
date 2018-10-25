@@ -32,7 +32,7 @@ namespace BTAdventure.Data.DapperRepositories
 
         public Scene FindById(int id)
         {
-            const string sql = "SELECT SceneId, IsStart, SceneName "
+            const string sql = "SELECT SceneId, GameId, IsStart, SceneName "
                    + "FROM Scene "
                    + "WHERE SceneId = @SceneId;";
 
@@ -59,8 +59,8 @@ namespace BTAdventure.Data.DapperRepositories
 
         private Scene Insert(Scene scene)
         {
-            const string sql = "INSERT INTO Scene (SceneName, isStart) "
-                   + "VALUES (@SceneName, @isStart); "
+            const string sql = "INSERT INTO Scene (SceneName, isStart, GameId) "
+                   + "VALUES (@SceneName, @isStart, @GameId,); "
                    + "SELECT SCOPE_IDENTITY()";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
@@ -73,6 +73,7 @@ namespace BTAdventure.Data.DapperRepositories
         private Scene Update(Scene scene)
         {
             const string sql = "UPDATE Scene SET "
+                + "GameId = @GameId, "
                 + "IsStart = @IsStart, "
                 + "SceneName = @SceneName "
                 + "WHERE SceneId = @SceneId;";
