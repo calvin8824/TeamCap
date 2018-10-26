@@ -96,7 +96,7 @@ namespace BTAdventure.Data.DapperRepositories
             return null;
         }
 
-        public Outcome FindOutcomeByEventChoiceId(int id)
+        public IEnumerable<Outcome> FindOutcomeByEventChoiceId(int id)
         {
             const string sql = "SELECT OutcomeId, Positive, Health, Gold "
                    + "FROM Outcome "
@@ -104,7 +104,7 @@ namespace BTAdventure.Data.DapperRepositories
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
             {
-                return conn.Query<Outcome>(sql, new { EventChoiceId = id }).FirstOrDefault();
+                return conn.Query<Outcome>(sql, new { EventChoiceId = id });
             }
         }
 
