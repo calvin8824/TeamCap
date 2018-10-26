@@ -106,11 +106,38 @@ namespace BTAdventure.Services
             //If call deleted scene, find and delete all related events.
             if (sceneRepo.Delete(id))
             {
+                //Events to delete
                 List<EventChoice> eventChoices = choiceRepo.FindBySceneId(id).ToList();
 
                 foreach(var c in eventChoices)
                 {
                     choiceRepo.Delete(c.EventChoiceId);
+                }
+
+                //List of scenes in game
+                foreach(var s in sceneRepo.FindByGameId(id))
+                {
+                    //List of events to check for references to this scene
+                    foreach(var c in choiceRepo.FindBySceneId(s.SceneId))
+                    {
+                        if (c.PositiveSceneRoute == id)
+                        {
+                            c.PositiveSceneRoute = null;
+
+                            if (c.NegativeSceneRoute == id)
+                            {
+                                c.NegativeSceneRoute = null;
+                                choiceRepo.Save(c);
+                            }
+
+                            choiceRepo.Save(c);
+                        }
+                        else if (c.NegativeSceneRoute == id)
+                        {
+                            c.NegativeSceneRoute = null;
+                            choiceRepo.Save(c);
+                        }
+                    }
                 }
             }
         }
@@ -129,7 +156,7 @@ namespace BTAdventure.Services
             }
         }
         
-        public IEnumerable<Ending> AllEndings()
+        public IEnumerable<Ending> GetAllEndings()
         {
             return endingRepo.All();
         }

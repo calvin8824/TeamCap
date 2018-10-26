@@ -391,6 +391,7 @@
     <Content Include="Views\Account\Choose.cshtml" />
     <Content Include="Views\Account\AdminControlCentre.cshtml" />
     <Content Include="Views\Gameplay\Ending.cshtml" />
+    <Content Include="Views\Creator\CreateEditEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
