@@ -101,6 +101,44 @@ namespace BTAdventure.Services
             }
         }
 
+        public IEnumerable<EventChoice> FindEventsBySceneId(int sceneId)
+        {
+            return choiceRepo.FindBySceneId(sceneId);
+        }
+
+        public IEnumerable<Scene> FindScenesInGameBySceneId(int sceneId)
+        {
+            Scene scene = sceneRepo.FindById(sceneId);
+            List<Scene> scenes = sceneRepo.FindByGameId(scene.GameId).ToList();
+
+            return scenes;
+        }
+
+        public IEnumerable<Ending> FindGameEndingBySceneId(int sceneId)
+        {
+            List<Ending> endings = new List<Ending>();
+
+            return endings;
+        }
+
+        public IEnumerable<EventChoice> FindEventsWithHigherGenNumber(int eventId, int sceneId)
+        {
+            EventChoice comparedChoice = choiceRepo.FindById(eventId);
+
+            List<EventChoice> eventChoices = choiceRepo.FindBySceneId(sceneId).ToList();
+            List<EventChoice> validChoices = new List<EventChoice>();
+
+            foreach (var c in eventChoices)
+            {
+                if(c.GenerationNumber > comparedChoice.GenerationNumber)
+                {
+                    validChoices.Add(c);
+                }
+            }
+
+            return validChoices;
+        }
+
         public void DeleteScene(int id)
         {
             //If call deleted scene, find and delete all related events.
@@ -270,7 +308,7 @@ namespace BTAdventure.Services
                 {
                     List<EventChoice> eventChoices = new List<EventChoice>();
 
-                    foreach (var c in choiceRepo.All())
+                    foreach (var c in choiceRepo.FindBySceneId(updateChoice.SceneId))
                     {
                         if (c.PositiveRoute == updateChoice.EventChoiceId || c.NegativeRoute == updateChoice.EventChoiceId)
                         {

@@ -59,6 +59,7 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerCharacter.cs" />
     <Compile Include="Models\ReturnJSONObject.cs" />
+    <Compile Include="Models\SaveEventRequest.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CreatorService.cs" />

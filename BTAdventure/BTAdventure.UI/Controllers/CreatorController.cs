@@ -130,7 +130,63 @@ namespace BTAdventure.UI.Controllers
             var model = new EventCreationData();
             model.SceneId = editCreateEventRequest.SceneId;
             model.EventChoice = creatorService.FindEventById(editCreateEventRequest.EventId);
+            
             return View("CreateEditEvent",model);
+        }
+
+        private ActionResult FailedSaveEvent(SaveEventRequest saveEventRequest)
+        {
+            EventCreationData eventCreationData = new EventCreationData();
+            eventCreationData.EventChoice = new EventChoice
+            {
+                EventChoiceId = saveEventRequest.EventId,
+                SceneId = saveEventRequest.SceneId,
+                GenerationNumber = saveEventRequest.GenerationNumber,
+                EventName = saveEventRequest.EventName,
+                StartText = saveEventRequest.StartText,
+                PositiveText = saveEventRequest.PositiveText,
+                NegativeText = saveEventRequest.NegativeText,
+                PositiveButton = saveEventRequest.PositiveButton,
+                NegativeButton = saveEventRequest.NegativeButton,
+                PositiveRoute = saveEventRequest.PositiveRoute,
+                NegativeRoute = saveEventRequest.NegativeRoute,
+                PositiveSceneRoute = saveEventRequest.PositiveSceneRoute,
+                NegativeSceneRoute = saveEventRequest.NegativeSceneRoute,
+                PositiveEndingId = saveEventRequest.PositiveEndingId,
+                NegativeEndingId = saveEventRequest.NegativeEndingId
+            };
+            eventCreationData.AvailableChoices = creatorService.FindEventsWithHigherGenNumber(saveEventRequest.EventId, saveEventRequest.SceneId);
+            List<Scene> scenes = new List<Scene>();
+            foreach(var s in creatorService.FindScenesInGameBySceneId(saveEventRequest.SceneId))
+            {
+                if(s.SceneId != saveEventRequest.SceneId)
+                {
+                    scenes.Add(s);
+                }
+            }
+            
+            eventCreationData.GameScenes = scenes;
+            eventCreationData.GameEndings = creatorService.FindGameEndingBySceneId(saveEventRequest.SceneId);
+            eventCreationData.PositiveOutcome = new Outcome();
+            eventCreationData.NegativeOutcome = new Outcome();
+            eventCreationData.SceneId = -12;
+
+            return View("CreateEditEvent", eventCreationData);
+        }
+
+        [HttpPost]
+        public ActionResult SaveEvent(SaveEventRequest saveEventRequest)
+        {
+            bool isValid = true;
+
+            if (isValid)
+            {
+                return EditGeneration(saveEventRequest.SceneId);
+            }
+            else
+            {
+                return FailedSaveEvent(saveEventRequest);
+            }
         }
 
         //Testing only. Remove when done.
@@ -138,6 +194,13 @@ namespace BTAdventure.UI.Controllers
         {
             EventCreationData eventCreationData = new EventCreationData();
             eventCreationData.EventChoice = new EventChoice();
+            eventCreationData.AvailableChoices = new List<EventChoice>();
+            eventCreationData.GameScenes = new List<Scene>();
+            eventCreationData.GameEndings = new List<Ending>();
+            eventCreationData.PositiveOutcome = new Outcome();
+            eventCreationData.NegativeOutcome = new Outcome();
+            eventCreationData.SceneId = -12;
+
             return View(eventCreationData);
         }
 
