@@ -101,42 +101,124 @@ namespace BTAdventure.Services
             }
         }
 
+        public IEnumerable<EventChoice> FindEventsBySceneId(int sceneId)
+        {
+            return choiceRepo.FindBySceneId(sceneId);
+        }
+
+        public IEnumerable<Scene> FindScenesInGameBySceneId(int sceneId)
+        {
+            Scene scene = sceneRepo.FindById(sceneId);
+            List<Scene> scenes = sceneRepo.FindByGameId(scene.GameId).ToList();
+
+            return scenes;
+        }
+
+        public IEnumerable<Ending> FindGameEndingBySceneId(int sceneId)
+        {
+            List<Ending> endings = new List<Ending>();
+
+            return endings;
+        }
+
+        public IEnumerable<EventChoice> FindEventsWithHigherGenNumber(int eventId, int sceneId)
+        {
+            EventChoice comparedChoice = choiceRepo.FindById(eventId);
+
+            List<EventChoice> eventChoices = choiceRepo.FindBySceneId(sceneId).ToList();
+            List<EventChoice> validChoices = new List<EventChoice>();
+
+            foreach (var c in eventChoices)
+            {
+                if(c.GenerationNumber > comparedChoice.GenerationNumber)
+                {
+                    validChoices.Add(c);
+                }
+            }
+
+            return validChoices;
+        }
+
         public void DeleteScene(int id)
         {
-            //If call deleted scene, find and delete all related events.
-            if (sceneRepo.Delete(id))
+            //problems with foreign keys -danny
+            ////If call deleted scene, find and delete all related events.
+            //if (sceneRepo.Delete(id))
+            //{
+            //    //Events to delete
+            //    List<EventChoice> eventChoices = choiceRepo.FindBySceneId(id).ToList();
+
+            //    foreach (var c in eventChoices)
+            //    {
+            //        choiceRepo.Delete(c.EventChoiceId);
+            //    }
+
+            //    //List of scenes in game
+            //    foreach (var s in sceneRepo.FindByGameId(id))
+            //    {
+            //        //List of events to check for references to this scene
+            //        foreach (var c in choiceRepo.FindBySceneId(s.SceneId))
+            //        {
+            //            if (c.PositiveSceneRoute == id)
+            //            {
+            //                c.PositiveSceneRoute = null;
+
+            //                if (c.NegativeSceneRoute == id)
+            //                {
+            //                    c.NegativeSceneRoute = null;
+            //                    choiceRepo.Save(c);
+            //                }
+
+            //                choiceRepo.Save(c);
+            //            }
+            //            else if (c.NegativeSceneRoute == id)
+            //            {
+            //                c.NegativeSceneRoute = null;
+            //                choiceRepo.Save(c);
+            //            }
+            //        }
+            //    }
+            //}
+
+            var allEventsBySceneId = choiceRepo.All().Where(e => e.SceneId == id);
+            foreach (var evnt in allEventsBySceneId)
             {
-                //Events to delete
-                List<EventChoice> eventChoices = choiceRepo.FindBySceneId(id).ToList();
+                var allPlayerCharacterByEventId = characterRepo.All().Where(c => c.EventChoiceId == evnt.EventChoiceId);
+                var allOutcomeByEventId = outcomeRepo.All().Where(o => o.EventChoiceId == evnt.EventChoiceId);
 
-                foreach (var c in eventChoices)
+                foreach (var character in allPlayerCharacterByEventId)
                 {
-                    choiceRepo.Delete(c.EventChoiceId);
+                    characterRepo.Delete(character.CharacterId);
                 }
-
-                //List of scenes in game
-                foreach (var s in sceneRepo.FindByGameId(id))
+                foreach (var outcome in allOutcomeByEventId)
                 {
-                    //List of events to check for references to this scene
-                    foreach (var c in choiceRepo.FindBySceneId(s.SceneId))
+                    outcomeRepo.Delete(outcome.OutcomeId);
+                }
+                choiceRepo.Delete(evnt.EventChoiceId);
+            }
+            sceneRepo.Delete(id);
+
+            foreach (var s in sceneRepo.FindByGameId(id))
+            {
+                //List of events to check for references to this scene
+                foreach (var c in choiceRepo.FindBySceneId(s.SceneId))
+                {
+                    if (c.PositiveSceneRoute == id)
                     {
-                        if (c.PositiveSceneRoute == id)
-                        {
-                            c.PositiveSceneRoute = null;
+                        c.PositiveSceneRoute = null;
 
-                            if (c.NegativeSceneRoute == id)
-                            {
-                                c.NegativeSceneRoute = null;
-                                choiceRepo.Save(c);
-                            }
-
-                            choiceRepo.Save(c);
-                        }
-                        else if (c.NegativeSceneRoute == id)
+                        if (c.NegativeSceneRoute == id)
                         {
                             c.NegativeSceneRoute = null;
                             choiceRepo.Save(c);
                         }
+
+                        choiceRepo.Save(c);
+                    }
+                    else if (c.NegativeSceneRoute == id)
+                    {
+                        c.NegativeSceneRoute = null;
+                        choiceRepo.Save(c);
                     }
                 }
             }
@@ -156,26 +238,40 @@ namespace BTAdventure.Services
             //        DeleteScene(s.SceneId);
             //    }
             //}
+
+
+
             var allScenesByGameId = sceneRepo.FindByGameId(id);
+
             foreach (var scene in allScenesByGameId)
             {
-                var allEventBySceneId = choiceRepo.FindBySceneId(scene.SceneId);
-                foreach (var evnt in allEventBySceneId)
-
+                var allEventsBySceneId = choiceRepo.All().Where(e=>e.SceneId == scene.SceneId);
+                foreach (var evnt in allEventsBySceneId)
                 {
-                    var allOutcome = outcomeRepo.All();
-                    foreach (var outcome in allOutcome)
+                    var allPlayerCharacterByEventId = characterRepo.All().Where(c=>c.EventChoiceId == evnt.EventChoiceId);
+                    var allOutcomeByEventId = outcomeRepo.All().Where(o=>o.EventChoiceId == evnt.EventChoiceId);
+
+                    foreach (var character in allPlayerCharacterByEventId)
                     {
-                        if (evnt.EventChoiceId == outcome.EventChoiceId)
-                        {
-                            outcomeRepo.Delete(evnt.EventChoiceId);
-                        }
+                        characterRepo.Delete(character.CharacterId);
                     }
-                    choiceRepo.Delete(scene.SceneId);
+                    foreach(var outcome in allOutcomeByEventId)
+                    {
+                        outcomeRepo.Delete(outcome.OutcomeId);
+                    }
+                    choiceRepo.Delete(evnt.EventChoiceId);
 
                 }
                 sceneRepo.Delete(scene.SceneId);
             }
+
+            var allEndingByGameId = endingRepo.All().Where(e=>e.GameId == id);
+            foreach (var ending in allEndingByGameId)
+            {
+                endingRepo.Delete(ending.EndingId);
+            }
+            gamerepo.Delete(id);
+
         }
 
         public Ending SaveEnding(Ending ending)
@@ -244,6 +340,11 @@ namespace BTAdventure.Services
             return editedEnding;
         }
 
+        public Game EditGame(Game game)
+        {
+            return gamerepo.Save(game);
+        }
+
         public Game CreateGame(Game game)
         {
             return gamerepo.Save(game);
@@ -275,7 +376,7 @@ namespace BTAdventure.Services
                 {
                     List<EventChoice> eventChoices = new List<EventChoice>();
 
-                    foreach (var c in choiceRepo.All())
+                    foreach (var c in choiceRepo.FindBySceneId(updateChoice.SceneId))
                     {
                         if (c.PositiveRoute == updateChoice.EventChoiceId || c.NegativeRoute == updateChoice.EventChoiceId)
                         {

@@ -9,12 +9,16 @@
 </div>
 
 <div class="row">
+    @Html.ActionLink("Edit Game Title","NewOrEditGame", new { Id = ViewBag.gameId }, new { @class= "btn btn-primary" } )
+    @*<button>Edit Game Title</button>*@
+    <button>New Ending</button>
+    <button>Edit Ending</button>
     <button>Edit Game</button>
     @Html.ActionLink("New Ending", "NewEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Edit Ending", "EditEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
 </div>
 <div class="row">
-    Game ID: @ViewBag.GameTitle
+    Game Name: @ViewBag.GameTitle
 </div>
 <div class="row">
     @if (Model.Any())
@@ -37,9 +41,10 @@
                             <td>@a.SceneId</td>
                             <td>@a.SceneName</td>
                             <td>
-                                @Html.ActionLink("Edit", "EditGeneration", "Creator",new { sceneId = a.SceneId},  new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Edit", "EditGeneration", "Creator", new { sceneId = a.SceneId }, new { @class = "btn btn-primary" })
                                 @*<a href="CreateOrEditScene\@a.SceneId" class="btn btn-primary">Edit</a>*@
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                @*<a href="#" class="btn btn-danger">Delete</a>*@
+                                @Html.ActionLink("Delete", "DeleteScene", "Creator", new { id = a.SceneId }, new { @class = "btn btn-primary" })
                             </td>
                         </tr>
                     }
