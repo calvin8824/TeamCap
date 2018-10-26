@@ -96,3 +96,13 @@ textarea {
     max-height: 100%;
     max-width: 100%;
 }
+
+.eventStartTextArea {
+    height: 200px;
+    width: 350px;
+}
+
+.eventTextArea {
+    height: 200px;
+    width: 400px;
+}
