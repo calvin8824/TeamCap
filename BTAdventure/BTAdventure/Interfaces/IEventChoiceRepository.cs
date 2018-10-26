@@ -14,6 +14,7 @@ namespace BTAdventure.Interfaces
         EventChoice Save(EventChoice level);
         bool Delete(int id);
         IEnumerable<EventChoice> FindBySceneId(int? sceneRoute);
-
+        void UpdateEndingIdNeg(int eventChoiceId);
+        void UpdateEndingIdPos(int eventChoiceId);
     }
 }

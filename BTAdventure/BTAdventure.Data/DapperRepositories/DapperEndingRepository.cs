@@ -43,6 +43,18 @@ namespace BTAdventure.Data.DapperRepositories
             }
         }
 
+        public IEnumerable<Ending> FindEndingsByGameId(int id)
+        {
+            const string sql = "SELECT EndingId, GameId, EndingName, EndingText "
+                   + "FROM Ending "
+                   + "WHERE GameId = @GameId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                return conn.Query<Ending>(sql, new { GameId = id });
+            }
+        }
+
         public Ending Save(Ending ending)
         {
             if (ending.EndingId > 0)

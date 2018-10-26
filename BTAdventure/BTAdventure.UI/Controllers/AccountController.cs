@@ -87,7 +87,8 @@ namespace BTAdventure.UI.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("UserCommandCentre", "Account");
+                    //return RedirectToAction("UserCommandCentre", "Account");
+                    return RedirectToAction("LoadGame", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -186,6 +187,7 @@ namespace BTAdventure.UI.Controllers
         //[AllowAnonymous]
         public ActionResult UserCommandCentre()
         {
+            
             using (var context = new ApplicationDbContext())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
@@ -206,7 +208,6 @@ namespace BTAdventure.UI.Controllers
         [HttpPost]
         public ActionResult UserCommandCentre(PlayerCharacter player)
         {
-
             return RedirectToAction("Game", "Gameplay", player);
         }
 
