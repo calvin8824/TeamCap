@@ -37,7 +37,8 @@
                             <td>@a.SceneId</td>
                             <td>@a.SceneName</td>
                             <td>
-                                <a href="#" class="btn btn-primary">Edit</a>
+                                @Html.ActionLink("Edit", "EditGeneration", "Creator",new { sceneId = a.SceneId},  new { @class = "btn btn-primary" })
+                                @*<a href="CreateOrEditScene\@a.SceneId" class="btn btn-primary">Edit</a>*@
                                 <a href="#" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>

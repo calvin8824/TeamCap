@@ -144,15 +144,36 @@ namespace BTAdventure.Services
 
         public void DeleteGame(int id)
         {
-            //If call deleted game, find and delete all related events. 
-            if (gamerepo.Delete(id))
-            {
-                List<Scene> scenes = sceneRepo.FindByGameId(id).ToList();
+            //There were some problems in the database where foreign keys needed to be deleted first
 
-                foreach(var s in scenes)
+            ////If call deleted game, find and delete all related events. 
+            //if (gamerepo.Delete(id))
+            //{
+            //    List<Scene> scenes = sceneRepo.FindByGameId(id).ToList();
+
+            //    foreach(var s in scenes)
+            //    {
+            //        DeleteScene(s.SceneId);
+            //    }
+            //}
+            var allScenesByGameId = sceneRepo.FindByGameId(id);
+            foreach (var scene in allScenesByGameId)
+            {
+                var allEventBySceneId = choiceRepo.FindBySceneId(scene.SceneId);
+                foreach (var evnt in allEventBySceneId)
                 {
-                    DeleteScene(s.SceneId);
+                    var allOutcome = outcomeRepo.All();
+                    foreach (var outcome in allOutcome)
+                    {
+                        if (evnt.EventChoiceId == outcome.EventChoiceId)
+                        {
+                            outcomeRepo.Delete(evnt.EventChoiceId);
+                        }
+                    }
+                    choiceRepo.Delete(scene.SceneId);
+
                 }
+                sceneRepo.Delete(scene.SceneId);
             }
         }
         
