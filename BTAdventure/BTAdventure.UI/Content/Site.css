@@ -140,3 +140,13 @@ textarea {
     margin-top: 5px;
     padding:inherit;
 }
+
+.eventStartTextArea {
+    height: 200px;
+    width: 350px;
+}
+
+.eventTextArea {
+    height: 200px;
+    width: 400px;
+}
