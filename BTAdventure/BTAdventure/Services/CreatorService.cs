@@ -159,14 +159,9 @@ namespace BTAdventure.Services
             var allScenesByGameId = sceneRepo.FindByGameId(id);
             foreach (var scene in allScenesByGameId)
             {
-<<<<<<< HEAD
                 var allEventBySceneId = choiceRepo.FindBySceneId(scene.SceneId);
                 foreach (var evnt in allEventBySceneId)
-=======
-                List<Scene> scenes = sceneRepo.FindByGameId(id).ToList();
 
-                foreach (var s in scenes)
->>>>>>> 27652e20efb318aca338f986ea7e8d72a7dee82f
                 {
                     var allOutcome = outcomeRepo.All();
                     foreach (var outcome in allOutcome)

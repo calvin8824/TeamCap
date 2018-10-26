@@ -112,7 +112,6 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("SceneMain",new { id = scene.GameId});
         }
 
-<<<<<<< HEAD
         public ActionResult EditGeneration(int sceneId)
         {
             var model = new EditGenerationVM();
@@ -123,7 +122,8 @@ namespace BTAdventure.UI.Controllers
             model.AllEventChoice = creatorService.GetAllEventChoice();
             model.AllScene = creatorService.GetAllScenes();
             return View(model);
-=======
+        }
+
         [HttpPost]
         public ActionResult EditSceneEventChoice(EditCreateEventRequest editCreateEventRequest)
         {
@@ -139,7 +139,6 @@ namespace BTAdventure.UI.Controllers
             EventCreationData eventCreationData = new EventCreationData();
             eventCreationData.EventChoice = new EventChoice();
             return View(eventCreationData);
->>>>>>> 27652e20efb318aca338f986ea7e8d72a7dee82f
         }
 
         public ActionResult DeleteGame(int id)
