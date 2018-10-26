@@ -390,12 +390,10 @@
     <Content Include="Views\Creator\CreateEditEvent.cshtml" />
     <Content Include="Views\Creator\EditGeneration.cshtml" />
     <Content Include="Views\Creator\DeleteGame.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Creator\DeleteScene.cshtml" />
-=======
     <Content Include="Views\Creator\NewEnding.cshtml" />
     <Content Include="Views\Creator\EditEnding.cshtml" />
->>>>>>> 2952bf07cdeb75cb6160d33308f46e83c1ef076b
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

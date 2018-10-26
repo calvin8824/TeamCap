@@ -161,7 +161,6 @@ namespace BTAdventure.UI.Controllers
             return View("Index");
         }
 
-<<<<<<< HEAD
         public ActionResult DeleteScene(int id)
         {
             var scene = creatorService.GetAllScenes().Where(s=>s.SceneId == id).First();
@@ -173,7 +172,8 @@ namespace BTAdventure.UI.Controllers
         {
             creatorService.DeleteScene(scene.SceneId);
             return View("Index");
-=======
+        }
+
         public ActionResult NewEnding(int gameId) //grab game id
         {
             //find game by game id, then associate ending..
@@ -210,7 +210,6 @@ namespace BTAdventure.UI.Controllers
             creatorService.DeleteEndingById(thisEnding.EndingId);
             //delete from service
             return RedirectToAction("Index");
->>>>>>> 2952bf07cdeb75cb6160d33308f46e83c1ef076b
         }
     }
 }
