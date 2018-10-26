@@ -210,30 +210,30 @@ namespace BTAdventure.Services
             Ending ending = endingRepo.FindById(id);
 
             //If the ending is deleted, find all scenes in game. Then, check each event in scene to set event ending routes to null if they use this ending.
-            if (endingRepo.Delete(id))
+
+
+            List<Scene> scenes = sceneRepo.FindByGameId(ending.GameId).ToList();
+
+            foreach (var s in scenes)
             {
-                List<Scene> scenes = sceneRepo.FindByGameId(ending.GameId).ToList();
+                List<EventChoice> choices = choiceRepo.FindBySceneId(s.SceneId).ToList();
 
-                foreach(var s in scenes)
+                foreach (var c in choices)
                 {
-                    List<EventChoice> choices = choiceRepo.FindBySceneId(s.SceneId).ToList();
-
-                    foreach(var c in choices)
+                    if (c.PositiveEndingId == ending.EndingId)
                     {
-                        if(c.PositiveEndingId == ending.EndingId)
-                        {
-                            c.PositiveEndingId = null;
-                            choiceRepo.Save(c);
-                        }
+                        choiceRepo.UpdateEndingIdPos(c.EventChoiceId);
+                    }
 
-                        if (c.NegativeEndingId == ending.EndingId)
-                        {
-                            c.NegativeEndingId = null;
-                            choiceRepo.Save(c);
-                        }
+                    if (c.NegativeEndingId == ending.EndingId)
+                    {
+                        choiceRepo.UpdateEndingIdNeg(c.EventChoiceId);
                     }
                 }
             }
+            endingRepo.Delete(id);
+
+
         }
 
         //Same as create, for now. Separated in case they diverge later.
@@ -271,7 +271,7 @@ namespace BTAdventure.Services
             {
                 EventChoice updateChoice = choiceRepo.FindById(pairedId);
 
-                if(updateChoice != null)
+                if (updateChoice != null)
                 {
                     List<EventChoice> eventChoices = new List<EventChoice>();
 

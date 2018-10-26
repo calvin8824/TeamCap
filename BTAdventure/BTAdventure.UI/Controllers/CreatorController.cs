@@ -188,6 +188,7 @@ namespace BTAdventure.UI.Controllers
         {
             var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.GameId == gameId);
             creatorService.DeleteEndingById(thisEnding.EndingId);
+            
             //delete from service
             return RedirectToAction("Index");
         }
