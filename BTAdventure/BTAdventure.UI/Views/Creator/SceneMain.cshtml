@@ -9,16 +9,13 @@
 </div>
 
 <div class="row">
-<<<<<<< HEAD
     @Html.ActionLink("Edit Game Title","NewOrEditGame", new { Id = ViewBag.gameId }, new { @class= "btn btn-primary" } )
     @*<button>Edit Game Title</button>*@
     <button>New Ending</button>
     <button>Edit Ending</button>
-=======
     <button>Edit Game</button>
     @Html.ActionLink("New Ending", "NewEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Edit Ending", "EditEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
->>>>>>> 2952bf07cdeb75cb6160d33308f46e83c1ef076b
 </div>
 <div class="row">
     Game Name: @ViewBag.GameTitle
