@@ -272,6 +272,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EditSceneEventChoiceVM.cs" />
     <Compile Include="Models\GameSceneVM.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LogInContext.cs" />
