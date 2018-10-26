@@ -20,7 +20,7 @@
                 
                 <div class="wireframe"><p>Health: <div id="health">@Model.PlayerCharacter.HealthPoints</div>Gold: <div id="gold">@Model.PlayerCharacter.Gold</div></p></div>
             </div>
-            <img class="gameImage" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
+            <img class="responsive gameImage" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
             <div class="row">
                 <div class="col-md-12">
                     <input type="hidden" id="characterId" value="@Model.PlayerCharacter.CharacterId">
@@ -38,11 +38,11 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <button type="button" id="positiveButton" class="btn btn-outline-success" onclick="OpenPositiveResponse();">@Model.EventChoice.PositiveButton</button>
+                    <button type="button" id="positiveButton" class="goodChoiceButton" onclick="OpenPositiveResponse();">@Model.EventChoice.PositiveButton</button>
                 </div>
 
                 <div class="col-md-6">
-                    <button type="button" id="negativeButton" class="btn btn-outline-danger" onclick="OpenNegativeResponse();">@Model.EventChoice.NegativeButton</button>
+                    <button type="button" id="negativeButton" class="badChoiceButton" onclick="OpenNegativeResponse();">@Model.EventChoice.NegativeButton</button>
                 </div>
             </div>
         </div>
@@ -122,9 +122,12 @@
             }
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
-            document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
 
+            $("#storyPicture").fadeOut("slow");
+            document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
+            $("#storyPicture").fadeIn("slow");
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
+
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
             document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
             document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
@@ -163,7 +166,11 @@
             }
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
+
+            $("#storyPicture").fadeOut("slow");
             document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
+            $("#storyPicture").fadeIn("slow");
+            $(this).attr({ src: fullPath }).on('load', function () { $(this).fadeIn(); });
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
