@@ -20,7 +20,7 @@
                 
                 <div class="wireframe"><p>Health: <div id="health">@Model.PlayerCharacter.HealthPoints</div>Gold: <div id="gold">@Model.PlayerCharacter.Gold</div></p></div>
             </div>
-            <img class="gameImage" alt="storyPicture" src="https://vignette.wikia.nocookie.net/assassinscreed/images/8/88/DVD-Knight.png/revision/latest?cb=20120629122150" />
+            <img class="gameImage" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
             <div class="row">
                 <div class="col-md-12">
                     <input type="hidden" id="characterId" value="@Model.PlayerCharacter.CharacterId">
@@ -122,6 +122,7 @@
             }
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
+            document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
@@ -162,6 +163,7 @@
             }
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
+            document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
