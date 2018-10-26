@@ -112,12 +112,21 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("SceneMain",new { id = scene.GameId});
         }
 
-        public ActionResult EditSceneEventChoice()
+        [HttpPost]
+        public ActionResult EditSceneEventChoice(EditCreateEventRequest editCreateEventRequest)
         {
-            var model = new EditSceneEventChoiceVM();
-            model.CurrentEvent = creatorService.GetAllEventChoice().First();
-            model.AllEventByScene = creatorService.GetAllEventChoice().Where(e=>e.SceneId == model.CurrentEvent.SceneId);
-            return View(model);
+            var model = new EventCreationData();
+            model.SceneId = editCreateEventRequest.SceneId;
+            model.EventChoice = creatorService.FindEventById(editCreateEventRequest.EventId);
+            return View("CreateEditEvent",model);
+        }
+
+        //Testing only. Remove when done.
+        public ActionResult CreateEditEvent()
+        {
+            EventCreationData eventCreationData = new EventCreationData();
+            eventCreationData.EventChoice = new EventChoice();
+            return View(eventCreationData);
         }
     }
 }

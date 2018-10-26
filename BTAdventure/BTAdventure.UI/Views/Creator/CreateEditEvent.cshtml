@@ -3,12 +3,43 @@
     ViewBag.Title = "CreateEditEvent";
 }
 
-@if (Model.EventChoice != null)
-{
-    <h2>Edit Event</h2>
-}
-else
-{
-    <h2>Create Event</h2>
-}
-
+<div>
+    <div>
+        @if (Model.EventChoice != null)
+        {
+            <h2 class="text-center">Edit Event</h2>
+        }
+        else
+        {
+            <h2 class="text-center">Create Event</h2>
+        }
+    </div>
+    <form action="/home/addAgent" method="post">
+        <div class="form-row">
+            <label>Event Name</label>
+            @if (Model.EventChoice.EventName != null)
+            {
+                <input type="text" name="eventName" class="form-control" value="@Model.EventChoice.EventName" required>
+            }
+            else
+            {
+                <input type="text" name="eventName" class="form-control" required>
+            }
+        </div>
+        <div class="form-row">
+            <label>Starting Text</label>
+            @if (Model.EventChoice.StartText != null)
+            {
+                <input type="text" name="startText" class="form-control" value="@Model.EventChoice.StartText" required>
+            }
+            else
+            {
+                <input type="text" name="startText" class="form-control" required>
+            }
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+            </div>
+        </div>
+    </form>
+</div>
