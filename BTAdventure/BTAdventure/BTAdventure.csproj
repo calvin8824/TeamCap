@@ -52,6 +52,7 @@
     <Compile Include="Models\ChoiceResult .cs" />
     <Compile Include="Models\Ending.cs" />
     <Compile Include="Models\EventChoice.cs" />
+    <Compile Include="Models\EventCreationData.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Outcome.cs" />
     <Compile Include="Models\Player.cs" />
