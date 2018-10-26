@@ -272,7 +272,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\EditSceneEventChoiceVM.cs" />
     <Compile Include="Models\GameSceneVM.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LogInContext.cs" />
@@ -389,12 +388,8 @@
     <Content Include="Views\Creator\SceneMain.cshtml" />
     <Content Include="Views\Creator\CreateOrEditScene.cshtml" />
     <Content Include="Views\Account\Choose.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Creator\EditSceneEventChoice.cshtml" />
-=======
     <Content Include="Views\Account\AdminControlCentre.cshtml" />
     <Content Include="Views\Gameplay\Ending.cshtml" />
->>>>>>> 9d031b03eab089d1259b92845cb335d70d38a3dd
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

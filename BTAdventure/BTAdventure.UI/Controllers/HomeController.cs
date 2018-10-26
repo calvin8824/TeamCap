@@ -90,7 +90,7 @@ namespace BTAdventure.UI.Controllers
             PlayerGame vm = new PlayerGame();
             vm.Characters = gameSerivce.FindListOfPlayerCharactersByPlayerId(id);
             vm.Player = gameSerivce.FindPlayerById(id);
-
+            
             return View(vm);
         }
 
