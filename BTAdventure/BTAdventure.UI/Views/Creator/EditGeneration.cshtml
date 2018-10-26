@@ -8,18 +8,22 @@
 </div>
 
 <div class="row">
-    <button>Edit Scene Title</button>
+    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { id = Model.AllEventByScene.First().SceneId }, new { @class = "btn btn-primary" })
+    @*<button>Edit Scene Title</button>*@
     <button>Create New Event</button>
 </div>
 <hr />
 
 
 <div class="row">
+    <h4>Scene Name: @ViewBag.sceneTitle</h4>
+
     @if (Model.AllEventByScene.Any())
     {
 
         if (Model.AllEventByScene.Any())
         {
+
 
             <table class="table table-striped">
                 <thead>

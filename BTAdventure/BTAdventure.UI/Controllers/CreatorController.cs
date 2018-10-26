@@ -107,7 +107,17 @@ namespace BTAdventure.UI.Controllers
 
         public ActionResult CreateOrEditScene(int id)
         {
-            var scene = new Scene { GameId = id };
+            //will need to move to service/domain layer eventually
+            Scene scene;
+            if (id > 0)
+            {
+                scene = creatorService.GetAllScenes().Where(s=>s.SceneId == id).First();
+            }
+            else
+            {
+
+                scene = new Scene { GameId = id };
+            }
 
             return View(scene);
         }
@@ -121,6 +131,7 @@ namespace BTAdventure.UI.Controllers
 
         public ActionResult EditGeneration(int sceneId)
         {
+            //will probably need to call a different method to assign values to the VM, possibly
             var model = new EditGenerationVM();
             //model.AllScenes = creatorService.GetAllScenes().Where(s => s.GameId == gameId);
             //model.CurrentEvent = creatorService.GetAllEventChoice().First();
@@ -128,6 +139,7 @@ namespace BTAdventure.UI.Controllers
             model.AllEventByScene = creatorService.GetAllEventChoice().Where(e => e.SceneId == sceneId);
             model.AllEventChoice = creatorService.GetAllEventChoice();
             model.AllScene = creatorService.GetAllScenes();
+            ViewBag.sceneTitle = creatorService.GetAllScenes().Where(s=>s.SceneId == sceneId).First().SceneName;
             return View(model);
         }
 

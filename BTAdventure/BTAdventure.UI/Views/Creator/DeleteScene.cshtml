@@ -7,12 +7,12 @@
 <hr />
 @using (Html.BeginForm("DeleteScene","Creator",FormMethod.Post))
 {
-    <input type="hidden" name="GameId" value="@Model.SceneId" />
-    <input type="hidden" name="GameTitle" value="@Model.GameId" />
+    <input type="hidden" name="SceneId" value="@Model.SceneId" />
+    <input type="hidden" name="GameId" value="@Model.GameId" />
 
     <p>Are you sure you want to delete scene @Model.SceneName?</p>
-    <button type="submit">Yes</button>
+    <button type="submit" class = "btn btn-primary" >Yes</button>
 
 }
 
-@Html.ActionLink("No", "Index", null, new { @class = "btn btn-primary" });
+@Html.ActionLink("No", "Index", null, new { @class = "btn btn-primary" })

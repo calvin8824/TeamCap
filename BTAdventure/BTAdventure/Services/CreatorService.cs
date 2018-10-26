@@ -179,8 +179,8 @@ namespace BTAdventure.Services
             //        }
             //    }
             //}
-
-            var allEventsBySceneId = choiceRepo.All().Where(e => e.SceneId == id);
+            var allEvents = choiceRepo.All();
+            var allEventsBySceneId = FindEventsBySceneId(id);
             foreach (var evnt in allEventsBySceneId)
             {
                 var allPlayerCharacterByEventId = characterRepo.All().Where(c => c.EventChoiceId == evnt.EventChoiceId);
