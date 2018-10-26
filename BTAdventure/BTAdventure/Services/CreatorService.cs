@@ -236,6 +236,11 @@ namespace BTAdventure.Services
 
         }
 
+        public Ending SaveEnding(Ending ending)
+        {
+            return endingRepo.Save(ending);
+        }
+
         public IEnumerable<Ending> GetAllEndings()
         {
             return endingRepo.All();

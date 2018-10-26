@@ -347,9 +347,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
@@ -377,8 +375,6 @@
     <Content Include="Views\Home\Game.cshtml" />
     <Content Include="Views\Home\LoadGame.cshtml" />
     <Content Include="Views\Home\MainMenu.cshtml" />
-    <Content Include="Views\Home\SignInExisting.cshtml" />
-    <Content Include="Views\Home\SignInNew.cshtml" />
     <Content Include="Views\Home\Start.cshtml" />
     <Content Include="Views\Account\UserCommandCentre.cshtml" />
     <Content Include="Views\Creator\ListGames.cshtml" />
@@ -394,7 +390,12 @@
     <Content Include="Views\Creator\CreateEditEvent.cshtml" />
     <Content Include="Views\Creator\EditGeneration.cshtml" />
     <Content Include="Views\Creator\DeleteGame.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Creator\DeleteScene.cshtml" />
+=======
+    <Content Include="Views\Creator\NewEnding.cshtml" />
+    <Content Include="Views\Creator\EditEnding.cshtml" />
+>>>>>>> 2952bf07cdeb75cb6160d33308f46e83c1ef076b
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

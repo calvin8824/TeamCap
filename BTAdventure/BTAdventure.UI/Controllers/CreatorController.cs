@@ -161,6 +161,7 @@ namespace BTAdventure.UI.Controllers
             return View("Index");
         }
 
+<<<<<<< HEAD
         public ActionResult DeleteScene(int id)
         {
             var scene = creatorService.GetAllScenes().Where(s=>s.SceneId == id).First();
@@ -172,6 +173,44 @@ namespace BTAdventure.UI.Controllers
         {
             creatorService.DeleteScene(scene.SceneId);
             return View("Index");
+=======
+        public ActionResult NewEnding(int gameId) //grab game id
+        {
+            //find game by game id, then associate ending..
+            var thisGame = creatorService.GetAllGames().FirstOrDefault(g => g.GameId == gameId);
+            Ending ending = new Ending();
+            ending.GameId = gameId;
+            return View(ending);
+        }
+
+        [HttpPost]
+        public ActionResult NewEnding(Ending ending)
+        {
+            creatorService.SaveEnding(ending);
+            return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
+        }
+
+        public ActionResult EditEnding(int gameId) //grab ending id
+        {
+            var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.GameId == gameId);
+            ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == gameId).First().GameId;
+            return View(thisEnding);
+        }
+
+        [HttpPost]
+        public ActionResult EditEnding(Ending ending)
+        {
+            creatorService.EditEnding(ending);
+            return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
+        }
+
+        public ActionResult DeleteEnding(int gameId)
+        {
+            var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.GameId == gameId);
+            creatorService.DeleteEndingById(thisEnding.EndingId);
+            //delete from service
+            return RedirectToAction("Index");
+>>>>>>> 2952bf07cdeb75cb6160d33308f46e83c1ef076b
         }
     }
 }
