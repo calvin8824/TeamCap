@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\ISceneRepository.cs" />
     <Compile Include="Models\ChoiceJSONObject.cs" />
     <Compile Include="Models\ChoiceResult .cs" />
+    <Compile Include="Models\EditCreateEventRequest.cs" />
     <Compile Include="Models\Ending.cs" />
     <Compile Include="Models\EventChoice.cs" />
     <Compile Include="Models\EventCreationData.cs" />
