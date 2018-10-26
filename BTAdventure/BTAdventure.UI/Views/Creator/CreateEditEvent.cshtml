@@ -152,25 +152,53 @@
                     </div>
                     <div class="form-row justify-content-center">
                         <select name="positiveRoute" class="form-control" required>
-                            <option selected disabled>Choose A Transition</option>
-                            @foreach(var r in Model.AvailableChoices)
+                            @if (Model.EventChoice.PositiveRoute == null)
                             {
-
+                                <option selected disabled>Choose A Transition</option>
                             }
-                            <option value="eventChoice">Choice Event</option>
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.AvailableChoices)
+                            {
+                                if (r.EventChoiceId == Model.EventChoice.PositiveRoute)
+                                {
+                                    <option value="@r.EventChoiceId" selected>@r.EventName</option>
+                                }
+                                else if (r.GenerationNumber > Model.EventChoice.GenerationNumber)
+                                {
+                                    <option value="@r.EventChoiceId">@r.EventName</option>
+                                }
+                            }
                         </select>
                     </div>
                 </div>
                 <div class="form-group col">
                     <div class="form-row justify-content-center">
-                        <label>Negative Transition Type</label>
+                        <label>Negative Event Route</label>
                     </div>
                     <div class="form-row justify-content-center">
-                        <select name="nTransType" class="form-control" required>
-                            <option selected disabled>Choose A Transition</option>
-                            <option value="eventChoice">Choice Event</option>
-                            <option value="scene">Scene</option>
-                            <option value="ending">Ending</option>
+                        <select name="negativeRoute" class="form-control" required>
+                            @if (Model.EventChoice.NegativeRoute == null)
+                            {
+                                <option selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.AvailableChoices)
+                            {
+                                if (r.EventChoiceId == Model.EventChoice.NegativeRoute)
+                                {
+                                    <option value="@r.EventChoiceId" selected>@r.EventName</option>
+                                }
+                                else if (r.GenerationNumber > Model.EventChoice.GenerationNumber)
+                                {
+                                    <option value="@r.EventChoiceId">@r.EventName</option>
+                                }
+                            }
                         </select>
                     </div>
                 </div>
