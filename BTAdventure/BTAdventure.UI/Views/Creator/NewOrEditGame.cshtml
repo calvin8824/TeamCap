@@ -12,12 +12,13 @@
     <input type="hidden" value="@Model.GameId" name="GameId" />
     <div class="row">
         <h3>Game:</h3>
-        <input placeholder="Name" value="@Model.GameTitle" name="GameTitle"/>
+        <input placeholder="Name" class="form-control" value="@Model.GameTitle" name="GameTitle"/>
     </div>
 
     <div class="row">
         <h3>Intro</h3>
-        <input placeholder="Title" value="@Model.IntroText" name="IntroText"/>
+        @*<input placeholder="Title" value="@Model.IntroText" name="IntroText"/>*@
+        @Html.TextAreaFor(m => m.IntroText, new { @class="form-control", rows="8"})
     </div>
 
     <button>Go</button>

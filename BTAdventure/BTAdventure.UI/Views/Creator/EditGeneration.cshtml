@@ -24,6 +24,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Scene Id</th>
                         <th>Event Id</th>
                         <th>Generation Id</th>
                         <th>Event Name</th>
@@ -36,6 +37,7 @@
                     @foreach (var a in Model.AllEventByScene)
                     {
                         <tr>
+                            <td>@a.SceneId</td>
                             <td>@a.EventChoiceId</td>
                             <td>@a.GenerationNumber</td>
                             <td>@a.EventName</td>
