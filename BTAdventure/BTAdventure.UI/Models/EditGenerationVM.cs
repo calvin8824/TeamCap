@@ -6,9 +6,10 @@ using System.Web;
 
 namespace BTAdventure.UI.Models
 {
-    public class EditSceneEventChoiceVM
+    public class EditGenerationVM
     {
-        public EventChoice CurrentEvent { get; set; }
+        public IEnumerable<EventChoice> AllEventChoice { get; set; }
+        public IEnumerable<Scene> AllScene { get; set; }
         public IEnumerable<EventChoice> AllEventByScene { get; set; }
     }
 }

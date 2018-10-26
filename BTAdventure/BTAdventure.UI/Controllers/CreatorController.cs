@@ -112,12 +112,46 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("SceneMain",new { id = scene.GameId});
         }
 
-        public ActionResult EditSceneEventChoice()
+        public ActionResult EditGeneration(int sceneId)
         {
-            var model = new EditSceneEventChoiceVM();
-            model.CurrentEvent = creatorService.GetAllEventChoice().First();
-            model.AllEventByScene = creatorService.GetAllEventChoice().Where(e=>e.SceneId == model.CurrentEvent.SceneId);
+            var model = new EditGenerationVM();
+            //model.AllScenes = creatorService.GetAllScenes().Where(s => s.GameId == gameId);
+            //model.CurrentEvent = creatorService.GetAllEventChoice().First();
+            //model.AllEventByScene = creatorService.GetAllEventChoice().Where(e=>e.SceneId == model.CurrentEvent.SceneId);
+            model.AllEventByScene = creatorService.GetAllEventChoice().Where(e => e.SceneId == sceneId);
+            model.AllEventChoice = creatorService.GetAllEventChoice();
+            model.AllScene = creatorService.GetAllScenes();
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditSceneEventChoice(EditCreateEventRequest editCreateEventRequest)
+        {
+            var model = new EventCreationData();
+            model.SceneId = editCreateEventRequest.SceneId;
+            model.EventChoice = creatorService.FindEventById(editCreateEventRequest.EventId);
+            return View("CreateEditEvent",model);
+        }
+
+        //Testing only. Remove when done.
+        public ActionResult CreateEditEvent()
+        {
+            EventCreationData eventCreationData = new EventCreationData();
+            eventCreationData.EventChoice = new EventChoice();
+            return View(eventCreationData);
+        }
+
+        public ActionResult DeleteGame(int id)
+        {
+            var model = creatorService.GetAllGames().Where(g => g.GameId == id).First();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteGame(Game game)
+        {
+            creatorService.DeleteGame(game.GameId);
+            return View("Index");
         }
     }
 }
