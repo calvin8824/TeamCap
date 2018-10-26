@@ -10,8 +10,8 @@
 
 <div class="row">
     <button>Edit Game</button>
-    <button>New Ending</button>
-    <button>Edit Ending</button>
+    @Html.ActionLink("New Ending", "NewEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit Ending", "EditEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
 </div>
 <div class="row">
     Game ID: @ViewBag.GameTitle

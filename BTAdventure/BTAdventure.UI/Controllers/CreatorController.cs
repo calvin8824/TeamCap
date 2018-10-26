@@ -153,5 +153,43 @@ namespace BTAdventure.UI.Controllers
             creatorService.DeleteGame(game.GameId);
             return View("Index");
         }
+
+        public ActionResult NewEnding(int gameId) //grab game id
+        {
+            //find game by game id, then associate ending..
+            var thisGame = creatorService.GetAllGames().FirstOrDefault(g => g.GameId == gameId);
+            Ending ending = new Ending();
+            ending.GameId = gameId;
+            return View(ending);
+        }
+
+        [HttpPost]
+        public ActionResult NewEnding(Ending ending)
+        {
+            creatorService.SaveEnding(ending);
+            return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
+        }
+
+        public ActionResult EditEnding(int gameId) //grab ending id
+        {
+            var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.GameId == gameId);
+            ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == gameId).First().GameId;
+            return View(thisEnding);
+        }
+
+        [HttpPost]
+        public ActionResult EditEnding(Ending ending)
+        {
+            creatorService.EditEnding(ending);
+            return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
+        }
+
+        public ActionResult DeleteEnding(int gameId)
+        {
+            var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.GameId == gameId);
+            creatorService.DeleteEndingById(thisEnding.EndingId);
+            //delete from service
+            return RedirectToAction("Index");
+        }
     }
 }
