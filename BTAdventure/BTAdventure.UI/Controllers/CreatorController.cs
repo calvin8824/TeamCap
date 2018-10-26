@@ -137,7 +137,32 @@ namespace BTAdventure.UI.Controllers
             var model = new EventCreationData();
             model.SceneId = editCreateEventRequest.SceneId;
             model.EventChoice = creatorService.FindEventById(editCreateEventRequest.EventId);
+            if(model.EventChoice == null)
+            {
+                model.EventChoice = new EventChoice()
+                {
+                    EventChoiceId = 0,
+                    SceneId = editCreateEventRequest.SceneId
+                };
+
+                model.PositiveOutcome = new Outcome()
+                {
+                    Positive = true
+                };
+                model.NegativeOutcome = new Outcome();
+            }
+            else
+            {
+                Tuple<Outcome, Outcome> posNegOutcomes = creatorService.FindOutcomesByEventId(model.EventChoice.EventChoiceId);
+                model.PositiveOutcome = posNegOutcomes.Item1;
+                model.NegativeOutcome = posNegOutcomes.Item2;
+            }
             
+            model.AvailableChoices = creatorService.FindEventsWithHigherGenNumber(model.EventChoice.EventChoiceId, model.SceneId);
+           
+            model.GameScenes = creatorService.FindScenesInGameBySceneId(model.SceneId);
+            model.GameEndings = creatorService.FindGameEndingBySceneId(model.SceneId);
+
             return View("CreateEditEvent",model);
         }
 
@@ -174,9 +199,23 @@ namespace BTAdventure.UI.Controllers
             
             eventCreationData.GameScenes = scenes;
             eventCreationData.GameEndings = creatorService.FindGameEndingBySceneId(saveEventRequest.SceneId);
-            eventCreationData.PositiveOutcome = new Outcome();
-            eventCreationData.NegativeOutcome = new Outcome();
-            eventCreationData.SceneId = -12;
+            eventCreationData.PositiveOutcome = new Outcome()
+            {
+                EventChoiceId = saveEventRequest.EventId,
+                OutcomeId = saveEventRequest.PositiveOutcomeId,
+                Positive = true,
+                Health = saveEventRequest.PositiveHealth,
+                Gold = saveEventRequest.PositiveGold
+            };
+            eventCreationData.NegativeOutcome = new Outcome()
+            {
+                EventChoiceId = saveEventRequest.EventId,
+                OutcomeId = saveEventRequest.NegativeOutcomeId,
+                Positive = false,
+                Health = saveEventRequest.NegativeHealth,
+                Gold = saveEventRequest.NegativeGold
+            };
+            eventCreationData.SceneId = saveEventRequest.SceneId;
 
             return View("CreateEditEvent", eventCreationData);
         }
@@ -184,10 +223,68 @@ namespace BTAdventure.UI.Controllers
         [HttpPost]
         public ActionResult SaveEvent(SaveEventRequest saveEventRequest)
         {
-            bool isValid = true;
+            bool isValid = false;
+            
+            EventChoice eventChoice = new EventChoice
+            {
+                EventChoiceId = saveEventRequest.EventId,
+                SceneId = saveEventRequest.SceneId,
+                GenerationNumber = saveEventRequest.GenerationNumber,
+                EventName = saveEventRequest.EventName,
+                StartText = saveEventRequest.StartText,
+                PositiveText = saveEventRequest.PositiveText,
+                NegativeText = saveEventRequest.NegativeText,
+                PositiveButton = saveEventRequest.PositiveButton,
+                NegativeButton = saveEventRequest.NegativeButton,
+                PositiveRoute = saveEventRequest.PositiveRoute,
+                NegativeRoute = saveEventRequest.NegativeRoute,
+                PositiveSceneRoute = saveEventRequest.PositiveSceneRoute,
+                NegativeSceneRoute = saveEventRequest.NegativeSceneRoute,
+                PositiveEndingId = saveEventRequest.PositiveEndingId,
+                NegativeEndingId = saveEventRequest.NegativeEndingId
+            };
+
+            eventChoice = creatorService.SaveEventChoice(eventChoice);
+
+            if(eventChoice.EventChoiceId > 0)
+            {
+                isValid = true;
+            }
+            else
+            {
+                isValid = false;
+            }
 
             if (isValid)
             {
+                Outcome positiveOutcome = new Outcome()
+                {
+                    EventChoiceId = saveEventRequest.EventId,
+                    OutcomeId = saveEventRequest.PositiveOutcomeId,
+                    Positive = true,
+                    Health = saveEventRequest.PositiveHealth,
+                    Gold = saveEventRequest.PositiveGold
+                };
+                Outcome negativeOutcome = new Outcome()
+                {
+                    EventChoiceId = saveEventRequest.EventId,
+                    OutcomeId = saveEventRequest.NegativeOutcomeId,
+                    Positive = false,
+                    Health = saveEventRequest.NegativeHealth,
+                    Gold = saveEventRequest.NegativeGold
+                };
+
+                positiveOutcome = creatorService.SaveOutcome(positiveOutcome);
+                negativeOutcome = creatorService.SaveOutcome(negativeOutcome);
+
+                if(positiveOutcome == null || negativeOutcome == null)
+                {
+                    isValid = false;
+                }
+            }
+
+            if(isValid)
+            { 
                 return EditGeneration(saveEventRequest.SceneId);
             }
             else

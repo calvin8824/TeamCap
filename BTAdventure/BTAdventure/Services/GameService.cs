@@ -31,9 +31,24 @@ namespace BTAdventure.Services
         }
 
 
-        public Outcome FindOutcomeByEventChoiceId(int id)
+        public Tuple<Outcome, Outcome> FindOutcomeByEventChoiceId(int id)
         {
-            return outcomeRepo.FindOutcomeByEventChoiceId(id);
+            Outcome posOutcome = new Outcome();
+            Outcome negOutcome = new Outcome();
+
+            foreach (var o in outcomeRepo.FindOutcomeByEventChoiceId(id))
+            {
+                if (o.Positive)
+                {
+                    posOutcome = o;
+                }
+                else
+                {
+                    negOutcome = o;
+                }
+            }
+
+            return Tuple.Create(posOutcome, negOutcome);
         }
 
         public Ending FindEndingById(int? item2)

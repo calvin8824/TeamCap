@@ -114,10 +114,32 @@ namespace BTAdventure.Services
             return scenes;
         }
 
+        public Tuple<Outcome, Outcome> FindOutcomesByEventId(int eventId)
+        {
+            Outcome posOutcome = new Outcome();
+            Outcome negOutcome = new Outcome();
+
+            foreach(var o in outcomeRepo.FindOutcomeByEventChoiceId(eventId))
+            {
+                if(o.Positive)
+                {
+                    posOutcome = o;
+                }
+                else
+                {
+                    negOutcome = o;
+                }
+            }
+
+            return Tuple.Create(posOutcome, negOutcome);
+        }
+
         public IEnumerable<Ending> FindGameEndingBySceneId(int sceneId)
         {
-            List<Ending> endings = new List<Ending>();
+            Scene scene = sceneRepo.FindById(sceneId);
 
+            List<Ending> endings = endingRepo.FindEndingsByGameId(scene.GameId).ToList();
+            
             return endings;
         }
 
@@ -128,11 +150,14 @@ namespace BTAdventure.Services
             List<EventChoice> eventChoices = choiceRepo.FindBySceneId(sceneId).ToList();
             List<EventChoice> validChoices = new List<EventChoice>();
 
-            foreach (var c in eventChoices)
+            if(comparedChoice.GenerationNumber != null)
             {
-                if(c.GenerationNumber > comparedChoice.GenerationNumber)
+                foreach (var c in eventChoices)
                 {
-                    validChoices.Add(c);
+                    if (c.GenerationNumber > comparedChoice.GenerationNumber)
+                    {
+                        validChoices.Add(c);
+                    }
                 }
             }
 
@@ -277,6 +302,11 @@ namespace BTAdventure.Services
         public Ending SaveEnding(Ending ending)
         {
             return endingRepo.Save(ending);
+        }
+
+        public Outcome SaveOutcome(Outcome outcome)
+        {
+            return outcomeRepo.Save(outcome);
         }
 
         public IEnumerable<Ending> GetAllEndings()

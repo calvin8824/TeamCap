@@ -11,6 +11,7 @@ namespace BTAdventure.Interfaces
     {
         IEnumerable<Ending> All();
         Ending FindById(int? id);
+        IEnumerable<Ending> FindEndingsByGameId(int id);
         Ending Save(Ending ending);
         bool Delete(int id);
     }
