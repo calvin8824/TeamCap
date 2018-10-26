@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<BTAdventure.Models.PlayerCharacter>
+
 @{
     ViewBag.Title = "User Command Centre";
 }
@@ -7,23 +8,30 @@
 @if (Model.Count() == 0)
 {
     <div>Looks like you don't have any active games...</div>
-    <div>Click Here To Start One!</div>
+    @Html.ActionLink("Click Here To Start One!", "NewOrEditGame", "Creator")
 
 }
-@if (Model.Count() > 0)
+@using (Html.BeginForm("UserCommandCentre", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-
-        @Html.DropDownListFor(m => m.First().EventChoiceId,
-            Model.Select(i => new SelectListItem { Value = i.EventChoiceId.ToString(), Text = i.CharacterName.ToString() }),
-            new { @class = "form-control" })
-
-    
-}
-
-<div class="row">
-    @if (User.Identity.IsAuthenticated && User.IsInRole("User")  || User.IsInRole("Creator") || User.IsInRole("Admin"))
+    if (Model.Count() > 0)
     {
-        @Html.ActionLink("Reset Your Password", "ResetPassword", "Account", new { @class = "btn btn-outline-primary"})
+
+        @Html.DropDownListFor(m => m.First().CharacterId,
+                 Model.Select(i => new SelectListItem { Value = i.CharacterId.ToString(), Text = i.CharacterName.ToString() }),
+                 new { @class = "form-control" })
+
+
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Load Game" class="btn btn-default" />
+        </div>
+    </div>
+}
+<div class="row">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("User") || User.IsInRole("Creator") || User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Reset Your Password", "ResetPassword", "Account", new { @class = "btn btn-outline-primary" })
     }
 
     @if (User.Identity.IsAuthenticated && User.IsInRole("Creator") || User.IsInRole("Admin"))

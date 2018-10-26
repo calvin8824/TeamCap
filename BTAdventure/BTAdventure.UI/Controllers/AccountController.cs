@@ -12,6 +12,7 @@ using BTAdventure.UI.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BTAdventure.Data.DapperRepositories;
 using System.Collections.Generic;
+using BTAdventure.Models;
 
 namespace BTAdventure.UI.Controllers
 {
@@ -199,11 +200,15 @@ namespace BTAdventure.UI.Controllers
 
                 var result = dapper.AllLoggedIn(newUser.Id);
                 return View(result);
-
             }
-
         }
 
+        [HttpPost]
+        public ActionResult UserCommandCentre(PlayerCharacter player)
+        {
+
+            return RedirectToAction("Game", "Gameplay", player);
+        }
 
         //
         // GET: /Account/ConfirmEmail

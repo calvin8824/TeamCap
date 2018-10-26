@@ -20,12 +20,12 @@ namespace BTAdventure.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Game(int id)//we're taking in a character id ... last i heard
+        public ActionResult Game(PlayerCharacter player)//we're taking in a character id ... last i heard
         {
             ////MAKE A FIND EVENT CHOICE AND FIND SCENE BY CHARACTERID!!!!
             
             GameSceneVM vm = new GameSceneVM();
-            vm.PlayerCharacter = gameSerivce.FindPlayerCharacterById(id);
+            vm.PlayerCharacter = gameSerivce.FindPlayerCharacterById(player.CharacterId);
             
             vm.Scene = gameSerivce.FindSceneById(vm.PlayerCharacter.SceneId);
             vm.EventChoice = gameSerivce.FindEventChoiceById(vm.PlayerCharacter.EventChoiceId);
