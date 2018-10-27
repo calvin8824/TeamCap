@@ -76,7 +76,7 @@ namespace BTAdventure.Data.DapperRepositories
                 + "PositiveText = @PositiveText, "
                 + "NegativeText = @NegativeText, "
                 + "PositiveRoute = @PositiveRoute, "
-                + "NegativeRoute = @NegativeRoute "
+                + "NegativeRoute = @NegativeRoute, "
                 + "PositiveButton = @PositiveButton, "
                 + "NegativeButton = @NegativeButton, "
                 + "PositiveSceneRoute = @PositiveSceneRoute, "

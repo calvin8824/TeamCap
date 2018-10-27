@@ -140,7 +140,7 @@ namespace BTAdventure.UI.Controllers
             model.AllEventChoice = creatorService.GetAllEventChoice();
             model.AllScene = creatorService.GetAllScenes();
             ViewBag.sceneTitle = creatorService.GetAllScenes().Where(s=>s.SceneId == sceneId).First().SceneName;
-            return View(model);
+            return View("EditGeneration", model);
         }
 
         [HttpPost]
@@ -296,7 +296,7 @@ namespace BTAdventure.UI.Controllers
             }
 
             if(isValid)
-            { 
+            {
                 return EditGeneration(saveEventRequest.SceneId);
             }
             else

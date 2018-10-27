@@ -10,7 +10,12 @@
 <div class="row">
     @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { id = Model.AllEventByScene.First().SceneId }, new { @class = "btn btn-primary" })
     @*<button>Edit Scene Title</button>*@
-    <button>Create New Event</button>
+    @*<button>Create New Event</button>*@
+    @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))
+    {
+        <input name="SceneId" type="hidden" value="@Model.AllEventByScene.First().SceneId" />
+        <button>Create New Event</button>
+    }
 </div>
 <hr />
 
@@ -48,7 +53,13 @@
                             <td>@(a.PositiveRoute.HasValue ? a.PositiveRoute.ToString() : "No Postive Route")</td>
                             <td>@(a.NegativeRoute.HasValue ? a.NegativeRoute.ToString() : "No Negative Route")</td>
                             <td>
-                                <button>Edit</button>
+                                @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))
+                                {
+                                    <input name="SceneId" type="hidden" value="@a.SceneId" />
+                                    <input name="EventId" type="hidden" value="@a.EventChoiceId" />
+                                    <button>Edit</button>
+                                }
+
                                 <a href="#" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
