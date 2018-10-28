@@ -150,11 +150,16 @@ namespace BTAdventure.Services
             List<EventChoice> eventChoices = choiceRepo.FindBySceneId(sceneId).ToList();
             List<EventChoice> validChoices = new List<EventChoice>();
 
+            if(comparedChoice == null)
+            {
+                comparedChoice = new EventChoice();
+            }
+
             if(comparedChoice.GenerationNumber != null)
             {
                 foreach (var c in eventChoices)
                 {
-                    if (c.GenerationNumber > comparedChoice.GenerationNumber)
+                    if (c.GenerationNumber >= comparedChoice.GenerationNumber || c.GenerationNumber == null)
                     {
                         validChoices.Add(c);
                     }
@@ -393,6 +398,19 @@ namespace BTAdventure.Services
         public List<EventChoice> GetAllEventChoice()
         {
             return choiceRepo.All().ToList();
+        }
+
+        public void RecalculateOldGenNumbers(EventChoice eventChoice)
+        {
+            if(eventChoice.PositiveRoute != null)
+            {
+                UpdateGenerationNumber(eventChoice.PositiveRoute);
+            }
+            
+            if (eventChoice.NegativeRoute != null)
+            {
+                UpdateGenerationNumber(eventChoice.NegativeRoute);
+            }
         }
 
         //Recalculates the Gen# of the related event.

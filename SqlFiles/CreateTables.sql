@@ -51,7 +51,7 @@ Go
 Create Table EventChoice (
 	EventChoiceId int identity(1,1) primary key not null,
 	SceneId int not null foreign key references Scene(SceneId),
-	GenerationNumber int not null,
+	GenerationNumber int null,
 	ImgUrl nVarChar(1000) null,
 	EventName nVarChar(50) not null,
 	StartText nVarChar(max) not null,

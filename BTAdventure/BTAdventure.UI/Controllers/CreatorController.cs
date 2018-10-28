@@ -236,7 +236,14 @@ namespace BTAdventure.UI.Controllers
         public ActionResult SaveEvent(SaveEventRequest saveEventRequest)
         {
             bool isValid = false;
-            
+
+            EventChoice originalChoice = new EventChoice();
+
+            if (saveEventRequest.EventId > 0)
+            {
+                originalChoice = creatorService.FindEventById(saveEventRequest.EventId);
+            }
+
             EventChoice eventChoice = new EventChoice
             {
                 EventChoiceId = saveEventRequest.EventId,
@@ -257,8 +264,13 @@ namespace BTAdventure.UI.Controllers
             };
 
             eventChoice = creatorService.SaveEventChoice(eventChoice);
+            
+            if (saveEventRequest.EventId > 0)
+            {
+                creatorService.RecalculateOldGenNumbers(originalChoice);
+            }
 
-            if(eventChoice.EventChoiceId > 0)
+            if (eventChoice.EventChoiceId > 0)
             {
                 isValid = true;
             }
@@ -271,7 +283,7 @@ namespace BTAdventure.UI.Controllers
             {
                 Outcome positiveOutcome = new Outcome()
                 {
-                    EventChoiceId = saveEventRequest.EventId,
+                    EventChoiceId = eventChoice.EventChoiceId,
                     OutcomeId = saveEventRequest.PositiveOutcomeId,
                     Positive = true,
                     Health = saveEventRequest.PositiveHealth,
@@ -279,7 +291,7 @@ namespace BTAdventure.UI.Controllers
                 };
                 Outcome negativeOutcome = new Outcome()
                 {
-                    EventChoiceId = saveEventRequest.EventId,
+                    EventChoiceId = eventChoice.EventChoiceId,
                     OutcomeId = saveEventRequest.NegativeOutcomeId,
                     Positive = false,
                     Health = saveEventRequest.NegativeHealth,
@@ -318,6 +330,13 @@ namespace BTAdventure.UI.Controllers
             eventCreationData.SceneId = -12;
 
             return View(eventCreationData);
+        }
+
+        public ActionResult DeleteEvent(EditCreateEventRequest editCreateEventRequest)
+        {
+            creatorService.DeleteEventChoice(editCreateEventRequest.EventId);
+
+            return EditGeneration(editCreateEventRequest.SceneId); 
         }
 
         public ActionResult DeleteGame(int id)

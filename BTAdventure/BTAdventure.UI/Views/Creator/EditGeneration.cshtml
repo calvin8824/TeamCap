@@ -60,7 +60,12 @@
                                     <button>Edit</button>
                                 }
 
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                @using (Html.BeginForm("DeleteEvent", "Creator", FormMethod.Post))
+                                {
+                                    <input name="SceneId" type="hidden" value="@a.SceneId" />
+                                    <input name="EventId" type="hidden" value="@a.EventChoiceId" />
+                                    <button class="btn btn-danger">Delete</button>
+                                }
                             </td>
                         </tr>
                     }
