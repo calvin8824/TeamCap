@@ -253,16 +253,16 @@ namespace BTAdventure.Services
             foreach (var evnt in allEventsBySceneId)
             {
                 var allPlayerCharacterByEventId = characterRepo.All().Where(c => c.EventChoiceId == evnt.EventChoiceId);
-                //var allOutcomeByEventId = outcomeRepo.All().Where(o => o.EventChoiceId == evnt.EventChoiceId);
+                var allOutcomeByEventId = outcomeRepo.All().Where(o => o.EventChoiceId == evnt.EventChoiceId);
 
                 foreach (var character in allPlayerCharacterByEventId)
                 {
                     characterRepo.Delete(character.CharacterId);
                 }
-                //foreach (var outcome in allOutcomeByEventId)
-                //{
-                //    outcomeRepo.Delete(outcome.OutcomeId);
-                //}
+                foreach (var outcome in allOutcomeByEventId)
+                {
+                    outcomeRepo.Delete(outcome.OutcomeId);
+                }
                 choiceRepo.Delete(evnt.EventChoiceId);
             }
             sceneRepo.Delete(id);
@@ -332,6 +332,18 @@ namespace BTAdventure.Services
 
                 //}
                 //sceneRepo.Delete(scene.SceneId);
+                var allEventBySceneId = choiceRepo.All().Where(c=>c.SceneId == scene.SceneId);
+                foreach (var evnt in allEventBySceneId)
+                {
+                    var allPlayerCharacterByEventId = characterRepo.All().Where(c => c.EventChoiceId == evnt.EventChoiceId);
+
+                    foreach (var character in allPlayerCharacterByEventId)
+                    {
+                        characterRepo.Delete(character.CharacterId);
+                    }
+                    DeleteEventChoice(evnt.EventChoiceId);
+                }
+                
                 DeleteScene(scene.SceneId);
 
             }

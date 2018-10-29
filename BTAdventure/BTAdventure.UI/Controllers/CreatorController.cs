@@ -145,6 +145,7 @@ namespace BTAdventure.UI.Controllers
             //model.AllScenes = creatorService.GetAllScenes().Where(s => s.GameId == gameId);
             //model.CurrentEvent = creatorService.GetAllEventChoice().First();
             //model.AllEventByScene = creatorService.GetAllEventChoice().Where(e=>e.SceneId == model.CurrentEvent.SceneId);
+            ViewBag.SceneId = sceneId;
             model.AllEventByScene = creatorService.GetAllEventChoice().Where(e => e.SceneId == sceneId);
             model.AllEventChoice = creatorService.GetAllEventChoice();
             model.AllScene = creatorService.GetAllScenes();
@@ -358,7 +359,7 @@ namespace BTAdventure.UI.Controllers
         public ActionResult DeleteGame(Game game)
         {
             creatorService.DeleteGame(game.GameId);
-            return View("Index");
+            return RedirectToAction("EditGame");
         }
 
         public ActionResult DeleteScene(int id)
@@ -371,7 +372,7 @@ namespace BTAdventure.UI.Controllers
         public ActionResult DeleteScene(Scene scene)
         {
             creatorService.DeleteScene(scene.SceneId);
-            return View("Index");
+            return RedirectToAction("SceneMain",new { id=scene.GameId });
         }
 
         public ActionResult NewEnding(int gameId) //grab game id

@@ -393,7 +393,7 @@
     <Content Include="Views\Creator\DeleteScene.cshtml" />
     <Content Include="Views\Creator\NewEnding.cshtml" />
     <Content Include="Views\Creator\EditEnding.cshtml" />
-
+    <Content Include="Views\Shared\_CreatorLinksPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

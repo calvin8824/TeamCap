@@ -17,7 +17,7 @@
     <input type="hidden" name="GameTitle" value="@Model.GameTitle" />
     <input type="hidden" name="IntroText" value="@Model.IntroText" />
     <p>Are you sure you want to delete @Model.GameTitle?</p>
-    <button type="submit">Yes</button>
+    <button type="submit" class="btn btn-primary">Yes</button>
 
 }
-@Html.ActionLink("No", "Index", null, new { @class = "btn btn-primary" });
+@Html.ActionLink("No", "Index", null, new { @class = "btn btn-primary" })

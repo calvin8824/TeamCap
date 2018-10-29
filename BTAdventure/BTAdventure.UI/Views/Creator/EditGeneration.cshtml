@@ -8,20 +8,22 @@
 </div>
 
 <div class="row">
-    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { id = Model.AllEventByScene.First().SceneId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { id = ViewBag.SceneId }, new { @class = "btn btn-primary" })
     @*<button>Edit Scene Title</button>*@
     @*<button>Create New Event</button>*@
     @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))
     {
-        <input name="SceneId" type="hidden" value="@Model.AllEventByScene.First().SceneId" />
-        <button>Create New Event</button>
+        <input name="SceneId" type="hidden" value="@ViewBag.SceneId " />
+        <button class="btn btn-primary">Create New Event</button>
     }
 </div>
 <hr />
-
-
 <div class="row">
     <h4>Scene Name: @ViewBag.sceneTitle</h4>
+</div>
+
+<div class="row">
+    
 
     @if (Model.AllEventByScene.Any())
     {
@@ -57,7 +59,7 @@
                                 {
                                     <input name="SceneId" type="hidden" value="@a.SceneId" />
                                     <input name="EventId" type="hidden" value="@a.EventChoiceId" />
-                                    <button>Edit</button>
+                                    <button class="btn btn-primary">Edit</button>
                                 }
                                 @if (a.GenerationNumber != 0)
                                 {
@@ -100,6 +102,7 @@
     }
     else
     {
-        <text>No Event Found</text>
+            <text>No Event Found</text>
+
     }
 </div>
