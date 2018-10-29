@@ -13,6 +13,7 @@ namespace BTAdventure.Models
         public int? GenerationNumber { get; set; }
         public string EventName { get; set; }
         public string StartText { get; set; }
+        public string ImgURL { get; set; }
         public string PositiveText { get; set; }
         public string NegativeText { get; set; }
         public string PositiveButton { get; set; }

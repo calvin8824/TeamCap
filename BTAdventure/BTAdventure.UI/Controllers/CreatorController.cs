@@ -261,6 +261,7 @@ namespace BTAdventure.UI.Controllers
                 GenerationNumber = saveEventRequest.GenerationNumber,
                 EventName = saveEventRequest.EventName,
                 StartText = saveEventRequest.StartText,
+                ImgUrl = saveEventRequest.ImgURL,
                 PositiveText = saveEventRequest.PositiveText,
                 NegativeText = saveEventRequest.NegativeText,
                 PositiveButton = saveEventRequest.PositiveButton,

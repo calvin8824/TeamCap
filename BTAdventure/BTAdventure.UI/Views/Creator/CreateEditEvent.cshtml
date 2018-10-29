@@ -74,6 +74,19 @@
                 <textarea name="startText" class="eventStartTextArea" required></textarea>
             }
         </div>
+        <div class="form-row justify-content-center">
+            <label>Event Image (optional)</label>
+        </div>
+        <div class="form-row justify-content-center">
+            @if (Model.EventChoice.ImgUrl != null)
+            {
+                <input type="text" name="imgUrl" class="form-control" value="@Model.EventChoice.ImgUrl">
+            }
+            else
+            {
+                <input type="text" name="imgUrl" class="form-control">
+            }
+        </div>
         <div class="form-row">
             <div class="form-group col">
                 <div class="form-row justify-content-center">
@@ -395,18 +408,21 @@
     <script>
 
         if (document.getElementById('positiveEndingId').value >= '1') {
+            document.getElementById('pTransType').value = 'ending'
             document.getElementById('positiveRoute').setAttribute('disabled', true);
             document.getElementById('positiveRoute').value = '-1';
             document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
             document.getElementById('positiveSceneRoute').value = "-1";
             document.getElementById('positiveEndingId').removeAttribute('disabled');
         } else if (document.getElementById('positiveSceneRoute').value >= '1') {
+            document.getElementById('pTransType').value = 'scene'
             document.getElementById('positiveRoute').setAttribute('disabled', true);
             document.getElementById('positiveRoute').value = '-1';
             document.getElementById('positiveSceneRoute').removeAttribute('disabled');
             document.getElementById('positiveEndingId').setAttribute('disabled', true);
             document.getElementById('positiveEndingId').value = "-1";
         } else if (document.getElementById('positiveRoute').value >= '1') {
+            document.getElementById('pTransType').value = 'eventChoice'
             document.getElementById('positiveRoute').removeAttribute('disabled');
             document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
             document.getElementById('positiveSceneRoute').value = "-1";
@@ -415,18 +431,21 @@
         }
 
         if (document.getElementById('negativeEndingId').value >= '1') {
+            document.getElementById('nTransType').value = 'ending'
             document.getElementById('negativeRoute').setAttribute('disabled', true);
             document.getElementById('negativeRoute').value = '-1';
             document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
             document.getElementById('negativeSceneRoute').value = "-1";
             document.getElementById('negativeEndingId').removeAttribute('disabled');
         } else if (document.getElementById('negativeSceneRoute').value >= '1') {
+            document.getElementById('nTransType').value = 'scene'
             document.getElementById('negativeRoute').setAttribute('disabled', true);
             document.getElementById('negativeRoute').value = '-1';
             document.getElementById('negativeSceneRoute').removeAttribute('disabled');
             document.getElementById('negativeEndingId').setAttribute('disabled', true);
             document.getElementById('negativeEndingId').value = "-1";
         } else if (document.getElementById('negativeRoute').value >= '1') {
+            document.getElementById('nTransType').value = 'eventChoice'
             document.getElementById('negativeRoute').removeAttribute('disabled');
             document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
             document.getElementById('negativeSceneRoute').value = "-1";
