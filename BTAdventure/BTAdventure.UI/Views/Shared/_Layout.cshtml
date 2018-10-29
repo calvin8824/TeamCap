@@ -16,10 +16,10 @@
 
 </head>
 <body>
-   
-   
+
+
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/Home/MainMenu">Home</a>
 
         @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -37,14 +37,16 @@
                 <li class="nav-item">
                     <a class="nav-link btn btn-outline-secondary" href="/Account/UserCommandCentre">Manage Account!</a>
                 </li>
+                if (Request.IsAuthenticated && User.IsInRole("Creator"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-secondary" href="/Creator/Index">Creator Home</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-secondary" href="/Creator/Index">Creator Index</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-secondary" href="/Creator/EditGame">Edit Game</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-secondary" href="/Creator/EditGame">Edit Game</a>
+                    </li>
+                }
 
                 <li class="nav-item float-right">
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form-inline my-2 my-lg-0" }))

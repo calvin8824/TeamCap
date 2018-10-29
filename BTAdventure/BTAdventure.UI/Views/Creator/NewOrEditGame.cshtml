@@ -4,7 +4,7 @@
 }
 
 <div class="row">
-    <h2>NewOrEditGame</h2>
+    <h2>Game Create/Edit</h2>
     <hr />
 </div>
 @using (Html.BeginForm("SceneMain", "Creator", FormMethod.Post))
@@ -21,6 +21,6 @@
         @Html.TextAreaFor(m => m.IntroText, new { @class="form-control", rows="8"})
     </div>
 
-    <button>Go</button>
+    <button class="btn btn-primary">Go</button>
 
 }

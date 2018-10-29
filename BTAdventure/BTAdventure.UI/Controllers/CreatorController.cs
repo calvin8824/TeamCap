@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BTAdventure.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Creator")]
     public class CreatorController : Controller
     {        
         private CreatorService creatorService;
