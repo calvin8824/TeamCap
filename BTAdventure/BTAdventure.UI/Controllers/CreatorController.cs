@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BTAdventure.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Creator")]
     public class CreatorController : Controller
     {        
         private CreatorService creatorService;
@@ -106,18 +106,23 @@ namespace BTAdventure.UI.Controllers
             return View(allScenesFromGameId);
         }
 
-        public ActionResult CreateOrEditScene(int id)
+        public ActionResult CreateOrEditScene(int? sceneId, int gameId)
         {
             //will need to move to service/domain layer eventually
             Scene scene;
-            if (id > 0)
+            if (gameId > 0)
             {
-                scene = creatorService.GetAllScenes().Where(s=>s.SceneId == id).First();
+                scene = creatorService.GetAllScenes().Where(s=>s.SceneId == sceneId).FirstOrDefault();
+                if (scene == null)
+                {
+                    scene = new Scene { GameId = gameId };
+                }
+
             }
             else
             {
 
-                scene = new Scene { GameId = id };
+                scene = new Scene { GameId = gameId };
             }
 
             return View(scene);
@@ -132,6 +137,7 @@ namespace BTAdventure.UI.Controllers
             }
             else
             {
+
                 scene = creatorService.CreateScene(scene);
             }
             
@@ -146,6 +152,7 @@ namespace BTAdventure.UI.Controllers
             //model.CurrentEvent = creatorService.GetAllEventChoice().First();
             //model.AllEventByScene = creatorService.GetAllEventChoice().Where(e=>e.SceneId == model.CurrentEvent.SceneId);
             ViewBag.SceneId = sceneId;
+            ViewBag.GameId = creatorService.GetAllScenes().Where(s => s.SceneId == sceneId).First().GameId;
             model.AllEventByScene = creatorService.GetAllEventChoice().Where(e => e.SceneId == sceneId);
             model.AllEventChoice = creatorService.GetAllEventChoice();
             model.AllScene = creatorService.GetAllScenes();

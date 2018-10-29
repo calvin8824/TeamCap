@@ -13,6 +13,20 @@ namespace BTAdventure.Data.DapperRepositories
     {
         private const string CONN_STRING_KEY = "BinaryTextAdventure";
 
+        public PlayerCharacter AddNewPlayerCharacter(PlayerCharacter character)
+        {
+            const string sql = "INSERT INTO PlayerCharacter (PlayerId, SceneId, EventChoiceId, CharacterName, HealthPoints, Gold) "
+                   + "VALUES (@PlayerId, @SceneId, @EventChoiceId, @CharacterName, @HealthPoints, @Gold); "
+                   + "SELECT SCOPE_IDENTITY()";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                character.CharacterId = conn.Query<int>(sql, character).First();
+            }
+            return character;
+
+        }
+
         public IEnumerable<PlayerCharacter> All()
         {
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))

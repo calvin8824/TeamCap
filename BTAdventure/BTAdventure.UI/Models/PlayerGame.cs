@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BTAdventure.UI.Models
 {
@@ -13,5 +14,15 @@ namespace BTAdventure.UI.Models
         public IEnumerable<PlayerCharacter> Characters { get; set; }
         public Game Game { get; set; }
         public Scene Scene { get; set; }
+        public PlayerCharacter Character { get; set; }
+        public int SelectGameId { get; set; }
+        public IEnumerable<SelectListItem> GameList
+        {
+            get
+            {
+                return new SelectList(Games, "GameId", "GameTitle");
+            }
+            set { }
+        }
     }
 }
