@@ -16,9 +16,14 @@ Select * From AspNetUsers
 Select * FROM AspNetUserRoles
 SELECT * FROM AspNetRoles
 
-UPDATE PlayerCharacter
-SET PlayerId = 'fb06fcce-40d5-4854-ba35-1378b20960af'
-WHERE CharacterId = 1
+--Admin Login
+--Username: admin@admin.com
+--Password: Admin123!
 
-INSERT INTO AspNetUserRoles(UserId, RoleId)
-VALUES('fb06fcce-40d5-4854-ba35-1378b20960af', 2), ('fb06fcce-40d5-4854-ba35-1378b20960af', 1)
+--Creator Login
+--Username: creator@creator.com
+--Password: Creator123!
+
+--User Login
+--Username: user@user.com
+--Password: User123!

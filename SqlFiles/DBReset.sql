@@ -14,7 +14,7 @@ Begin
 	Delete From Ending;
 	Delete From Scene;
 	Delete From Game;
-	Delete From AspNetUsers where Id in ('00000000-0000-0000-0000-000000000000', '10000000-0000-0000-0000-000000000000', '20000000-0000-0000-0000-000000000000');
+	Delete From AspNetUsers where Id in ('00000000-0000-0000-0000-000000000000', '10000000-0000-0000-0000-000000000000', '20000000-0000-0000-0000-000000000000', 'a60f9be0-baff-48c7-beb6-049114db1a2d', '484946c7-b906-4a39-8b15-58e5629ac87e', '1cb4258e-b0ca-4fae-b746-e831f0cab106');
 
 	DBCC CHECKIDENT ('PlayerCharacter', RESEED, 1);
 	DBCC CHECKIDENT ('Game', RESEED, 1);
@@ -106,6 +106,12 @@ Begin
 	('10000000-0000-0000-0000-000000000000', '1', '1', '1', '1', '1', 'Simon'),
 	('20000000-0000-0000-0000-000000000000', '1', '1', '1', '1', '1', 'Piotr')
 
+	INSERT INTO AspNetUsers
+	VALUES ('a60f9be0-baff-48c7-beb6-049114db1a2d', 'admin@admin.com', 0, 'AF3Hwrh0a/lEb9IdlaGukHdXenGAR/XMV3v0bWs65PeLy7/sdOgeMcgnmbTNDOXu7g==', '0eb698b8-db7a-49ee-9489-ad0b1e923bf6', null, 0, 0, null, 1, 0, 'admin@admin.com', 'test', 'test'),
+	('484946c7-b906-4a39-8b15-58e5629ac87e', 'user@user.com', 0, 'ADaS3zo0G3ILfELYHAJF8j3ngjmXJNqr04vxVwKfdkjbDtkkA5ks41BElXP49UybqQ==', '2937b5c7-b664-48da-a706-8e2f85821299', null, 0, 0, null, 1, 0, 'user@user.com', 'user', 'user'),
+	('1cb4258e-b0ca-4fae-b746-e831f0cab106', 'creator@creator.com', 0, 'ANVmyOY5sJgmHtjlIzq0NuZ9MKlXP2GzBrdTN3oWBA+YJLzi2R5DH/hp6V9y6RORFw==', '6465c93e-597c-444d-b1f6-9450064c2735', null, 0, 0, null, 1, 0, 'creator@creator.com', 'creator', 'creator')
+
+
 	Set Identity_Insert PlayerCharacter On;
 
 	Insert Into PlayerCharacter (CharacterId, PlayerId, SceneId, EventChoiceId, CharacterName, HealthPoints, Gold)
@@ -124,7 +130,22 @@ Begin
 		(2, 'Creator'),
 		(3, 'User')
 
+	INSERT INTO AspNetUserRoles(UserId, RoleId)
+	VALUES('a60f9be0-baff-48c7-beb6-049114db1a2d', 2), ('a60f9be0-baff-48c7-beb6-049114db1a2d', 1),
+	('484946c7-b906-4a39-8b15-58e5629ac87e', 3),
+	('1cb4258e-b0ca-4fae-b746-e831f0cab106', 2), ('1cb4258e-b0ca-4fae-b746-e831f0cab106', 3)
 
+	UPDATE PlayerCharacter
+	SET PlayerId = 'a60f9be0-baff-48c7-beb6-049114db1a2d'
+	WHERE CharacterId = 1
+
+	UPDATE PlayerCharacter
+	SET PlayerId = '484946c7-b906-4a39-8b15-58e5629ac87e'
+	WHERE CharacterId = 2
+
+	UPDATE PlayerCharacter
+	SET PlayerId = '1cb4258e-b0ca-4fae-b746-e831f0cab106'
+	WHERE CharacterId = 3
 
 
 
