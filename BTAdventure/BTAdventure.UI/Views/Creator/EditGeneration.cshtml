@@ -8,7 +8,7 @@
 </div>
 
 <div class="row">
-    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { id = ViewBag.SceneId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { sceneId = ViewBag.SceneId, gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
     @*<button>Edit Scene Title</button>*@
     @*<button>Create New Event</button>*@
     @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))

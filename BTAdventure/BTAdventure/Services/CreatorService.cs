@@ -370,6 +370,10 @@ namespace BTAdventure.Services
         public Scene SaveScene(Scene scene)
         {
             var allScenesByGameId = sceneRepo.FindByGameId(scene.GameId);
+            if (!(allScenesByGameId.Any()))
+            {
+                scene.IsStart = true;
+            }
             if (scene.IsStart == true)
             {
                 foreach (var s in allScenesByGameId)
