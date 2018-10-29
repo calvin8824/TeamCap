@@ -126,7 +126,15 @@ namespace BTAdventure.UI.Controllers
         [HttpPost]
         public ActionResult CreateOrEditScene(Scene scene)
         {
-            scene = creatorService.CreateScene(scene);
+            if (scene.GameId > 0)
+            {
+                scene = creatorService.SaveScene(scene);
+            }
+            else
+            {
+                scene = creatorService.CreateScene(scene);
+            }
+            
             return RedirectToAction("SceneMain",new { id = scene.GameId});
         }
 

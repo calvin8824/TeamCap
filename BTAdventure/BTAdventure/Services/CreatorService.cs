@@ -314,6 +314,29 @@ namespace BTAdventure.Services
             return outcomeRepo.Save(outcome);
         }
 
+        public Scene SaveScene(Scene scene)
+        {
+            var allScenesByGameId = sceneRepo.FindByGameId(scene.GameId);
+            if (scene.IsStart == true)
+            {
+                foreach (var s in allScenesByGameId)
+                {
+                    if (s.SceneId == scene.SceneId)
+                    {
+                        sceneRepo.Save(s);
+                    }
+                    else
+                    {
+                        s.IsStart = false;
+                        sceneRepo.Save(s);
+                    }
+                    
+                }
+            }
+            scene = sceneRepo.Save(scene);
+            return scene;
+        }
+
         public IEnumerable<Ending> GetAllEndings()
         {
             return endingRepo.All();
