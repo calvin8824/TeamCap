@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -61,24 +62,34 @@ namespace BTAdventure.UI.Controllers
 
 
         [HttpGet]
-        public ActionResult MainMenu(PlayerGame vm)
+        public ActionResult MainMenu()
         {
-            
-            //get all games by player, add to vm
-            return View(vm);
-        }
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
 
-        [HttpGet]
-        public ActionResult LoadGame()
-        {
             var dapper = new DapperPlayerCharacterRepository();
             var y = HttpContext.User.Identity.Name;
             var used = HttpContext.User;
 
             var newUser = UserManager.FindById(used.Identity.GetUserId());
+            var result = dapper.AllLoggedIn(newUser.Id); //is this needed?
+            return View(newUser);
+        }
 
-            var result = dapper.AllLoggedIn(newUser.Id);
-            return View(result);
+        [HttpGet]
+        public ActionResult LoadGame() //player id
+        {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+            
+            LoadGameData loadGameData = new LoadGameData();
+            loadGameData.Games = gameSerivce.FindAllGames();
+            loadGameData.PlayerCharacters = gameSerivce.FindListOfPlayerCharactersByPlayerId(userId).ToList();
+
+            
+            return View(loadGameData);
         }
 
         [HttpPost]

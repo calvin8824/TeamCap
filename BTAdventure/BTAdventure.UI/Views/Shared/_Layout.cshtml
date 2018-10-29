@@ -1,35 +1,79 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choices</title>
+    <title>@ViewBag.Title Sharp Adventure Engine</title>
     @Scripts.Render("~/bundles/jquery")
-    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css")*@
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
     @Scripts.Render("~/bundles/modernizr")
 
 
     <link href="https://fonts.googleapis.com/css?family=Goudy+Bookletter+1911|Muli|Noto+Sans|Oswald|Rosarivo" rel="stylesheet">
-    
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="color: antiquewhite;">
-                 
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="navbarItems">@Html.ActionLink("Home", "Start", "Home")</li>
-                        <li class="navbarItems">@Html.ActionLink("Main Menu", "UserCommandCentre", "Account")</li>
-                        <li class="navbarItems"><h1 class="customHeader">Sharp Adventure Engine<span><br /></span></h1></li>
-                        <li class="navbarItems">@Html.ActionLink("Login", "Login", "Account")</li>
-                        <li class="navbarItems">@Html.ActionLink("Register", "Register", "Account")</li>
-                    </ul>
-                </div>
-            </div>
-       
+   
+   
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">Navbar</a>
+
+        @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                Hello
+            </button>*@
+
+        <ul class="navbar-nav mr-auto">
+            @if (Request.IsAuthenticated)
+            {
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">Hello @User.Identity.GetUserName() ! <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary" href="/Account/UserCommandCentre">Manage Account!</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary" href="/Creator/Index">Creator Index</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary" href="/Creator/EditGame">Edit Game</a>
+                </li>
+
+                <li class="nav-item float-right">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form-inline my-2 my-lg-0" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @*<a href="javascript:document.getElementById('logoutForm').submit()" class="nav-item nav-mr-auto mt-2 mt-lg-0">Log off</a>*@
+                        <button class="nav-link btn btn-outline-success mr-sm-2" type="submit">Log Off</button>
+
+                    }
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="/Account/Login">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/Account/Register">Register</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
-      
+
     </div>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -38,7 +82,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

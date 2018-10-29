@@ -175,14 +175,14 @@
                         <label>Positive Event Route</label>
                     </div>
                     <div class="form-row justify-content-center">
-                        <select name="positiveRoute" id="positiveRoute" class="form-control">
+                        <select name="positiveRoute" id="positiveRoute" class="form-control" disabled>
                             @if (Model.EventChoice.PositiveRoute == null)
                             {
-                                <option selected disabled>Choose A Transition</option>
+                                <option value="-1" selected disabled>Choose A Transition</option>
                             }
                             else
                             {
-                                <option disabled>Choose A Transition</option>
+                                <option value="-1" disabled>Choose A Transition</option>
                             }
                             @foreach (var r in Model.AvailableChoices)
                             {
@@ -203,14 +203,14 @@
                         <label>Negative Event Route</label>
                     </div>
                     <div class="form-row justify-content-center">
-                        <select name="negativeRoute" id="negativeRoute" class="form-control">
+                        <select name="negativeRoute" id="negativeRoute" class="form-control" disabled>
                             @if (Model.EventChoice.NegativeRoute == null)
                             {
-                                <option selected disabled>Choose A Transition</option>
+                                <option value="-1" selected disabled>Choose A Transition</option>
                             }
                             else
                             {
-                                <option disabled>Choose A Transition</option>
+                                <option value="-1" disabled>Choose A Transition</option>
                             }
                             @foreach (var r in Model.AvailableChoices)
                             {
@@ -234,14 +234,14 @@
                         <label>Positive Scene Route</label>
                     </div>
                     <div class="form-row justify-content-center">
-                        <select name="positiveSceneRoute" id="positiveSceneRoute" class="form-control">
+                        <select name="positiveSceneRoute" id="positiveSceneRoute" class="form-control" disabled>
                             @if (Model.EventChoice.PositiveSceneRoute == null)
                             {
-                                <option selected disabled>Choose A Transition</option>
+                                <option value="-1" selected disabled>Choose A Transition</option>
                             }
                             else
                             {
-                                <option disabled>Choose A Transition</option>
+                                <option value="-1" disabled>Choose A Transition</option>
                             }
                             @foreach (var r in Model.GameScenes)
                             {
@@ -262,14 +262,14 @@
                         <label>Negative Scene Route</label>
                     </div>
                     <div class="form-row justify-content-center">
-                        <select name="negativeSceneRoute" id="negativeSceneRoute" class="form-control">
+                        <select name="negativeSceneRoute" id="negativeSceneRoute" class="form-control" disabled>
                             @if (Model.EventChoice.NegativeSceneRoute == null)
                             {
-                                <option selected disabled>Choose A Transition</option>
+                                <option value="-1" selected disabled>Choose A Transition</option>
                             }
                             else
                             {
-                                <option disabled>Choose A Transition</option>
+                                <option value="-1" disabled>Choose A Transition</option>
                             }
                             @foreach (var r in Model.GameScenes)
                             {
@@ -294,14 +294,14 @@
                         <label>Positive Ending Route</label>
                     </div>
                     <div class="form-row justify-content-center">
-                        <select name="positiveEndingId" id="positiveEndingId" class="form-control">
+                        <select name="positiveEndingId" id="positiveEndingId" class="form-control" disabled>
                             @if (Model.EventChoice.PositiveEndingId == null)
                             {
-                                <option selected disabled>Choose A Transition</option>
+                                <option value="-1" selected disabled>Choose A Transition</option>
                             }
                             else
                             {
-                                <option disabled>Choose A Transition</option>
+                                <option value="-1" disabled>Choose A Transition</option>
                             }
                             @foreach (var e in Model.GameEndings)
                             {
@@ -322,14 +322,14 @@
                         <label>Negative Ending Route</label>
                     </div>
                     <div class="form-row justify-content-center">
-                        <select name="negativeEndingId" id="negativeEndingId" class="form-control">
+                        <select name="negativeEndingId" id="negativeEndingId" class="form-control" disabled>
                             @if (Model.EventChoice.NegativeEndingId == null)
                             {
-                                <option selected disabled>Choose A Transition</option>
+                                <option value="-1" selected disabled>Choose A Transition</option>
                             }
                             else
                             {
-                                <option disabled>Choose A Transition</option>
+                                <option value="-1" disabled>Choose A Transition</option>
                             }
                             @foreach (var e in Model.GameEndings)
                             {
@@ -385,8 +385,122 @@
                 Connect a parent event to be able to select where this event will go.
             </div>
         }
-            <div class="form-row justify-content-center">
-                <button class="btn btn-primary" type="submit">Save Event</button>
-            </div>
+        <div class="form-row justify-content-center">
+            <button class="btn btn-primary" type="submit">Save Event</button>
+        </div>
     </form>
 </div>
+
+@section scripts{
+    <script>
+
+        if (document.getElementById('positiveEndingId').value >= '1') {
+            document.getElementById('positiveRoute').setAttribute('disabled', true);
+            document.getElementById('positiveRoute').value = '-1';
+            document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+            document.getElementById('positiveSceneRoute').value = "-1";
+            document.getElementById('positiveEndingId').removeAttribute('disabled');
+        } else if (document.getElementById('positiveSceneRoute').value >= '1') {
+            document.getElementById('positiveRoute').setAttribute('disabled', true);
+            document.getElementById('positiveRoute').value = '-1';
+            document.getElementById('positiveSceneRoute').removeAttribute('disabled');
+            document.getElementById('positiveEndingId').setAttribute('disabled', true);
+            document.getElementById('positiveEndingId').value = "-1";
+        } else if (document.getElementById('positiveRoute').value >= '1') {
+            document.getElementById('positiveRoute').removeAttribute('disabled');
+            document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+            document.getElementById('positiveSceneRoute').value = "-1";
+            document.getElementById('positiveEndingId').setAttribute('disabled', true);
+            document.getElementById('positiveEndingId').value = "-1";
+        }
+
+        if (document.getElementById('negativeEndingId').value >= '1') {
+            document.getElementById('negativeRoute').setAttribute('disabled', true);
+            document.getElementById('negativeRoute').value = '-1';
+            document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+            document.getElementById('negativeSceneRoute').value = "-1";
+            document.getElementById('negativeEndingId').removeAttribute('disabled');
+        } else if (document.getElementById('negativeSceneRoute').value >= '1') {
+            document.getElementById('negativeRoute').setAttribute('disabled', true);
+            document.getElementById('negativeRoute').value = '-1';
+            document.getElementById('negativeSceneRoute').removeAttribute('disabled');
+            document.getElementById('negativeEndingId').setAttribute('disabled', true);
+            document.getElementById('negativeEndingId').value = "-1";
+        } else if (document.getElementById('negativeRoute').value >= '1') {
+            document.getElementById('negativeRoute').removeAttribute('disabled');
+            document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+            document.getElementById('negativeSceneRoute').value = "-1";
+            document.getElementById('negativeEndingId').setAttribute('disabled', true);
+            document.getElementById('negativeEndingId').value = "-1";
+        }
+
+        document.getElementById('pTransType').onchange = function () {
+            if (this.value == 'eventChoice') {
+                document.getElementById('positiveRoute').removeAttribute('disabled');
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+                document.getElementById('positiveSceneRoute').value = "-1";
+                document.getElementById('positiveEndingId').setAttribute('disabled', true);
+                document.getElementById('positiveEndingId').value = "-1";
+            }
+            else if (this.value == 'scene') {
+                document.getElementById('positiveRoute').setAttribute('disabled', true);
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').removeAttribute('disabled');
+                document.getElementById('positiveSceneRoute').value = '-1';
+                document.getElementById('positiveEndingId').setAttribute('disabled', true);
+                document.getElementById('positiveEndingId').value = "-1";
+            }
+            else if (this.value == 'ending') {
+                document.getElementById('positiveRoute').setAttribute('disabled', true);
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+                document.getElementById('positiveSceneRoute').value = "-1";
+                document.getElementById('positiveEndingId').removeAttribute('disabled');
+                document.getElementById('positiveEndingId').value = '-1';
+            }
+            else {
+                document.getElementById('positiveRoute').setAttribute('disabled', true);
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+                document.getElementById('positiveSceneRoute').value = "-1";
+                document.getElementById('positiveEndingId').setAttribute('disabled', true);
+                document.getElementById('positiveEndingId').value = "-1";
+            }
+        }
+        document.getElementById('nTransType').onchange = function () {
+            if (this.value == 'eventChoice') {
+                document.getElementById('negativeRoute').removeAttribute('disabled');
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+                document.getElementById('negativeSceneRoute').value = "-1";
+                document.getElementById('negativeEndingId').setAttribute('disabled', true);
+                document.getElementById('negativeEndingId').value = "-1";
+            }
+            else if (this.value == 'scene') {
+                document.getElementById('negativeRoute').setAttribute('disabled', true);
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').removeAttribute('disabled');
+                document.getElementById('negativeSceneRoute').value = '-1';
+                document.getElementById('negativeEndingId').setAttribute('disabled', true);
+                document.getElementById('negativeEndingId').value = "-1";
+            }
+            else if (this.value == 'ending') {
+                document.getElementById('negativeRoute').setAttribute('disabled', true);
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+                document.getElementById('negativeSceneRoute').value = "-1";
+                document.getElementById('negativeEndingId').removeAttribute('disabled');
+                document.getElementById('negativeEndingId').value = '-1';
+            }
+            else {
+                document.getElementById('negativeRoute').setAttribute('disabled', true);
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+                document.getElementById('negativeSceneRoute').value = "-1";
+                document.getElementById('negativeEndingId').setAttribute('disabled', true);
+                document.getElementById('negativeEndingId').value = "-1";
+            }
+        }
+    </script>
+}

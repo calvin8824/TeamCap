@@ -4,6 +4,7 @@ using BTAdventure.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -21,11 +22,25 @@ namespace BTAdventure.UI.Controllers
 
         public ActionResult NewGame()
         {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+
+            var games = gameSerivce.FindAllGames();
+
+            PlayerGame playerGame = new PlayerGame();
+            playerGame.Games = gameSerivce.FindAllGames();
+            playerGame.Player = gameSerivce.FindPlayerById(userId);
+
+            //find player id all games
+            //generate new player character
+            //find scene id
+            //gameSerivce.NewGame
             return View();
         }
 
         [HttpPost]
-        public ActionResult NewGame(int id)
+        public ActionResult NewGame(Game game)
         {
             //insert into character, name and 3hp, 0 gold
             return View("Intro");

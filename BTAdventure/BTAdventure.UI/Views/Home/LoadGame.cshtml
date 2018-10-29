@@ -1,27 +1,26 @@
-﻿@model IEnumerable<BTAdventure.Models.PlayerCharacter>
+﻿@model BTAdventure.Models.LoadGameData
 
 @{
     ViewBag.Title = "Load Game";
 }
 
 <h2 class="text-center ">Load Game</h2>
-@if (Model.Count() == 0)
+@if (Model.PlayerCharacters.Count() == 0)
 {
     <div class="text-center">Looks like you don't have any active games...</div>
-    @Html.ActionLink("Click Here To Start One!", "Index", "Creator", null, new { @class = "btn btn-outline-primary align-self-end" })
-
-}
+    @Html.ActionLink("Start A New Game", "NewGame", "Gameplay", new { @class = "btn btn-outline-primary align-self-end" })
+}   
 @using (Html.BeginForm("LoadGame", "Home", new
 {
     ReturnUrl = ViewBag.ReturnUrl
 }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    if (Model.Count() > 0)
+    if (Model.PlayerCharacters.Count() > 0)
     {
-        @Html.DropDownListFor(m => m.First().CharacterId,
-                      Model.Select(i => new SelectListItem { Value = i.CharacterId.ToString(), Text = i.CharacterName.ToString() }),
+        @Html.DropDownListFor(m => m.PlayerCharacters.First().CharacterId,
+                      Model.PlayerCharacters.Select(i => new SelectListItem { Value = i.CharacterId.ToString(), Text = i.CharacterName.ToString() }),
                       new { @class = "form-control" })
-        @Html.ActionLink("Start A New Game", "NewOrEditGame", "Creator", null, new { @class = "btn btn-outline-primary align-self-end" })
+        @Html.ActionLink("Start A New Game", "NewGame", "Gameplay", new { id = Model.PlayerCharacters.First().PlayerId }, new { @class = "btn btn-outline-primary align-self-end" })
 
 
         <div class="form-group">
