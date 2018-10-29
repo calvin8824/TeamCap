@@ -159,6 +159,7 @@ namespace BTAdventure.UI.Controllers
                     var userManager = new UserManager<ApplicationUser>(userStore);
 
                     var newUser = userManager.FindByEmail(user.Email);
+                    
                     userManager.AddToRole(newUser.Id, "User");
 
                     if (result.Succeeded)
