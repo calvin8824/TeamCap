@@ -1,20 +1,16 @@
 ﻿@model IEnumerable<BTAdventure.Models.PlayerCharacter>
 
 @{
-    ViewBag.Title = "User Command Centre";
+    ViewBag.Title = "User Command Center";
 }
 
 <h2 class="text-center">User Command Centre</h2>
 <br />
 @if (Model.Count() == 0)
 {
-    <div class="col ">
-        <div class="col text-center">Looks like you don't have any active games...</div>
-        <br />
-        <div class="col text-center">
-            @Html.ActionLink("Click Here To Start One!", "NewOrEditGame", "Creator", new { @class = "btn btn-success" })
-        </div>
-    </div>
+    <div class="text-center">Looks like you don't have any active games...</div>
+    @Html.ActionLink("Click Here To Start One!", "NewOrEditGame", "Creator", null , new { @class = "btn btn-outline-primary align-self-end" })
+
 }
 
     <div class="row text-center">

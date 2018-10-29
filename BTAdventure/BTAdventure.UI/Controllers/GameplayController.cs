@@ -19,11 +19,27 @@ namespace BTAdventure.UI.Controllers
             this.gameSerivce = gameService;
         }
 
+        public ActionResult NewGame()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewGame(int id)
+        {
+            //insert into character, name and 3hp, 0 gold
+            return View("Intro");
+        }
+
+        public ActionResult Intro()
+        {
+            return View();
+        }
+
+
         [HttpGet]
         public ActionResult Game(PlayerCharacter player)//we're taking in a character id ... last i heard
         {
-            ////MAKE A FIND EVENT CHOICE AND FIND SCENE BY CHARACTERID!!!!
-            
             GameSceneVM vm = new GameSceneVM();
             vm.PlayerCharacter = gameSerivce.FindPlayerCharacterById(player.CharacterId);
             

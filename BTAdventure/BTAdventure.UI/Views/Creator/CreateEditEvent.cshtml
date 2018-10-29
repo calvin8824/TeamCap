@@ -3,12 +3,390 @@
     ViewBag.Title = "CreateEditEvent";
 }
 
-@if (Model.EventChoice != null)
-{
-    <h2>Edit Event</h2>
-}
-else
-{
-    <h2>Create Event</h2>
-}
+<div>
+    <div>
+        @if (Model.EventChoice != null)
+        {
+            <h2 class="text-center">Edit Event</h2>
+        }
+        else
+        {
+            <h2 class="text-center">Create Event</h2>
+        }
+    </div>
+    <form action="/creator/saveEvent" method="post">
+        <input name="sceneId" value="@Model.SceneId" hidden readonly />
+        @if (Model.EventChoice.GenerationNumber != null)
+        {
+            <input name="generationNumber" value="@Model.EventChoice.GenerationNumber" hidden readonly />
+        }
+        else
+        {
+            <input name="generationNumber" value=null hidden readonly />
+        }
+        @if (Model.EventChoice.EventChoiceId > 0)
+        {
+            <input name="eventId" value="@Model.EventChoice.EventChoiceId" hidden readonly />
+        }
+        else
+        {
+            <input name="eventId" value="0" hidden readonly />
+        }
+        @if (Model.PositiveOutcome.OutcomeId > 0)
+        {
+            <input name="positiveOutcomeId" value="@Model.PositiveOutcome.OutcomeId" hidden readonly />
+        }
+        else
+        {
+            <input name="positiveOutcomeId" value="0" hidden readonly />
+        }
+        @if (Model.NegativeOutcome.OutcomeId > 0)
+        {
+            <input name="negativeOutcomeId" value="@Model.NegativeOutcome.OutcomeId" hidden readonly />
+        }
+        else
+        {
+            <input name="negativeOutcomeId" value="0" hidden readonly />
+        }
+        <div class="form-row justify-content-center">
+            <label>Event Name</label>
+        </div>
+        <div class="form-row justify-content-center">
+            @if (Model.EventChoice.EventName != null)
+            {
+                <input type="text" name="eventName" class="form-control" value="@Model.EventChoice.EventName" required>
+            }
+            else
+            {
+                <input type="text" name="eventName" class="form-control" required>
+            }
+        </div>
+        <div class="form-row justify-content-center">
+            <label>Starting Text</label>
+        </div>
+        <div class="form-row justify-content-center">
+            @if (Model.EventChoice.StartText != null)
+            {
+                <textarea name="startText" class="eventStartTextArea" required>@Model.EventChoice.StartText"</textarea>
+            }
+            else
+            {
+                <textarea name="startText" class="eventStartTextArea" required></textarea>
+            }
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Positive Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.PositiveText != null)
+                    {
+                        <textarea name="positiveText" class="eventTextArea" required>@Model.EventChoice.PositiveText</textarea>
+                    }
+                    else
+                    {
+                        <textarea name="positiveText" class="eventTextArea" required></textarea>
+                    }
+                </div>
+            </div>
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Negative Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.NegativeText != null)
+                    {
+                        <textarea name="negativeText" class="eventTextArea" required>@Model.EventChoice.NegativeText</textarea>
+                    }
+                    else
+                    {
+                        <textarea name="negativeText" class="eventTextArea" required></textarea>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Positive Button Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.PositiveButton != null)
+                    {
+                        <input type="text" name="positiveButton" class="form-control" value="@Model.EventChoice.PositiveButton" required>
+                    }
+                    else
+                    {
+                        <input type="text" name="positiveButton" class="form-control" required>
+                    }
+                </div>
+            </div>
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Negative Button Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.NegativeButton != null)
+                    {
+                        <input type="text" name="negativeButton" class="form-control" value="@Model.EventChoice.NegativeButton" required>
+                    }
+                    else
+                    {
+                        <input type="text" name="negativeButton" class="form-control" required>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (Model.EventChoice.GenerationNumber != null)
+        {
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Transition Type</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="pTransType" id="pTransType" class="form-control" required>
+                            <option selected disabled>Choose A Transition</option>
+                            <option value="eventChoice">Choice Event</option>
+                            <option value="scene">Scene</option>
+                            <option value="ending">Ending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Transition Type</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="nTransType" id="nTransType" class="form-control" required>
+                            <option selected disabled>Choose A Transition</option>
+                            <option value="eventChoice">Choice Event</option>
+                            <option value="scene">Scene</option>
+                            <option value="ending">Ending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Event Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="positiveRoute" id="positiveRoute" class="form-control">
+                            @if (Model.EventChoice.PositiveRoute == null)
+                            {
+                                <option selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.AvailableChoices)
+                            {
+                                if (r.EventChoiceId == Model.EventChoice.PositiveRoute)
+                                {
+                                    <option value="@r.EventChoiceId" selected>@r.EventName</option>
+                                }
+                                else if (r.GenerationNumber != 0)
+                                {
+                                    <option value="@r.EventChoiceId">@r.EventName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Event Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="negativeRoute" id="negativeRoute" class="form-control">
+                            @if (Model.EventChoice.NegativeRoute == null)
+                            {
+                                <option selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.AvailableChoices)
+                            {
+                                if (r.EventChoiceId == Model.EventChoice.NegativeRoute)
+                                {
+                                    <option value="@r.EventChoiceId" selected>@r.EventName</option>
+                                }
+                                else if (r.GenerationNumber != 0)
+                                {
+                                    <option value="@r.EventChoiceId">@r.EventName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Scene Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="positiveSceneRoute" id="positiveSceneRoute" class="form-control">
+                            @if (Model.EventChoice.PositiveSceneRoute == null)
+                            {
+                                <option selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.GameScenes)
+                            {
+                                if (r.SceneId == Model.EventChoice.PositiveSceneRoute)
+                                {
+                                    <option value="@r.SceneId" selected>@r.SceneName</option>
+                                }
+                                else
+                                {
+                                    <option value="@r.SceneId">@r.SceneName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Scene Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="negativeSceneRoute" id="negativeSceneRoute" class="form-control">
+                            @if (Model.EventChoice.NegativeSceneRoute == null)
+                            {
+                                <option selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.GameScenes)
+                            {
+                                if (r.SceneId == Model.EventChoice.NegativeSceneRoute)
+                                {
+                                    <option value="@r.SceneId" selected>@r.SceneName</option>
+                                }
+                                else
+                                {
+                                    <option value="@r.SceneId">@r.SceneName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Ending Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="positiveEndingId" id="positiveEndingId" class="form-control">
+                            @if (Model.EventChoice.PositiveEndingId == null)
+                            {
+                                <option selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var e in Model.GameEndings)
+                            {
+                                if (e.EndingId == Model.EventChoice.PositiveEndingId)
+                                {
+                                    <option value="@e.EndingId" selected>@e.EndingName</option>
+                                }
+                                else
+                                {
+                                    <option value="@e.EndingId">@e.EndingName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Ending Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="negativeEndingId" id="negativeEndingId" class="form-control">
+                            @if (Model.EventChoice.NegativeEndingId == null)
+                            {
+                                <option selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option disabled>Choose A Transition</option>
+                            }
+                            @foreach (var e in Model.GameEndings)
+                            {
+                                if (e.EndingId == Model.EventChoice.NegativeEndingId)
+                                {
+                                    <option value="@e.EndingId" selected>@e.EndingName</option>
+                                }
+                                else
+                                {
+                                    <option value="@e.EndingId">@e.EndingName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row justify-content-center">
+                Outcome Results - Optional
+            </div>
+            <div class="form-row justify-content-center">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Outcome Effects</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <label>Health Change:</label>
+                        <input type="number" name="positiveHealth" value="@Model.PositiveOutcome.Health">
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <label>Gold Change:</label>
+                        <input type="number" name="positiveGold" value="@Model.PositiveOutcome.Gold">
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Outcome Effects</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <label>Health Change:</label>
+                        <input type="number" name="negativeHealth" value="@Model.NegativeOutcome.Health">
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <label>Gold Change:</label>
+                        <input type="number" name="negativeGold" value="@Model.NegativeOutcome.Gold">
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-row justify-content-center">
+                Connect a parent event to be able to select where this event will go.
+            </div>
+        }
+            <div class="form-row justify-content-center">
+                <button class="btn btn-primary" type="submit">Save Event</button>
+            </div>
+    </form>
+</div>

@@ -1,42 +1,44 @@
-﻿@model BTAdventure.UI.Models.PlayerGame
+﻿@model IEnumerable<BTAdventure.Models.PlayerCharacter>
+
 @{
-    ViewBag.Title = "LoadGame";
+    ViewBag.Title = "Load Game";
 }
-<h1 class="rosa" style="text-align:center; font-size:xx-large;">Select A Save</h1>
-<div class="wireframe, goudy" style="text-align:center">
-    <div class="row margin-bottom">
+
+<h2 class="text-center ">Load Game</h2>
+@if (Model.Count() == 0)
+{
+    <div class="text-center">Looks like you don't have any active games...</div>
+    @Html.ActionLink("Click Here To Start One!", "Index", "Creator", null, new { @class = "btn btn-outline-primary align-self-end" })
+
+}
+@using (Html.BeginForm("LoadGame", "Home", new
+{
+    ReturnUrl = ViewBag.ReturnUrl
+}, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    if (Model.Count() > 0)
+    {
+        @Html.DropDownListFor(m => m.First().CharacterId,
+                      Model.Select(i => new SelectListItem { Value = i.CharacterId.ToString(), Text = i.CharacterName.ToString() }),
+                      new { @class = "form-control" })
+        @Html.ActionLink("Start A New Game", "NewOrEditGame", "Creator", null, new { @class = "btn btn-outline-primary align-self-end" })
 
 
-        @if (Model.Characters.Any())
-        {
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th style="text-align:center">@Model.Player.PlayerName's Characters:</th>
-                        <th style="text-align:center">Save State:</th>
-                        <th></th>
-                    </tr>
-                </thead>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Load Game" class="btn btn-info" />
+            </div>
+        </div>
+    }
+}
+<div class="row">
 
-                @foreach (var g in Model.Characters)
-                {
-                    <tbody>
-                        <hr />
-                        <tr>
-
-                            <hr />
-                            <td>@Html.ActionLink(g.CharacterName + " " + g.CharacterId, "Game", "Gameplay", new { id = g.SceneId })</td>
-                            <td>@Html.ActionLink("Chapter: " + g.SceneId, "Game", "Gameplay", new { id = g.SceneId })</td>
-                            @*@Html.ActionLink("Delete", "Delete", "Agent", new { id = agent.Identifier }, new { @class = "btn btn-danger" }) could add a delete*@
-
-                        </tr>
-                    </tbody>
-                }
-            </table>
-        }
-
-    </div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Creator") || User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create Or Edit A Game", "Index", "Creator", null, new { @class = "btn btn-outline-primary" })
+    }
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Promote and Demote Users", "AdminControlCentre", "Account", new { @class = "btn btn-outline-primary" })
+    }
 </div>
-
-
-

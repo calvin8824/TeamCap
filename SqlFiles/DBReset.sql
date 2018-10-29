@@ -63,23 +63,23 @@ Begin
 
 	Set Identity_Insert EventChoice On;
 
-	Insert Into EventChoice (EventChoiceId, SceneId, GenerationNumber, EventName, StartText,
+	Insert Into EventChoice (EventChoiceId, SceneId, GenerationNumber, ImgUrl, EventName, StartText,
 	PositiveText, NegativeText, PositiveRoute, NegativeRoute, PositiveButton, NegativeButton,
 	PositiveSceneRoute, NegativeSceneRoute, PositiveEndingId, NegativeEndingId)
 	Values
-	('1', '1', '0', 'Greeting Event', 'You are greeted in the foyer.', 'You are gracious to your host',
+	('1', '1', '0', 'https://static1.squarespace.com/static/5a023d01ace864fd7fef3370/5a025338a6525a7eeaae3341/5a02532ea6525a7eeaae30fe/1513028424278/Grand+Stir+Hall%2C+Black+and+White+Marble+Foyer%2C', 'Greeting Event', 'You are greeted in the foyer.', 'You are gracious to your host',
 	 'You punch numerous holes in the foyer walls. A magical portal opens from one hole and you are teleported somewhere.', '2', null, 'Be gracious.', 'Punch holes in walls.',
 	 null, '7', null, null),
-	('2', '1', '1', 'Post-Greeting Event', 'You travel from the foyer to the dining room.', 'You enjoy a hearty meal',
+	('2', '1', '1', 'https://images2.roomstogo.com/is/image/roomstogo/dr_rm_hillcreek_black_6_chrs_~Hill-Creek-Black-5-Pc-Rectangle-Dining-Room.jpeg?$pdp_gallery_945$', 'Post-Greeting Event', 'You travel from the foyer to the dining room.', 'You enjoy a hearty meal',
 	 'You have a heart attack.', null, null, 'Enjoy.', 'Don''t enjoy',
 	 null, null, '3', '2'),
-	 ('3', '7', '0', 'Fantasy Castle Event', 'You open your eyes to see an immense castle.', 'You bask in the glory of the castle',
+	 ('3', '7', '0', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Alcazar_de_Segovia.JPG/1200px-Alcazar_de_Segovia.JPG', 'Fantasy Castle Event', 'You open your eyes to see an immense castle.', 'You bask in the glory of the castle',
 	 'You are struck by a falling cherub and die.', null, null, 'Good Choice.', 'Bad Choice',
 	 null, null, '3', '6'),
-	 ('4', '2', '0', 'Classroom Greeting Event', 'You are greeted in the classroom.', 'You are gracious to your teacher.',
+	 ('4', '2', '0', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Andrew_Classroom_De_La_Salle_University.jpeg/1200px-Andrew_Classroom_De_La_Salle_University.jpeg', 'Classroom Greeting Event', 'You are greeted in the classroom.', 'You are gracious to your teacher.',
 	 'You are ungracious to your teacher.', null, null, 'Be gracious.', 'Be ungracious.',
 	 null, null, '5', '4'),
-	 ('5', '3', '0', 'Space Greeting Event', 'You are greeted in space.', 'You are gracious to space.',
+	 ('5', '3', '0', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/International_Space_Station_after_undocking_of_STS-132.jpg/1200px-International_Space_Station_after_undocking_of_STS-132.jpg', 'Space Greeting Event', 'You are greeted in space.', 'You are gracious to space.',
 	 'You snidely scoff at space.', null, null, 'Be gracious.', 'Scoff',
 	 null, null, '1', '7')
 		
@@ -112,9 +112,9 @@ Begin
 	Values
 	('1', '00000000-0000-0000-0000-000000000000', '1', '1', 'Player''s Character', '5', '12'),
 	('2', '10000000-0000-0000-0000-000000000000', '2', '4', 'Lady Character', '3', '4'),
-	('3', '20000000-0000-0000-0000-000000000000', '3', '5', 'Guy Character', '1', '0'),
-	('4', '89cfef75-a0ab-487e-8bc1-7850865bc2e3', '2', '4', 'Test Char','10' , '10'),
-	('5', '89cfef75-a0ab-487e-8bc1-7850865bc2e3', '1', '3', 'Test Char NUMBER 2','15' , '1')
+	('3', '20000000-0000-0000-0000-000000000000', '3', '5', 'Guy Character', '1', '0')
+	--('4', '89cfef75-a0ab-487e-8bc1-7850865bc2e3', '2', '4', 'Test Char','10' , '10'),
+	--('5', '89cfef75-a0ab-487e-8bc1-7850865bc2e3', '1', '3', 'Test Char NUMBER 2','15' , '1')
 
 		
 	Set Identity_Insert PlayerCharacter Off;

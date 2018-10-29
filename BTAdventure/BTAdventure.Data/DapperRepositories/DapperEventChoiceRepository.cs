@@ -76,7 +76,7 @@ namespace BTAdventure.Data.DapperRepositories
                 + "PositiveText = @PositiveText, "
                 + "NegativeText = @NegativeText, "
                 + "PositiveRoute = @PositiveRoute, "
-                + "NegativeRoute = @NegativeRoute "
+                + "NegativeRoute = @NegativeRoute, "
                 + "PositiveButton = @PositiveButton, "
                 + "NegativeButton = @NegativeButton, "
                 + "PositiveSceneRoute = @PositiveSceneRoute, "
@@ -94,6 +94,30 @@ namespace BTAdventure.Data.DapperRepositories
             }
 
             return null;
+        }
+
+        public void UpdateEndingIdPos(int eventChoiceId)
+        {
+            const string sql = "UPDATE EventChoice SET "
+                + "PositiveEndingId = NULL "
+                + "WHERE EventChoiceId = @EventChoiceId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                conn.Query<EventChoice>(sql, new { EventChoiceId = eventChoiceId});
+            }
+        }
+
+        public void UpdateEndingIdNeg(int eventChoiceId)
+        {
+            const string sql = "UPDATE EventChoice SET "
+                + "NegativeEndingId = NULL "
+                + "WHERE EventChoiceId = @EventChoiceId;";
+
+            using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
+            {
+                conn.Query<EventChoice>(sql, new { EventChoiceId = eventChoiceId });
+            }
         }
 
         public IEnumerable<EventChoice> FindBySceneId(int? id)
