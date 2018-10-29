@@ -85,6 +85,11 @@ namespace BTAdventure.Services
             return playerRepo.FindById(id);
         }
 
+        public List<Game> FindAllGames()
+        {
+            return gamerepo.All().ToList();
+        }
+
         public Game FindGameById(int id)
         {
             return gamerepo.FindById(id);

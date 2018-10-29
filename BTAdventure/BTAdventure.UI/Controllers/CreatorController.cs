@@ -383,23 +383,27 @@ namespace BTAdventure.UI.Controllers
 
         public ActionResult EditEnding(int gameId) //grab ending id
         {
-            var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.GameId == gameId);
+            //EndingVM endings = new EndingVM();
+            var endings = creatorService.GetAllEndings().Where(g => g.GameId == gameId).ToList();
             ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == gameId).First().GameId;
-            return View(thisEnding);
+            return View(endings);
         }
 
         [HttpPost]
-        public ActionResult EditEnding(Ending ending)
+        public ActionResult EditEnding(List<Ending> endings)
         {
-            creatorService.EditEnding(ending);
+            foreach (var e in endings)
+            {
+                creatorService.EditEnding(e);
+            }
             return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
         }
 
-        public ActionResult DeleteEnding(int gameId)
+        public ActionResult DeleteEnding(int id)
         {
-            var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.GameId == gameId);
+            var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.EndingId == id);
             creatorService.DeleteEndingById(thisEnding.EndingId);
-            
+
             //delete from service
             return RedirectToAction("Index");
         }

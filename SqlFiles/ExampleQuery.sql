@@ -17,8 +17,12 @@ Select * FROM AspNetUserRoles
 SELECT * FROM AspNetRoles
 
 UPDATE PlayerCharacter
-SET PlayerId = 'fb06fcce-40d5-4854-ba35-1378b20960af'
+SET PlayerId = '2420320c-b97b-4231-a92b-27a20b350cce'
 WHERE CharacterId = 1
 
+INSERT INTO AspNetUsers (Id)
+VALUES ('fb06fcce-40d5-4854-ba35-1378b20960af')
+
+
 INSERT INTO AspNetUserRoles(UserId, RoleId)
-VALUES('fb06fcce-40d5-4854-ba35-1378b20960af', 2), ('fb06fcce-40d5-4854-ba35-1378b20960af', 1)
+VALUES('2420320c-b97b-4231-a92b-27a20b350cce', 2), ('2420320c-b97b-4231-a92b-27a20b350cce', 1)

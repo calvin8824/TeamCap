@@ -88,7 +88,8 @@ namespace BTAdventure.UI.Controllers
             {
                 case SignInStatus.Success:
                     //return RedirectToAction("UserCommandCentre", "Account");
-                    return RedirectToAction("LoadGame", "Home");
+                    //return RedirectToAction("LoadGame", "Home");
+                    return RedirectToAction("MainMenu", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -128,7 +129,6 @@ namespace BTAdventure.UI.Controllers
             UserManager.RemoveFromRole(usertoChange.Id, "User");
             UserManager.AddToRole(usertoChange.Id, "Creator");
             return RedirectToAction("UserCommandCentre", "Account");
-
         }
 
 

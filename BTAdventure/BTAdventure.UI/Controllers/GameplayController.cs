@@ -19,13 +19,17 @@ namespace BTAdventure.UI.Controllers
             this.gameSerivce = gameService;
         }
 
-        public ActionResult NewGame()
+        public ActionResult NewGame(int id)
         {
+            //find player id
+            //generate new player character
+            //find scene id
+            //gameSerivce.NewGame
             return View();
         }
 
         [HttpPost]
-        public ActionResult NewGame(int id)
+        public ActionResult NewGame()
         {
             //insert into character, name and 3hp, 0 gold
             return View("Intro");
