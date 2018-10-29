@@ -87,8 +87,6 @@ namespace BTAdventure.UI.Controllers
             LoadGameData loadGameData = new LoadGameData();
             loadGameData.Games = gameSerivce.FindAllGames();
             loadGameData.PlayerCharacters = gameSerivce.FindListOfPlayerCharactersByPlayerId(userId).ToList();
-
-            
             return View(loadGameData);
         }
 

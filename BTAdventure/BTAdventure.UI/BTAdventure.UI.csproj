@@ -395,6 +395,7 @@
     <Content Include="Views\Creator\EditEnding.cshtml" />
     <Content Include="Views\Shared\_CreatorLinksPartial.cshtml" />
     <Content Include="Views\Gameplay\NewGame.cshtml" />
+    <Content Include="Views\Gameplay\Intro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

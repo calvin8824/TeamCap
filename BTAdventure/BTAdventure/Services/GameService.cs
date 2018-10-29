@@ -51,9 +51,19 @@ namespace BTAdventure.Services
             return Tuple.Create(posOutcome, negOutcome);
         }
 
+        public IEnumerable<Scene> FindAllScenes()
+        {
+            return sceneRepo.All();
+        }
+
         public Ending FindEndingById(int? item2)
         {
             return endingRepo.FindById(item2);
+        }
+
+        public PlayerCharacter AddNewPlayerCharacter(PlayerCharacter character)
+        {
+            return characterRepo.AddNewPlayerCharacter(character);
         }
 
         public Scene FindSceneById(int id)

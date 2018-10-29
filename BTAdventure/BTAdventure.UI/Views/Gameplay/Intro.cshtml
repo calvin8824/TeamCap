@@ -1,0 +1,14 @@
+﻿@model BTAdventure.UI.Models.PlayerGame
+@{
+    ViewBag.Title = "Intro";
+}
+
+<h2>Intro</h2>
+<h1>@Model.Game.GameTitle</h1>
+<p>@Model.Game.IntroText</p>
+@using (Html.BeginForm("Intro", "Gameplay", new { id = Model.Character.CharacterId }, FormMethod.Post))
+{
+    @Html.HiddenFor(a => a.Character.CharacterId)
+    <button type="submit" class="btn btn-primary">Continue</button>
+    @*@Html.ActionLink("Continue", "Intro", "Gameplay", new { id = Model.Character.CharacterId })*@
+}

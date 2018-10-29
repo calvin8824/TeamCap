@@ -22,33 +22,64 @@ namespace BTAdventure.UI.Controllers
 
         public ActionResult NewGame()
         {
+
+            PlayerGame playerGame = new PlayerGame();
+            playerGame.Games = gameSerivce.FindAllGames();
+            
+            return View(playerGame);
+        }
+
+        [HttpPost]
+        public ActionResult NewGame(PlayerGame playerGame)
+        {
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
-            var games = gameSerivce.FindAllGames();
+            var charName = playerGame.Character.CharacterName;
+            var gameId = playerGame.SelectGameId;
+            var startingScene = gameSerivce.FindAllScenes().FirstOrDefault(a => a.GameId == gameId);
+            var events = gameSerivce.FindChoiceBySceneId(startingScene.SceneId);
+            var firstEvent = events.First().EventChoiceId;
 
-            PlayerGame playerGame = new PlayerGame();
-            playerGame.Games = gameSerivce.FindAllGames();
-            playerGame.Player = gameSerivce.FindPlayerById(userId);
+            var thisGame = gameSerivce.FindAllGames().FirstOrDefault(g => g.GameId == gameId);
+            PlayerCharacter character = new PlayerCharacter();
+            character.CharacterName = charName;
+            character.PlayerId = userId;
+            character.HealthPoints = 3;
+            character.Gold = 0;
+            character.SceneId = startingScene.SceneId;
+            character.EventChoiceId = firstEvent;
+            //save
 
-            //find player id all games
-            //generate new player character
-            //find scene id
-            //gameSerivce.NewGame
+            var thisPlayerCharacter = gameSerivce.AddNewPlayerCharacter(character);
+
+            PlayerGame game = new PlayerGame();
+            game.Character = character;
+            game.Game = thisGame;
+            game.Scene = startingScene;
+            //GameSceneVM vm = new GameSceneVM();
+            //vm.PlayerCharacter = gameSerivce.FindPlayerCharacterById(thisPlayerCharacter.CharacterId);
+
+            //vm.Scene = gameSerivce.FindSceneById(vm.PlayerCharacter.SceneId);
+            //vm.EventChoice = gameSerivce.FindEventChoiceById(vm.PlayerCharacter.EventChoiceId);
+
+
+            return View("Intro", game);
+        }
+
+        public ActionResult Intro(PlayerCharacter playerCharacter)
+        {
             return View();
         }
 
         [HttpPost]
-        public ActionResult NewGame(Game game)
+        public ActionResult Intro(int id)
         {
-            //insert into character, name and 3hp, 0 gold
-            return View("Intro");
-        }
+            PlayerCharacter character = new PlayerCharacter();
+            character.CharacterId = id;
 
-        public ActionResult Intro()
-        {
-            return View();
+            return RedirectToAction("Game", character);
         }
 
 
