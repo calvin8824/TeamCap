@@ -230,3 +230,8 @@ textarea {
     width: 150px;
     margin: 5px;
 }
+
+.singleCheck {
+    margin-top: 8px;
+    margin-left: 5px;
+}

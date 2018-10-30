@@ -3,12 +3,12 @@
     ViewBag.Title = "EditGeneration";
 }
 <div class="row">
-    <h2>EditGeneration</h2>
+    <h2>Edit Scene Events</h2>
     <hr />
 </div>
 
 <div class="row">
-    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { sceneId = ViewBag.SceneId, gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
+    @Html.ActionLink("Scene Settings", "CreateOrEditScene", new { sceneId = ViewBag.SceneId, gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
     @*<button>Edit Scene Title</button>*@
     @*<button>Create New Event</button>*@
     @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))

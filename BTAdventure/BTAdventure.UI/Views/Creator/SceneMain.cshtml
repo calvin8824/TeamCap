@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-    @Html.ActionLink("Edit Game Title", "NewOrEditGame", new { Id = ViewBag.gameId }, new { @class = "btn btn-primary creatorGuidance" })
+    @Html.ActionLink("Edit Game", "NewOrEditGame", new { Id = ViewBag.gameId }, new { @class = "btn btn-primary creatorGuidance" })
     @Html.ActionLink("New Ending", "NewEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
     @Html.ActionLink("Edit Ending", "EditEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
     @Html.ActionLink("Back", "EditGame", "Creator", new { }, new { @class = "btn btn-danger creatorGuidance" })
