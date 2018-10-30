@@ -396,6 +396,7 @@
     <Content Include="Views\Shared\_CreatorLinksPartial.cshtml" />
     <Content Include="Views\Gameplay\NewGame.cshtml" />
     <Content Include="Views\Gameplay\Intro.cshtml" />
+    <Content Include="Views\Gameplay\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

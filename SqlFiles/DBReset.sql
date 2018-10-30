@@ -25,11 +25,11 @@ Begin
 		
 	Set Identity_Insert Game On;
 
-	Insert Into Game (GameId, GameTitle, IntroText)
+	Insert Into Game (GameId, GameTitle, IntroText, Health, Gold)
 	Values
-	('1', 'Fantasy Game', 'Hey there, this is a fantasy game.'),
-	('2', 'Bullied Student Sim', 'Hey there, this is a school sim game where you get bullied.'),
-	('3', 'Space Adventure Pt 13: The Arctonian Terradrax', 'Hey there, this is a space game where space stuff happens in space.')
+	('1', 'Fantasy Game', 'Hey there, this is a fantasy game.', 3, 2),
+	('2', 'Bullied Student Sim', 'Hey there, this is a school sim game where you get bullied.', 5, 1),
+	('3', 'Space Adventure Pt 13: The Arctonian Terradrax', 'Hey there, this is a space game where space stuff happens in space.', 2, 5)
 		
 	Set Identity_Insert Game Off;	
 	

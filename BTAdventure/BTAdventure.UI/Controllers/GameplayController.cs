@@ -46,8 +46,8 @@ namespace BTAdventure.UI.Controllers
             PlayerCharacter character = new PlayerCharacter();
             character.CharacterName = charName;
             character.PlayerId = userId;
-            character.HealthPoints = 3;
-            character.Gold = 0;
+            character.HealthPoints = thisGame.Health;
+            character.Gold = thisGame.Gold;
             character.SceneId = startingScene.SceneId;
             character.EventChoiceId = firstEvent;
             //save
@@ -101,6 +101,11 @@ namespace BTAdventure.UI.Controllers
             vm.Ending = gameSerivce.FindEndingById(id);
 
             return View(vm);
+        }
+
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }

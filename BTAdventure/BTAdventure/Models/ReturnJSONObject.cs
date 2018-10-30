@@ -15,5 +15,6 @@ namespace BTAdventure.Models
         public PlayerCharacter PlayerCharacter { get; set; }
         public Ending Ending { get; set; }
         public bool IsEnding { get; set; }
+        public bool IsValidGame { get; set; }
     }
 }

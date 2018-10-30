@@ -18,6 +18,7 @@ namespace BTAdventure.UI.Controllers
             this.gameService = gameService;
         }
 
+        
 
         [Route("api/game/")]
         [HttpPost]
@@ -27,7 +28,7 @@ namespace BTAdventure.UI.Controllers
             var eventChoice = gameService.FindEventChoiceById(choice.EventChoiceId);
             var nextRound = gameService.DetermineNextRound(eventChoice, choice.PositiveOrNegative);
             ReturnJSONObject response = new ReturnJSONObject();
-
+            response.IsValidGame = true;
             response.Outcome = gameService.CheckOutcomeStatus(PosOrNeg, choice.EventChoiceId);
 
             if (nextRound.Item1 == ChoiceResult.Ending)
@@ -38,9 +39,12 @@ namespace BTAdventure.UI.Controllers
                     response.Ending = ending;
                     response.IsEnding = true;
                     return response;
-                    //MAY HAVE TO REMOVE EARLY RETURN IF WE HAVE OUTCOMES IN THE ENDING..
                 }
-                //redirect
+                else
+                {
+                    response.IsValidGame = false;
+                    return response;
+                }
             }
             else if (nextRound.Item1 == ChoiceResult.Scene)
             {
@@ -57,7 +61,11 @@ namespace BTAdventure.UI.Controllers
                             response.PlayerCharacter = gameService.FindPlayerCharacterById(choice.CharacterId);
                         }
                     }
-                    //redirect
+                }
+                else
+                {
+                    response.IsValidGame = false;
+                    return response;
                 }
             }
             else if (nextRound.Item1 == ChoiceResult.EventChoice)
@@ -69,10 +77,16 @@ namespace BTAdventure.UI.Controllers
                     response.Scene = gameService.FindSceneById(eventChoiceok.SceneId);
                     response.PlayerCharacter = gameService.FindPlayerCharacterById(choice.CharacterId);
                 }
+                else
+                {
+                    response.IsValidGame = false;
+                    return response;
+                }
             }
             else
             {
-                //REDIRECT TO ERROR
+                response.IsValidGame = false;
+                return response;
             }
 
             response.PlayerCharacter.Gold += response.Outcome.Gold;
@@ -81,11 +95,7 @@ namespace BTAdventure.UI.Controllers
             response.PlayerCharacter.SceneId = response.EventChoice.SceneId;
             
             gameService.SaveCurrentPlayerCharacterGame(response.PlayerCharacter);   
-            //PLAYER CHARACTER TABLE IS INCORRECT IN DB AS OF 10 25 18
-
             return response;
-            
-            
         }
 
 

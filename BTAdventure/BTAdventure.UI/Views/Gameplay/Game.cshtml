@@ -95,8 +95,8 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
-            if (data.PositiveSceneRoute == null && data.PositiveRoute == null) {
-                alert("To be continued...(this game is not fully created.")
+            if (data.IsValidGame == false) {
+                window.location = "/Gameplay/Error/";
             }
 
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
@@ -143,8 +143,8 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
-            if (data.NegativeSceneRoute == null && data.NegativeRoute == null) {
-                alert("To be continued...(this game is not fully created.")
+            if (data.IsValidGame == false) {
+                window.location = "/Gameplay/Error/";
             }
 
 

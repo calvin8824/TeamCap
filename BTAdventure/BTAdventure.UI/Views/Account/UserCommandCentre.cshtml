@@ -45,7 +45,8 @@
 
     @if (User.Identity.IsAuthenticated && User.IsInRole("Creator") || User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Create Or Edit A Game", "NewOrEditGame", "Creator", new { @class = "btn btn-outline-primary" })
+        
+        <a href="/Creator/Index" class="btn btn-outline-primary">Create or Edit a Game</a>
     }
     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
     {
