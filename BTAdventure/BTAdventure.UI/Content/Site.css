@@ -191,6 +191,13 @@ textarea {
     margin-bottom: 5px;
 }
 
+.verticalSpacedUpper {
+    position: relative;
+    text-align: center;
+    /*padding-bottom: .75em;*/
+    margin-top: 5px;
+}
+
 .btn-grad {
     background-image: linear-gradient(to right, #403B4A 0%, #E7E9BB 51%, #403B4A 100%)
 }

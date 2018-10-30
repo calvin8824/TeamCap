@@ -17,7 +17,7 @@ namespace BTAdventure.Data.DapperRepositories
         {
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
             {
-                return conn.Query<Game>("SELECT GameId, GameTitle, IntroText FROM Game;");
+                return conn.Query<Game>("SELECT GameId, GameTitle, IntroText, Health, Gold FROM Game;");
             }
         }
 
@@ -32,7 +32,7 @@ namespace BTAdventure.Data.DapperRepositories
 
         public Game FindById(int id)
         {
-            const string sql = "SELECT GameId, GameTitle, IntroText "
+            const string sql = "SELECT GameId, GameTitle, IntroText, Health, Gold "
                    + "FROM Game "
                    + "WHERE GameId = @GameId;";
 
@@ -54,8 +54,8 @@ namespace BTAdventure.Data.DapperRepositories
 
         private Game Insert(Game game)
         {
-            const string sql = "INSERT INTO Game (GameTitle, IntroText) "
-                   + "VALUES (@GameTitle, @IntroText); "
+            const string sql = "INSERT INTO Game (GameTitle, IntroText, Health, Gold) "
+                   + "VALUES (@GameTitle, @IntroText, @Health, @Gold); "
                    + "SELECT SCOPE_IDENTITY()";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))
@@ -69,7 +69,9 @@ namespace BTAdventure.Data.DapperRepositories
         {
             const string sql = "UPDATE Game SET "
                 + "GameTitle = @GameTitle, "
-                + "IntroText = @IntroText "
+                + "IntroText = @IntroText, "
+                + "Health = @Health, "
+                + "Gold = @Gold "
                 + "WHERE GameId = @GameId;";
 
             using (var conn = Database.GetOpenConnection(CONN_STRING_KEY))

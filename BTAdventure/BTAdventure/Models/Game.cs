@@ -11,5 +11,7 @@ namespace BTAdventure.Models
         public int GameId { get; set; }
         public string GameTitle { get; set; }
         public string IntroText { get; set; }
+        public int Health { get; set; }
+        public int Gold { get; set; }
     }
 }

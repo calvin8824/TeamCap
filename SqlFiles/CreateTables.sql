@@ -28,7 +28,10 @@ Go
 Create Table Game (
 	GameId int identity(1,1) primary key not null,
 	GameTitle nVarChar(75) not null,
-	IntroText nVarChar(max) not null
+	IntroText nVarChar(max) not null,
+	Health int not null default 0,
+	Gold int not null default 0
+
 )
 Go
 
