@@ -85,8 +85,26 @@ namespace BTAdventure.UI.Controllers
             var userId = claim.Value;
             
             LoadGameData loadGameData = new LoadGameData();
-            loadGameData.Games = gameSerivce.FindAllGames();
+            var games = gameSerivce.FindAllGames();
+            List<Game> gamesToAdd = new List<Game>();
+            var endings = gameSerivce.FindAllEndings();
+            List<Ending> validGamesWithEndings = new List<Ending>();
             loadGameData.PlayerCharacters = gameSerivce.FindListOfPlayerCharactersByPlayerId(userId).ToList();
+            foreach(var e in endings)
+            {
+                if (games.Any(a => a.GameId == e.GameId))
+                {
+                    validGamesWithEndings.Add(e);
+                }
+            }
+            foreach(var g in games)
+            {
+                if(validGamesWithEndings.Any(a => a.GameId == g.GameId))
+                {
+                    gamesToAdd.Add(g);
+                }
+            }
+            loadGameData.Games = gamesToAdd;
             return View(loadGameData);
         }
 
