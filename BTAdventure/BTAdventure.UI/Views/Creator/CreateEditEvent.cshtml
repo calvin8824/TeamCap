@@ -199,7 +199,7 @@
                             }
                             @foreach (var r in Model.AvailableChoices)
                             {
-                                if (r.EventChoiceId == Model.EventChoice.PositiveRoute)
+                                if (r.EventChoiceId == Model.EventChoice.PositiveRoute && r.EventChoiceId != Model.EventChoice.EventChoiceId)
                                 {
                                     <option value="@r.EventChoiceId" selected>@r.EventName</option>
                                 }
@@ -227,7 +227,7 @@
                             }
                             @foreach (var r in Model.AvailableChoices)
                             {
-                                if (r.EventChoiceId == Model.EventChoice.NegativeRoute)
+                                if (r.EventChoiceId == Model.EventChoice.NegativeRoute && r.EventChoiceId != Model.EventChoice.EventChoiceId)
                                 {
                                     <option value="@r.EventChoiceId" selected>@r.EventName</option>
                                 }

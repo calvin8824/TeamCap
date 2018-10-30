@@ -24,17 +24,23 @@
         </button>*@
             @if (Request.IsAuthenticated)
             {
-                <div class="col-md-3 justify-content-center">
-                    <a class="navbar-brand btn btn-outline-secondary nav-link text-center navCustButton verticalSpaced" href="/home/mainmenu">Home</a>
+            <div class="col-md-3 justify-content-center">
+                <a class="navbar-brand btn btn-outline-secondary nav-link text-center navCustButton verticalSpaced" href="/home/mainmenu">Home</a>
+                @if (User.IsInRole("Admin") || User.IsInRole("Creator"))
+                {
                     <a class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" href="/Creator/Index">Creator Index</a>
                     <a class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" href="/Creator/EditGame">Edit Game</a>
-                </div>
+                }
+            </div>
                 <div class="col-md-6 text-center customHeader navbarFontSize">
                     Sharp Adventure Engine
                 </div>
                 <div class="col-md-3 text-center">
                     <a class="nav-link text-center navCustButton verticalSpaced" href="#">Hello @User.Identity.GetUserName()! <span class="sr-only">(current)</span></a>
-                    <a class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" href="/Account/UserCommandCentre">Manage Account!</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" href="/Account/UserCommandCentre">Manage Account!</a>
+                    }
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                     {
                         @Html.AntiForgeryToken()

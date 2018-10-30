@@ -19,6 +19,7 @@ namespace BTAdventure.UI.Controllers
         }
 
         // GET: Creator
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult Index()
         {
             return View();
@@ -31,6 +32,7 @@ namespace BTAdventure.UI.Controllers
             return View(allScene);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult NewOrEditGame(int id = 0)
         {
             Game game = new Game();
@@ -43,6 +45,7 @@ namespace BTAdventure.UI.Controllers
         }
 
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult EditGame()
         {
             var allGames = creatorService.GetAllGames();
@@ -62,6 +65,7 @@ namespace BTAdventure.UI.Controllers
             return View(allGames);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult SceneMain(int id = 0)
         {
             IEnumerable<Scene> allScenesFromGameId = new List<Scene>();
@@ -77,6 +81,7 @@ namespace BTAdventure.UI.Controllers
             return View(allScenesFromGameId);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult SceneMain(Game game)
         {
@@ -106,6 +111,7 @@ namespace BTAdventure.UI.Controllers
             return View(allScenesFromGameId);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult CreateOrEditScene(int? sceneId, int gameId)
         {
             //will need to move to service/domain layer eventually
@@ -128,6 +134,7 @@ namespace BTAdventure.UI.Controllers
             return View(scene);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult CreateOrEditScene(Scene scene)
         {
@@ -144,6 +151,7 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("SceneMain",new { id = scene.GameId});
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult EditGeneration(int sceneId)
         {
             //will probably need to call a different method to assign values to the VM, possibly
@@ -160,6 +168,7 @@ namespace BTAdventure.UI.Controllers
             return View("EditGeneration", model);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult EditSceneEventChoice(EditCreateEventRequest editCreateEventRequest)
         {
@@ -186,10 +195,31 @@ namespace BTAdventure.UI.Controllers
                 model.PositiveOutcome = posNegOutcomes.Item1;
                 model.NegativeOutcome = posNegOutcomes.Item2;
             }
-            
-            model.AvailableChoices = creatorService.FindEventsWithHigherGenNumber(model.EventChoice.EventChoiceId, model.SceneId);
-           
-            model.GameScenes = creatorService.FindScenesInGameBySceneId(model.SceneId);
+
+            List<EventChoice> availableEvents = new List<EventChoice>();
+
+            foreach(var e in creatorService.FindEventsWithHigherGenNumber(model.EventChoice.EventChoiceId, model.SceneId))
+            {
+                if(e.EventChoiceId != model.EventChoice.EventChoiceId)
+                {
+                    availableEvents.Add(e);
+                }
+            }
+
+            model.AvailableChoices = availableEvents;
+                        
+            List<Scene> otherScenes = new List<Scene>();
+
+            foreach(var s in creatorService.FindScenesInGameBySceneId(model.SceneId))
+            {
+                if (s.SceneId != model.SceneId)
+                {
+                    otherScenes.Add(s);
+                }
+            }
+
+            model.GameScenes = otherScenes;
+
             model.GameEndings = creatorService.FindGameEndingBySceneId(model.SceneId);
 
             return View("CreateEditEvent",model);
@@ -249,6 +279,7 @@ namespace BTAdventure.UI.Controllers
             return View("CreateEditEvent", eventCreationData);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult SaveEvent(SaveEventRequest saveEventRequest)
         {
@@ -350,6 +381,7 @@ namespace BTAdventure.UI.Controllers
             return View(eventCreationData);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult DeleteEvent(EditCreateEventRequest editCreateEventRequest)
         {
             creatorService.DeleteEventChoice(editCreateEventRequest.EventId);
@@ -363,6 +395,7 @@ namespace BTAdventure.UI.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult DeleteGame(Game game)
         {
@@ -370,12 +403,14 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("EditGame");
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult DeleteScene(int id)
         {
             var scene = creatorService.GetAllScenes().Where(s=>s.SceneId == id).First();
             return View(scene);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult DeleteScene(Scene scene)
         {
@@ -383,6 +418,7 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("SceneMain",new { id=scene.GameId });
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult NewEnding(int gameId) //grab game id
         {
             //find game by game id, then associate ending..
@@ -392,6 +428,7 @@ namespace BTAdventure.UI.Controllers
             return View(ending);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult NewEnding(Ending ending)
         {
@@ -399,6 +436,7 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult EditEnding(int gameId) //grab ending id
         {
             //EndingVM endings = new EndingVM();
@@ -407,6 +445,7 @@ namespace BTAdventure.UI.Controllers
             return View(endings);
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         [HttpPost]
         public ActionResult EditEnding(List<Ending> endings)
         {
@@ -417,6 +456,7 @@ namespace BTAdventure.UI.Controllers
             return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
         }
 
+        [Authorize(Roles = "Admin,Creator")]
         public ActionResult DeleteEnding(int id)
         {
             var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.EndingId == id);
