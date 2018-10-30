@@ -227,8 +227,6 @@ namespace BTAdventure.UI.Controllers
 
             model.GameEndings = creatorService.FindGameEndingBySceneId(model.SceneId);
 
-            ViewBag.GameId = model.GameScenes.First().GameId;
-
             return View("CreateEditEvent",model);
         }
 

@@ -7,6 +7,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
+using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
+using RouteAttribute = System.Web.Http.RouteAttribute;
 
 namespace BTAdventure.UI.Controllers
 {
@@ -19,7 +22,7 @@ namespace BTAdventure.UI.Controllers
         }
 
         
-
+       
         [Route("api/game/")]
         [HttpPost]
         public ReturnJSONObject Post(ChoiceJSONObject choice) //////ADD OUTCOMES

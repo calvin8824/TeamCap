@@ -87,7 +87,7 @@
         $.ajax({
             url: url,
             type: type,
-
+            cache: false,
             data: JSON.stringify(choiceObject),
 
             contentType: "application/json"
@@ -95,9 +95,13 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
+            //if (data.PlayerCharacter.HealthPoints <= 0 || data.PlayerCharacter == null) {
+            //    window.location = "/Gameplay/HealthDepletedEnding/"
+            //}
             if (data.IsValidGame == false) {
                 window.location = "/Gameplay/Error/";
             }
+            
 
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
@@ -135,7 +139,7 @@
         $.ajax({
             url: url,
             type: type,
-
+            cache: false,
             data: JSON.stringify(choiceObject),
 
             contentType: "application/json"
@@ -143,9 +147,13 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
+            //if (data.PlayerCharacter.HealthPoints <= 0) {
+            //    window.location = "/Gameplay/HealthDepletedEnding/"
+            //}
             if (data.IsValidGame == false) {
                 window.location = "/Gameplay/Error/";
             }
+            
 
 
 

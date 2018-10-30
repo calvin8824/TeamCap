@@ -103,6 +103,12 @@ namespace BTAdventure.UI.Controllers
             return View(vm);
         }
 
+        [HttpGet]
+        public ActionResult HealthDepletedEnding()
+        {
+            return View();
+        }
+
         public ActionResult Error()
         {
             return View();
