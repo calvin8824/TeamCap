@@ -13,13 +13,13 @@
                 @Html.LabelFor(a => a.EndingName, new { @class = "col" })
                 @Html.HiddenFor(a => a.EndingId)
                 @Html.HiddenFor(a => a.GameId)
-                @Html.TextBoxFor(a => a.EndingName, new { @class = "col" })
+                @Html.TextBoxFor(a => a.EndingName, new { @class = "col", required = "required" })
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-12 verticalSpaced">
                 @Html.LabelFor(a => a.EndingText, new { @class = "col" })
-                @Html.TextAreaFor(a => a.EndingText, new { @class = "col" })
+                @Html.TextAreaFor(a => a.EndingText, new { @class = "col", required = "required" })
             </div>
         </div>
         <div class="form-row">

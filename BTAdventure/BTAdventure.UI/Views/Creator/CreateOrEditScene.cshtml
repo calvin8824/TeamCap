@@ -12,14 +12,21 @@
     Html.HiddenFor(m => m.GameId);
     <input type="hidden" name="SceneId" value="@Model.SceneId" />
     <input type="hidden" name="GameId" value="@Model.GameId" />
-    <div class="row">
-        <h3>Scene Name:</h3>
-        <input placeholder="Scene Name Goes Here" value="@Model.SceneName" name="SceneName" />
+    <div class="form-row">
+        <label class="font-weight-bold">Scene Name:</label>
+        <input placeholder="Scene Name Goes Here" value="@Model.SceneName" name="SceneName" required/>
 
     </div>
-    <div class="row">
-        @Html.LabelFor(m => m.IsStart)
-        @Html.CheckBoxFor(m => m.IsStart)
+    <div class="form-row">
+        <Label>Is Starting Scene: </Label>
+        @if (Model.IsStart)
+        {
+            <input type="checkbox" class="singleCheck" value="true" name="isStart" checked>
+        }
+        else
+        {
+            <input type="checkbox" class="singleCheck" value="true" name="isStart" >
+        }
     </div>
     <a class="btn btn-danger btnForm" href="/Creator/EditGeneration/@Model.SceneId">Cancel</a>
     <button class="btn btn-primary btnForm">Go</button>
