@@ -37,7 +37,16 @@
         @Html.TextBoxFor(m => m.Gold, new { @class = "form-control", rows = "8" })
     </div>
     <div class="row">
-        <button class="btn btn-primary text-center verticalSpacedUpper">Go</button>
+        @if (Model.GameId > 0)
+        {
+            <a class="btn btn-danger btnForm" href="/Creator/SceneMain/@ViewBag.GameId">Cancel</a>
+            <button class="btn btn-primary text-center btnForm">Go</button>
+        }
+        else
+        {
+            <a class="btn btn-danger btnForm" href="/Creator/Index/">Cancel</a>
+            <button class="btn btn-primary text-center btnForm">Go</button>
+        }
     </div>
 
 }

@@ -41,6 +41,8 @@ namespace BTAdventure.UI.Controllers
                 game = creatorService.GetAllGames().Where(g => g.GameId == id).FirstOrDefault();
             }
 
+            ViewBag.GameId = game.GameId;
+
             return View(game);
         }
 
@@ -76,7 +78,6 @@ namespace BTAdventure.UI.Controllers
                 ViewBag.GameTitle = creatorService.GetAllGames().Where(g => g.GameId == id).First().GameTitle;
                 ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == id).First().GameId;
             }
-            
 
             return View(allScenesFromGameId);
         }
@@ -131,6 +132,8 @@ namespace BTAdventure.UI.Controllers
                 scene = new Scene { GameId = gameId };
             }
 
+            ViewBag.GameId = gameId;
+
             return View(scene);
         }
 
@@ -147,24 +150,26 @@ namespace BTAdventure.UI.Controllers
 
                 scene = creatorService.CreateScene(scene);
             }
-            
+
+            ViewBag.GameId = scene.GameId;
+
             return RedirectToAction("SceneMain",new { id = scene.GameId});
         }
 
         [Authorize(Roles = "Admin,Creator")]
-        public ActionResult EditGeneration(int sceneId)
+        public ActionResult EditGeneration(int id)
         {
             //will probably need to call a different method to assign values to the VM, possibly
             var model = new EditGenerationVM();
             //model.AllScenes = creatorService.GetAllScenes().Where(s => s.GameId == gameId);
             //model.CurrentEvent = creatorService.GetAllEventChoice().First();
             //model.AllEventByScene = creatorService.GetAllEventChoice().Where(e=>e.SceneId == model.CurrentEvent.SceneId);
-            ViewBag.SceneId = sceneId;
-            ViewBag.GameId = creatorService.GetAllScenes().Where(s => s.SceneId == sceneId).First().GameId;
-            model.AllEventByScene = creatorService.GetAllEventChoice().Where(e => e.SceneId == sceneId);
+            ViewBag.SceneId = id;
+            ViewBag.GameId = creatorService.GetAllScenes().Where(s => s.SceneId == id).First().GameId;
+            model.AllEventByScene = creatorService.GetAllEventChoice().Where(e => e.SceneId == id);
             model.AllEventChoice = creatorService.GetAllEventChoice();
             model.AllScene = creatorService.GetAllScenes();
-            ViewBag.sceneTitle = creatorService.GetAllScenes().Where(s=>s.SceneId == sceneId).First().SceneName;
+            ViewBag.sceneTitle = creatorService.GetAllScenes().Where(s=>s.SceneId == id).First().SceneName;
             return View("EditGeneration", model);
         }
 
@@ -222,6 +227,8 @@ namespace BTAdventure.UI.Controllers
 
             model.GameEndings = creatorService.FindGameEndingBySceneId(model.SceneId);
 
+            ViewBag.GameId = model.GameScenes.First().GameId;
+
             return View("CreateEditEvent",model);
         }
 
@@ -275,6 +282,8 @@ namespace BTAdventure.UI.Controllers
                 Gold = saveEventRequest.NegativeGold
             };
             eventCreationData.SceneId = saveEventRequest.SceneId;
+            
+            ViewBag.GameId = scenes.First().GameId;
 
             return View("CreateEditEvent", eventCreationData);
         }
@@ -355,8 +364,8 @@ namespace BTAdventure.UI.Controllers
                     isValid = false;
                 }
             }
-
-            if(isValid)
+            
+            if (isValid)
             {
                 return EditGeneration(saveEventRequest.SceneId);
             }
@@ -365,22 +374,7 @@ namespace BTAdventure.UI.Controllers
                 return FailedSaveEvent(saveEventRequest);
             }
         }
-
-        //Testing only. Remove when done.
-        public ActionResult CreateEditEvent()
-        {
-            EventCreationData eventCreationData = new EventCreationData();
-            eventCreationData.EventChoice = new EventChoice();
-            eventCreationData.AvailableChoices = new List<EventChoice>();
-            eventCreationData.GameScenes = new List<Scene>();
-            eventCreationData.GameEndings = new List<Ending>();
-            eventCreationData.PositiveOutcome = new Outcome();
-            eventCreationData.NegativeOutcome = new Outcome();
-            eventCreationData.SceneId = -12;
-
-            return View(eventCreationData);
-        }
-
+        
         [Authorize(Roles = "Admin,Creator")]
         public ActionResult DeleteEvent(EditCreateEventRequest editCreateEventRequest)
         {
@@ -392,6 +386,9 @@ namespace BTAdventure.UI.Controllers
         public ActionResult DeleteGame(int id)
         {
             var model = creatorService.GetAllGames().Where(g => g.GameId == id).First();
+
+            ViewBag.GameId = model.GameId;
+
             return View(model);
         }
 
@@ -400,6 +397,7 @@ namespace BTAdventure.UI.Controllers
         public ActionResult DeleteGame(Game game)
         {
             creatorService.DeleteGame(game.GameId);
+            ViewBag.GameId = game.GameId;
             return RedirectToAction("EditGame");
         }
 
@@ -407,6 +405,9 @@ namespace BTAdventure.UI.Controllers
         public ActionResult DeleteScene(int id)
         {
             var scene = creatorService.GetAllScenes().Where(s=>s.SceneId == id).First();
+
+            ViewBag.GameId = scene.GameId;
+
             return View(scene);
         }
 
@@ -415,6 +416,9 @@ namespace BTAdventure.UI.Controllers
         public ActionResult DeleteScene(Scene scene)
         {
             creatorService.DeleteScene(scene.SceneId);
+            
+            ViewBag.GameId = scene.GameId;
+
             return RedirectToAction("SceneMain",new { id=scene.GameId });
         }
 
@@ -425,6 +429,9 @@ namespace BTAdventure.UI.Controllers
             var thisGame = creatorService.GetAllGames().FirstOrDefault(g => g.GameId == gameId);
             Ending ending = new Ending();
             ending.GameId = gameId;
+
+            ViewBag.GameId = gameId;
+
             return View(ending);
         }
 
@@ -432,7 +439,9 @@ namespace BTAdventure.UI.Controllers
         [HttpPost]
         public ActionResult NewEnding(Ending ending)
         {
+            ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == ending.GameId).First().GameId;
             creatorService.SaveEnding(ending);
+
             return RedirectToAction("Index"); //MAYBE RETURN TO SCENEMAIN
         }
 
@@ -442,6 +451,7 @@ namespace BTAdventure.UI.Controllers
             //EndingVM endings = new EndingVM();
             var endings = creatorService.GetAllEndings().Where(g => g.GameId == gameId).ToList();
             ViewBag.GameId = creatorService.GetAllGames().Where(g => g.GameId == gameId).First().GameId;
+
             return View(endings);
         }
 
@@ -449,6 +459,7 @@ namespace BTAdventure.UI.Controllers
         [HttpPost]
         public ActionResult EditEnding(List<Ending> endings)
         {
+            ViewBag.GameId = endings.First().GameId;
             foreach (var e in endings)
             {
                 creatorService.EditEnding(e);
@@ -461,6 +472,8 @@ namespace BTAdventure.UI.Controllers
         {
             var thisEnding = creatorService.GetAllEndings().FirstOrDefault(g => g.EndingId == id);
             creatorService.DeleteEndingById(thisEnding.EndingId);
+
+            ViewBag.GameId = thisEnding.GameId;
 
             //delete from service
             return RedirectToAction("Index");

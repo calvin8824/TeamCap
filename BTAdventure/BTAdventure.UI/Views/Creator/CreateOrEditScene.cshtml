@@ -21,6 +21,7 @@
         @Html.LabelFor(m => m.IsStart)
         @Html.CheckBoxFor(m => m.IsStart)
     </div>
-    <button>Go</button>
+    <a class="btn btn-danger btnForm" href="/Creator/EditGeneration/@Model.SceneId">Cancel</a>
+    <button class="btn btn-primary btnForm">Go</button>
 
 }
