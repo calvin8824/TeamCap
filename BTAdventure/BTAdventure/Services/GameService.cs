@@ -90,6 +90,11 @@ namespace BTAdventure.Services
             return characterRepo.FindById(id);
         }
 
+        public IEnumerable<Ending> FindAllEndings()
+        {
+            return endingRepo.All();
+        }
+
         public Player FindPlayerById(string id)
         {
             return playerRepo.FindById(id);

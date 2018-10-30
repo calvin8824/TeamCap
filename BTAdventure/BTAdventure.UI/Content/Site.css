@@ -37,11 +37,27 @@ textarea {
 }
 
 /*============fonts*/
+.cinzelfont {
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+.rockFont {
+    font-family: 'Rock Salt', cursive;
+}
+
+.eliteFont {
+    font-family: 'Special Elite', cursive;
+}
+
+.poiretFont {
+    font-family: 'Poiret One', cursive;
+}
+
 .goudyFont {
     font-family: 'Goudy Bookletter 1911', serif;
     font-size: larger;
-    text-align:center;
-    align-content:center;
+    text-align: center;
+    align-content: center;
 }
 
 .muliFont {
@@ -98,15 +114,17 @@ textarea {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 576px;
+    /*width: 576px;
     height: 720px;
     max-height: 100%;
-    max-width: 100%;
-
+    max-width: 100%;*/
     /*height:100%;
     max-height:100px;
     width:100%;
     max-width:100px;*/
+    max-width:100%;
+    height:auto;
+    box-shadow: 10px 10px 5px grey;
 }
 
 .navbar .navbar-nav {
@@ -122,13 +140,14 @@ textarea {
 }
 
 .customHeader {
-    font-family: 'Oswald', sans-serif;
-    text-decoration: overline solid rgb(68, 68, 68);
-    letter-spacing: .1em;
-    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0,0,0,0.9);
+    font-family: 'Cinzel Decorative', cursive;
+    color: #e0eff2;
+    text-decoration: overline;
+    
+    
 }
 
-.navbarFontSize{
+.navbarFontSize {
     margin-top: 55px;
     font-size: xx-large;
 }
@@ -155,13 +174,14 @@ textarea {
     width: 400px;
 }
 
-.horitzontalList{
-    float:left
+.horitzontalList {
+    float: left
 }
 
 .navCustButton {
     width: 150px;
     height: 50px;
+    box-shadow: -0.5px 3px 2px grey;
 }
 
 .verticalSpaced {
@@ -169,4 +189,24 @@ textarea {
     text-align: center;
     /*padding-bottom: .75em;*/
     margin-bottom: 5px;
+}
+
+.btn-grad {
+    background-image: linear-gradient(to right, #403B4A 0%, #E7E9BB 51%, #403B4A 100%)
+}
+    .btn-grad:hover {
+        background-position: right center;
+    }
+
+.navbarBackground {
+    background: rgb(85,68,68);
+    background: linear-gradient(0deg, rgba(85,68,68,0.9) 7%, rgba(170,153,119,0.9) 33%, rgba(204,170,119,0.9) 46%, rgba(221,204,119,0.9) 64%, rgba(238,221,204,0.9023984593837535) 84%);
+}
+
+.navbarBackground2 {
+    background: rgb(85,68,68);
+    background: radial-gradient(circle, rgba(85,68,68,0.9472163865546218) 7%, rgba(238,221,204,0.9023984593837535) 20%, rgba(170,153,119,0.8603816526610644) 33%, rgba(204,170,119,0.7567401960784313) 46%, rgba(221,204,119,0.5270483193277311) 64%);
+    border-bottom:ridge;
+    border-bottom-color:black;
+    border-bottom-width:1px;
 }

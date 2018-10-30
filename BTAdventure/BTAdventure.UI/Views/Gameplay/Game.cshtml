@@ -38,7 +38,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <button type="button" id="positiveButton" class="goodChoiceButton" onclick="OpenPositiveResponse();">@Model.EventChoice.PositiveButton</button>
+                    <button type="button" id="positiveButton" class="btn-grad btn" onclick="OpenPositiveResponse();">@Model.EventChoice.PositiveButton</button>
                 </div>
 
                 <div class="col-md-6">
@@ -52,30 +52,6 @@
 
 
 <script>
-    //function GetNextSceneEvent(eventChoiceId, route, sceneRoute) {
-    //    //alert(route)
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: 'http://localhost:49340/api/choice/' + eventChoiceId + '/' + route + '/' + sceneRoute, //NEED TO UPDATE THE EVENTCHOICE ID
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json'
-    //        },
-    //        success: function (data, status) {
-    //            //add something like, if positive was clicked, unhide the h1 for positive text, or better yet make a modal.
-    //            document.getElementById("positiveButton").innerText = '' + data.PositiveButton + '';
-    //            document.getElementById("negativeButton").innerText = '' + data.NegativeButton + '';
-    //            document.getElementById("startText").innerText = '' + data.StartText + '';
-    //            //needed to make the buttons onclicks update, ie.. remove VM and use json data
-    //            document.getElementById("positiveButton").setAttribute("onclick", "GetNextSceneEvent(" + data.EventChoiceId + "," + data.PositiveRoute + "," + data.PositiveSceneRoute + ")");
-    //            document.getElementById("negativeButton").setAttribute("onclick", "GetNextSceneEvent(" + data.EventChoiceId + "," + data.NegativeRoute + "," + data.NegativeSceneRoute + ")");
-    //        },
-    //        error: function (xhr, status, err) {
-    //            console.log(xhr, status, err);
-    //        }
-    //    });
-    //}
-
     function OpenPositiveResponse() {
         document.getElementById("positiveText").style.visibility = "visible";
         document.getElementById("positiveParagraph").style.visibility = "visible";
@@ -108,7 +84,6 @@
         var url = baseUrl;
         var type = "POST";
 
-
         $.ajax({
             url: url,
             type: type,
@@ -120,6 +95,10 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
+            if (data.PositiveSceneRoute == null && data.PositiveRoute == null) {
+                alert("To be continued...(this game is not fully created.")
+            }
+
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
@@ -164,6 +143,12 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
+            if (data.NegativeSceneRoute == null && data.NegativeRoute == null) {
+                alert("To be continued...(this game is not fully created.")
+            }
+
+
+
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
@@ -184,8 +169,6 @@
 
         }).fail(xhrFail);
     });
-
-
 
 
     function ShowHiddenStats() {
