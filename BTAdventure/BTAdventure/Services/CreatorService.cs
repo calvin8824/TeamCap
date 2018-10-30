@@ -523,7 +523,7 @@ namespace BTAdventure.Services
                         updateChoice.GenerationNumber = null;
                     }
 
-                    choiceRepo.Save(updateChoice);
+                    SaveEventChoice(updateChoice);
                 }
             }
         }
