@@ -217,3 +217,16 @@ textarea {
     border-bottom-color:black;
     border-bottom-width:1px;
 }
+
+.btnForm {
+    height: 38px;
+    width: 100px;
+    margin: 5px;
+}
+
+.creatorGuidance {
+    text-align:center;
+    height: 40px;
+    width: 150px;
+    margin: 5px;
+}

@@ -8,13 +8,14 @@
 </div>
 
 <div class="row">
-    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { sceneId = ViewBag.SceneId, gameId = ViewBag.GameId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit Scene Title", "CreateOrEditScene", new { sceneId = ViewBag.SceneId, gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
     @*<button>Edit Scene Title</button>*@
     @*<button>Create New Event</button>*@
     @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))
     {
         <input name="SceneId" type="hidden" value="@ViewBag.SceneId " />
-        <button class="btn btn-primary">Create New Event</button>
+        <button class="btn btn-primary creatorGuidance">Create New Event</button>
+        <a class="btn btn-danger creatorGuidance" href="/Creator/SceneMain/@ViewBag.GameId">Back</a>
     }
 </div>
 <hr />
