@@ -27,14 +27,14 @@
     </div>
     <div class="row">
         @*<input placeholder="Title" value="@Model.IntroText" name="IntroText"/>*@
-        @Html.TextBoxFor(m => m.Health, new { @class = "form-control", rows = "8" })
+        @Html.TextBoxFor(m => m.Health, new { @class = "form-control", rows = "8", @type = "number", @min = "1" })
     </div>
     <div class="row">
         <h3>Starting Gold:</h3>
     </div>
     <div class="row">
         @*<input placeholder="Title" value="@Model.IntroText" name="IntroText"/>*@
-        @Html.TextBoxFor(m => m.Gold, new { @class = "form-control", rows = "8" })
+        @Html.TextBoxFor(m => m.Gold, new { @class = "form-control", rows = "8", @type = "number", @min = "0" })
     </div>
     <div class="row">
         @if (Model.GameId > 0)
