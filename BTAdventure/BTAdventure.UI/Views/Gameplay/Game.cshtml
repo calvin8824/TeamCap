@@ -95,9 +95,9 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
-            //if (data.PlayerCharacter.HealthPoints <= 0 || data.PlayerCharacter == null) {
-            //    window.location = "/Gameplay/HealthDepletedEnding/"
-            //}
+            if (data.PlayerCharacter.HealthPoints <= 0 || data.PlayerCharacter == null) {
+                window.location = "/Gameplay/HealthDepletedEnding/"
+            }
             if (data.IsValidGame == false) {
                 window.location = "/Gameplay/Error/";
             }
@@ -147,9 +147,9 @@
             if (data.IsEnding == true) {
                 window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
             }
-            //if (data.PlayerCharacter.HealthPoints <= 0) {
-            //    window.location = "/Gameplay/HealthDepletedEnding/"
-            //}
+            if (data.PlayerCharacter.HealthPoints <= 0) {
+                window.location = "/Gameplay/HealthDepletedEnding/"
+            }
             if (data.IsValidGame == false) {
                 window.location = "/Gameplay/Error/";
             }
