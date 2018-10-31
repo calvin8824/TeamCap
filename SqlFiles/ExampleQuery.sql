@@ -16,6 +16,8 @@ Select * From AspNetUsers
 Select * FROM AspNetUserRoles
 SELECT * FROM AspNetRoles
 
+update Outcome SET Health = +1 WHERE OutcomeId = 1
+
 --Admin Login
 --Username: admin@admin.com
 --Password: Admin123!

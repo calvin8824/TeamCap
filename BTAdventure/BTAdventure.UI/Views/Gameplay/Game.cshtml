@@ -1,69 +1,92 @@
 ﻿@model BTAdventure.UI.Models.GameSceneVM
 @{
-    ViewBag.Title = "Game";
+    ViewBag.Title = "Main Game";
 }
 
-<div class="container">
-    <div class="col-lg-12">
-        <div class="" id="hiddenStats">
-           
 
+
+<div class="container-fluid" id="book">
+    <div class="row" style="margin-top:-55px">
+        <div class="col-md-4">
+            <div class="card-body cinzelfont" style="max-width:200px; max-height:80px; vertical-align:central; padding-top:-20px; font-size:larger; "><br/>
+            <span style="text-decoration:underline;">Health: <span id="health">@Model.PlayerCharacter.HealthPoints</span></span>
+            <span>Gold: <span id="gold">@Model.PlayerCharacter.Gold</span></span></div>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+        <div class="col-md-4">
         </div>
     </div>
-</div>
 
+    <div id="bookPic" class="row">
+        <div class="col-lg-12">
+            <div style="max-height:700px; max-width:700px; display:block; margin-left:auto; margin-right:auto; width:50%;">
+                <img class="responsive gameImage" style="display:none" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
+            </div>
+        </div>
+    </div>
 
-<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                
-                <div class="wireframe"><p>Health: <div id="health">@Model.PlayerCharacter.HealthPoints</div>Gold: <div id="gold">@Model.PlayerCharacter.Gold</div></p></div>
-            </div>
-            <img class="responsive gameImage" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="hidden" id="characterId" value="@Model.PlayerCharacter.CharacterId">
-                    <input type="hidden" id="eventChoiceId" value="@Model.EventChoice.EventChoiceId">
-                    <p style="text-align:center" id="startText">@Model.EventChoice.StartText</p>
-                    <p id="positiveText"><p id="positiveParagraph" style="text-align:center; visibility:hidden;" class="wireframe">@Model.EventChoice.PositiveText</p>
-                    <button class="btn btn-primary" id="positiveContinue" style="visibility:hidden">Continue</button>
+        <div  class="col-md-12" style="text-align:center"><br/>
+            <input type="hidden" id="characterId" value="@Model.PlayerCharacter.CharacterId">
+            <input type="hidden" id="eventChoiceId" value="@Model.EventChoice.EventChoiceId">
+            <div class="muliFont">
+                <p style="text-align:center; font-size:x-large; display:none;" id="startText">'@Model.EventChoice.StartText'</p>
 
-                    <p id="negativeText"><p id="negativeParagraph" style="text-align:center; visibility:hidden;" class="wireframe">@Model.EventChoice.NegativeText</p>
-                    <button class="btn btn-primary" id="negativeContinue" style="visibility:hidden">Continue</button>
-
-                    <p id="endingText"><p id="endingParagraph" style="text-align:center; visibility:hidden;" class="wireframe"></p>
-                    @Html.ActionLink("Continue", "Ending", "Gameplay", new { @style = "visibility:hidden" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <button type="button" id="positiveButton" class="btn-grad btn" onclick="OpenPositiveResponse();">@Model.EventChoice.PositiveButton</button>
+                <div style="max-width:100%; align-items:center;">
+                    <p id="positiveText"><p id="positiveParagraph" style="text-align:center; display:none;" class="wireframe">
+                        '@Model.EventChoice.PositiveText''
+                    </p>
+                    <button class="btn btn-outline-secondary" id="positiveContinue" style="display:none; text-align:center">Continue</button>
                 </div>
 
-                <div class="col-md-6">
-                    <button type="button" id="negativeButton" class="badChoiceButton" onclick="OpenNegativeResponse();">@Model.EventChoice.NegativeButton</button>
+                <div style="max-width:100%; align-items:center;">
+                    <p id="negativeText"><p id="negativeParagraph" style="text-align:center; display:none;" class="wireframe">
+                        '@Model.EventChoice.NegativeText''
                 </div>
+                <button class="btn btn-outline-secondary" id="negativeContinue" style="display:none">Continue</button></p>
+
             </div>
+            <p id="endingText"><p id="endingParagraph" style="text-align:center; display:none" class="wireframe"></p>
+            @*@Html.ActionLink("Continue", "Ending", "Gameplay", new { @style = "visibility:visible" })*@
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <button type="button" id="positiveButton" class="goodChoiceButton" onclick="OpenPositiveResponse();">@Model.EventChoice.PositiveButton</button>
+        </div>
+
+        <div class="col-md-6">
+            <button type="button" id="negativeButton" class="badChoiceButton" onclick="OpenNegativeResponse();">@Model.EventChoice.NegativeButton</button>
         </div>
     </div>
+
 </div>
 
 
 
 <script>
+    $(document).ready(function () {
+
+        $("#startText").fadeIn(4200);
+        $("#storyPicture").fadeIn(3000);
+    });
+
     function OpenPositiveResponse() {
-        document.getElementById("positiveText").style.visibility = "visible";
-        document.getElementById("positiveParagraph").style.visibility = "visible";
-        document.getElementById("positiveContinue").style.visibility = "visible";
+        $("#positiveText").fadeIn("slow").css("display", "inline-block");
+        $("#positiveParagraph").fadeIn(1000).css("display", "inline-block");
+        $("#positiveContinue").fadeIn("slow").css("display", "inline-block");
+        
     };
 
     function OpenNegativeResponse() {
-        var negativeParagraph = document.getElementById("negativeParagraph");
-        console.log(negativeParagraph);
-        document.getElementById("negativeText").style.visibility = "visible";
-        document.getElementById("negativeParagraph").style.visibility = "visible";
-        document.getElementById("negativeContinue").style.visibility = "visible";
+        $("#negativeText").fadeIn("slow").css("display", "inline-block");
+        $("#negativeParagraph").fadeIn(1000).css("display", "inline-block");
+        $("#negativeContinue").fadeIn("slow").css("display", "inline-block");
+        
     };
 
     var baseUrl = "http://localhost:49340/api/game/";
@@ -75,7 +98,12 @@
 
 
     $("#positiveContinue").click(function () {
-
+        //$('#book').animate({
+        //    opacity: 0, // animate slideUp
+        //    marginLeft: '-200px'
+        //}, 1000, 'linear', function () {
+        //    $(this).remove();
+        //});
         var choiceObject = {
             CharacterId: $("#characterId").val(),
             EventChoiceId: $("#eventChoiceId").val(),
@@ -101,15 +129,31 @@
             if (data.IsValidGame == false) {
                 window.location = "/Gameplay/Error/";
             }
+
             
+                //$('#book').animate({
+                //    opacity: 0, // animate slideUp
+                //    marginLeft: '-200px'
+                //}, 1000, 'linear', function () {
+                //    $(this).addBack();
+                //});
+
+            //$('#bookPic').animate({
+            //    opacity: 0, // animate slideUp
+            //    marginLeft: '-200px'
+            //}, 1000, 'linear', function () {
+            //    $(this).remove();
+            //});
 
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
-            $("#storyPicture").fadeOut("slow");
+
+            $("#storyPicture").fadeOut(5000);
             document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
-            $("#storyPicture").fadeIn("slow");
+            $("#storyPicture").fadeIn(2500);
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
+
 
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
             document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
@@ -117,9 +161,9 @@
             document.getElementById("negativeParagraph").innerText = '' + data.EventChoice.NegativeText + '';
             document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
 
-            document.getElementById("positiveText").style.visibility = "hidden"
-            document.getElementById("positiveParagraph").style.visibility = "hidden"
-            document.getElementById("positiveContinue").style.visibility = "hidden"
+            document.getElementById("positiveText").style.display = "none"
+            document.getElementById("positiveParagraph").style.display = "none"
+            document.getElementById("positiveContinue").style.display = "none"
 
         }).fail(xhrFail);
     });
@@ -160,10 +204,10 @@
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
-            $("#storyPicture").fadeOut("slow");
+            $("#storyPicture").fadeOut(5000);
             document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
-            $("#storyPicture").fadeIn("slow");
-            $(this).attr({ src: fullPath }).on('load', function () { $(this).fadeIn(); });
+            $("#storyPicture").fadeIn(2500);
+            //$(this).attr({ src: fullPath }).on('load', function () { $(this).fadeIn(); });
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
@@ -171,9 +215,9 @@
             document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
             document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
 
-            document.getElementById("positiveText").style.visibility = "hidden"
-            document.getElementById("positiveParagraph").style.visibility = "hidden"
-            document.getElementById("positiveContinue").style.visibility = "hidden"
+            document.getElementById("negativeText").style.display = "none"
+            document.getElementById("negativeParagraph").style.display = "none"
+            document.getElementById("negativeContinue").style.display = "none"
 
         }).fail(xhrFail);
     });

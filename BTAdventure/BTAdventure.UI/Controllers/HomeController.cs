@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 
 namespace BTAdventure.UI.Controllers
@@ -60,7 +61,7 @@ namespace BTAdventure.UI.Controllers
             return View(player);
         }
 
-
+        
         [HttpGet]
         public ActionResult MainMenu()
         {
