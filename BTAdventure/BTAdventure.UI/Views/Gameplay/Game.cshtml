@@ -21,8 +21,8 @@
 
     <div id="bookPic" class="row">
         <div class="col-lg-12">
-            <div style="max-height:700px; max-width:700px; display:block; margin-left:auto; margin-right:auto; width:50%;">
-                <img class="responsive gameImage" style="display:none" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
+            <div >
+                <img class="gameImage" style="display:none" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
             </div>
         </div>
     </div>
@@ -49,7 +49,6 @@
 
             </div>
             <p id="endingText"><p id="endingParagraph" style="text-align:center; display:none" class="wireframe"></p>
-            @*@Html.ActionLink("Continue", "Ending", "Gameplay", new { @style = "visibility:visible" })*@
             </div>
 
     </div>
@@ -79,6 +78,7 @@
         $("#positiveText").fadeIn("slow").css("display", "inline-block");
         $("#positiveParagraph").fadeIn(1000).css("display", "inline-block");
         $("#positiveContinue").fadeIn("slow").css("display", "inline-block");
+        $("#negativeButton").prop("onclick", null).off("click");
         
     };
 
@@ -86,7 +86,8 @@
         $("#negativeText").fadeIn("slow").css("display", "inline-block");
         $("#negativeParagraph").fadeIn(1000).css("display", "inline-block");
         $("#negativeContinue").fadeIn("slow").css("display", "inline-block");
-        
+        $("#positiveButton").prop("onclick", null).off("click");
+
     };
 
     var baseUrl = "http://localhost:49340/api/game/";
@@ -98,12 +99,7 @@
 
 
     $("#positiveContinue").click(function () {
-        //$('#book').animate({
-        //    opacity: 0, // animate slideUp
-        //    marginLeft: '-200px'
-        //}, 1000, 'linear', function () {
-        //    $(this).remove();
-        //});
+        
         var choiceObject = {
             CharacterId: $("#characterId").val(),
             EventChoiceId: $("#eventChoiceId").val(),
@@ -130,28 +126,20 @@
                 window.location = "/Gameplay/Error/";
             }
 
-            
-                //$('#book').animate({
-                //    opacity: 0, // animate slideUp
-                //    marginLeft: '-200px'
-                //}, 1000, 'linear', function () {
-                //    $(this).addBack();
-                //});
-
-            //$('#bookPic').animate({
-            //    opacity: 0, // animate slideUp
-            //    marginLeft: '-200px'
-            //}, 1000, 'linear', function () {
-            //    $(this).remove();
-            //});
+            $("#negativeButton").on("click", function () {
+                OpenNegativeResponse();
+            });
+            $("#positiveButton").on("click", function () {
+                OpenNegativeResponse();
+            });
 
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
 
-            $("#storyPicture").fadeOut(5000);
+            //$("#storyPicture").fadeOut(5000);
             document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
-            $("#storyPicture").fadeIn(2500);
+            //$("#storyPicture").fadeIn(2500);
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
 
 
@@ -197,17 +185,21 @@
             if (data.IsValidGame == false) {
                 window.location = "/Gameplay/Error/";
             }
-            
 
+            $("#negativeButton").on("click", function () {
+                OpenNegativeResponse();
+            });
+            $("#positiveButton").on("click", function () {
+                OpenNegativeResponse();
+            });
 
 
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
 
-            $("#storyPicture").fadeOut(5000);
+            //$("#storyPicture").fadeOut(5000);
             document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
-            $("#storyPicture").fadeIn(2500);
-            //$(this).attr({ src: fullPath }).on('load', function () { $(this).fadeIn(); });
+            //$("#storyPicture").fadeIn(2500);
 
             document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
