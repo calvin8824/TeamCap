@@ -233,6 +233,12 @@ textarea {
     margin-bottom:20px;
 }
 
+.newGameBtn {
+    height: 38px;
+    width: 100px;
+    margin-top: 15px;
+}
+
 .btnForm {
     height: 38px;
     width: 100px;
