@@ -10,5 +10,6 @@ namespace BTAdventure.Models
     {
         public IEnumerable<PlayerCharacter> PlayerCharacters { get; set; }
         public IEnumerable<Game> Games { get; set; }
+        public string UserId { get; set; }
     }
 }
