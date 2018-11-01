@@ -6,9 +6,9 @@
 
 
 <div class="container-fluid" id="book">
-    <div class="row" style="margin-top:-55px">
+    <div class="row" style="margin-top:-55px; margin-bottom:25px">
         <div class="col-md-4">
-            <div class="card-body cinzelfont" style="max-width:200px; max-height:80px; vertical-align:central; padding-top:-20px; font-size:larger; "><br/>
+            <div class="card-body cinzelfont" style="max-width:200px; max-height:80px; vertical-align:central; padding-top:-20px; padding-right:50px; font-size:larger; "><br/>
             <span style="text-decoration:underline;">Health: <span id="health">@Model.PlayerCharacter.HealthPoints</span></span>
             <span>Gold: <span id="gold">@Model.PlayerCharacter.Gold</span></span></div>
         </div>
@@ -128,12 +128,7 @@
                 window.location = "/Gameplay/Error/";
             }
 
-            //$("#negativeButton").on("click", function () {
-            //    OpenNegativeResponse();
-            //});
-            //$("#positiveButton").on("click", function () {
-            //    OpenNegativeResponse();
-            //});
+            
             $("#positiveButton").prop('disabled', false);
             $("#negativeButton").prop('disabled', false);
 
