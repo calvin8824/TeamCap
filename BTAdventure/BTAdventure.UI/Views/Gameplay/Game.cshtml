@@ -78,7 +78,8 @@
         $("#positiveText").fadeIn("slow").css("display", "inline-block");
         $("#positiveParagraph").fadeIn(1000).css("display", "inline-block");
         $("#positiveContinue").fadeIn("slow").css("display", "inline-block");
-        $("#negativeButton").prop("onclick", null).off("click");
+        //$("#negativeButton").prop("onclick", null).off("click");
+        $("#negativeButton").prop('disabled', true);
         
     };
 
@@ -86,7 +87,8 @@
         $("#negativeText").fadeIn("slow").css("display", "inline-block");
         $("#negativeParagraph").fadeIn(1000).css("display", "inline-block");
         $("#negativeContinue").fadeIn("slow").css("display", "inline-block");
-        $("#positiveButton").prop("onclick", null).off("click");
+        //$("#positiveButton").prop("onclick", null).off("click");
+        $("#positiveButton").prop('disabled', true);
 
     };
 
@@ -126,12 +128,14 @@
                 window.location = "/Gameplay/Error/";
             }
 
-            $("#negativeButton").on("click", function () {
-                OpenNegativeResponse();
-            });
-            $("#positiveButton").on("click", function () {
-                OpenNegativeResponse();
-            });
+            //$("#negativeButton").on("click", function () {
+            //    OpenNegativeResponse();
+            //});
+            //$("#positiveButton").on("click", function () {
+            //    OpenNegativeResponse();
+            //});
+            $("#positiveButton").prop('disabled', false);
+            $("#negativeButton").prop('disabled', false);
 
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
@@ -173,7 +177,7 @@
             type: type,
             cache: false,
             data: JSON.stringify(choiceObject),
-
+  
             contentType: "application/json"
         }).done(function (data, status) {
             if (data.IsEnding == true) {
@@ -186,13 +190,14 @@
                 window.location = "/Gameplay/Error/";
             }
 
-            $("#negativeButton").on("click", function () {
-                OpenNegativeResponse();
-            });
-            $("#positiveButton").on("click", function () {
-                OpenNegativeResponse();
-            });
-
+            //$("#negativeButton").on("click", function () {
+            //    OpenNegativeResponse();
+            //});
+            //$("#positiveButton").on("click", function () {
+            //    OpenNegativeResponse();
+            //});
+            $("#positiveButton").prop('disabled', false);
+            $("#negativeButton").prop('disabled', false);
 
             document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
             document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
@@ -205,6 +210,7 @@
             document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
             document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
             document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
+            document.getElementById("negativeParagraph").innerText = '' + data.EventChoice.NegativeText + '';
             document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
 
             document.getElementById("negativeText").style.display = "none"
